@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vx/group": "0.0.183",
+    "@vx/mock-data": "0.0.185",
+    "@vx/network": "0.0.183",
+    "@vx/scale": "0.0.182",
+    "@vx/shape": "0.0.184",
     "@vx/vx": "0.0.185",
     "node-sass": "^4.11.0",
     "ramda": "^0.26.1",

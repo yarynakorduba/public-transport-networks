@@ -11,7 +11,7 @@ class App extends Component {
           <ArticleContainer />
         </div>
         <div className={"App__graph-block"}>
-          <GraphContainer />
+          <GraphContainer/>
         </div>
       </div>
     )
