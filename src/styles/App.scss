@@ -1,0 +1,13 @@
+@import "./variables";
+.App {
+  display: flex;
+  padding: 2rem;
+
+  &__article-block {
+    flex: 1 1 45%;
+  }
+
+  &__graph-block {
+    flex: 1 1 55%;
+  }
+}
