@@ -1,5 +1,14 @@
 import React, {Component} from "react";
-import { Graph } from '@vx/network';
+import { Graph, Nodes, Links } from '@vx/network';
+
+class NetworkNode extends Component {
+
+  render() {
+    return(
+      <circle r={10} fill={"#2a21fb"} />
+    );
+  }
+}
 
 class TransportGraph extends Component {
   constructor(props) {
@@ -25,7 +34,7 @@ class TransportGraph extends Component {
   isAtPosition() {
     let spot = document.querySelector(".third").getBoundingClientRect();
     return (
-      spot.top < 100
+      spot.top < 0
     )
   }
 
@@ -53,8 +62,8 @@ class TransportGraph extends Component {
 
     return(
       <svg width={width} height={height}>
-        <rect width={width} height={height} rx={14} fill={fill} />
-        <Graph graph={this.graph} />
+        <rect width={width} height={height} rx={10} fill={fill} />
+        <Graph graph={this.graph} nodeComponent={NetworkNode}/>
       </svg>
     )
 
