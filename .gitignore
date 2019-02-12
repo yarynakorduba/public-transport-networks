@@ -6,9 +6,6 @@
 .pnp.js
 .idea/*
 
-public/london_BUS.json
-public/bristol_BUS.json
-
 # testing
 /coverage
 
