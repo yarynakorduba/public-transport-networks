@@ -35,7 +35,7 @@ export const withBiggestRoute = compose(
 const pair = (a, b) => ({ source: a, target: b })
 
 export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestRouteStops, height, width }) => ({
-  nodeProps: {
+  displayProps: {
     "1": {
       backgroundColor: "lemongrass",
       label: "Shortest route",

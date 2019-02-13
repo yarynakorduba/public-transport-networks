@@ -7,20 +7,20 @@ import { withBiggestRoute, withData, withSmallestRoute, withVisualizationConfig 
 
 import "./TransportGraph.scss"
 
-const TransportGraph = ({ showPicture, width, height, nodeProps, firstNodeInScreen }) => (
+const TransportGraph = ({ showPicture, width, height, displayProps, firstNodeInScreen }) => (
   <>
-    <h1 className={"TransportGraph__heading"}>{nodeProps[firstNodeInScreen].label}</h1>
+    <h1 className={"TransportGraph__heading"}>{displayProps[firstNodeInScreen].label}</h1>
     <svg width={width} height={height}>
       <rect width={width} height={height} rx={14} fill={"white"} />
-      {<Graph graph={nodeProps[firstNodeInScreen].graph} />}
-      {nodeProps[firstNodeInScreen].stopLabels.map((stop, index) => (
+      {<Graph graph={displayProps[firstNodeInScreen].graph} />}
+      {displayProps[firstNodeInScreen].stopLabels.map((stop, index) => (
         <Text
           scaleToFit={true}
           verticalAnchor="start"
           lineHeight="2"
           key={index}
           className={"TransportGraph__label"}
-          {...nodeProps[firstNodeInScreen].graph.nodes[index]}
+          {...displayProps[firstNodeInScreen].graph.nodes[index]}
         >
           {stop.substring(8, 12)}
         </Text>
@@ -34,18 +34,18 @@ const enhancer = compose(
   withData,
   withSmallestRoute,
   withBiggestRoute,
-  withState(({ nodeProps, smallestRouteStops, biggestRouteStops }) => ({
-    nodeProps,
+  withState(({ displayProps, smallestRouteStops, biggestRouteStops }) => ({
+    displayProps: displayProps,
     smallestRouteStops,
     biggestRouteStops
   })),
-  withStateHandlers(({ firstNode, nodeProps }) => ({ firstNode, nodeProps, firstNodeInScreen: 0 }), {
-    showPicture: ({ nodeProps, firstNodeInScreen }) => () => {
+  withStateHandlers(({ firstNode, displayProps }) => ({ firstNode, displayProps: displayProps, firstNodeInScreen: 0 }), {
+    showPicture: ({ displayProps, firstNodeInScreen }) => () => {
       let spot = document.querySelectorAll(".anchor")
       const firstNode = find(a => a.getBoundingClientRect().top > 0)(spot)
       return {
         firstNodeInScreen: firstNode ? firstNode.id : firstNodeInScreen,
-        displayProperties: nodeProps && firstNodeInScreen && nodeProps[firstNodeInScreen.id]
+        displayProperties: displayProps && firstNodeInScreen && displayProps[firstNodeInScreen.id]
       }
     }
   }),
@@ -58,7 +58,7 @@ const enhancer = compose(
   }),
   withVisualizationConfig,
   branch(({ graph }) => !graph, renderComponent(() => "Loading the visualization... ... ")),
-  branch(({ nodeProps, firstNodeInScreen }) => !nodeProps[firstNodeInScreen], renderComponent(() => ""))
+  branch(({ displayProps, firstNodeInScreen }) => !displayProps[firstNodeInScreen], renderComponent(() => ""))
 )
 
 export default enhancer(TransportGraph)
