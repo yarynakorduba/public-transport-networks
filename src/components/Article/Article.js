@@ -1,29 +1,29 @@
 import React from "react"
-import {Trigger} from "../ArticleLayout/ArticleLayout"
+import { Trigger } from "../ArticleLayout/ArticleLayout"
 import "./Article.scss"
 const Article = () => (
   <div className={"ArticleContainer"}>
     <header className="Article__header">London Public Transport Network</header>
     <p>
-      <Trigger>London</Trigger> public transport network. It is really important. Just imagine you need to get to Big Ben. What would you
-      use? Of course public transport. So let's figure out what does it mean to be a bus. A bus (archaically also
-      omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed to carry many passengers. Buses can have a
-      capacity as high as 300 passengers.[2] The most common type of bus is the single-deck rigid bus, with larger loads
-      carried by double-decker and articulated buses, and smaller loads carried by midibuses and minibuses; coaches are
-      used for longer-distance services. Many types of buses, such as city transit buses and inter-city coaches, charge
-      a fare. Other types, such as elementary or secondary school buses or shuttle buses within a post-secondary
-      education campus do not charge a fare. In many jurisdictions, bus drivers require a special licence above and
-      beyond a regular driver's licence.
+      <Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just imagine
+      you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does it mean
+      to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed to carry
+      many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is the
+      single-deck rigid bus, with larger loads carried by double-decker and articulated buses, and smaller loads carried
+      by midibuses and minibuses; coaches are used for longer-distance services. Many types of buses, such as city
+      transit buses and inter-city coaches, charge a fare. Other types, such as elementary or secondary school buses or
+      shuttle buses within a post-secondary education campus do not charge a fare. In many jurisdictions, bus drivers
+      require a special licence above and beyond a regular driver's licence.
     </p>
     <p>
-      What's the use of buses? Buses may be used for scheduled bus transport, scheduled coach transport, school
-      transport, private hire, or tourism; promotional buses may be used for political campaigns and others are
-      privately operated for a wide range of purposes, including rock and pop band tour vehicles. Horse-drawn buses were
-      used from the 1820s, followed by steam buses in the 1830s, and electric trolleybuses in 1882. The first internal
-      combustion engine buses, or motor buses, were used in 1895.[3] Recently, interest has been growing in hybrid
-      electric buses, fuel cell buses, and electric buses, as well as ones powered by compressed natural gas or
-      biodiesel. As of the 2010s, bus manufacturing is increasingly globalised, with the same designs appearing around
-      the world.
+      <Trigger data={{ time: "Whats" }}>What's</Trigger> the use of buses? Buses may be used for scheduled bus
+      transport, scheduled coach transport, school transport, private hire, or tourism; promotional buses may be used
+      for political campaigns and others are privately operated for a wide range of purposes, including rock and pop
+      band tour vehicles. Horse-drawn buses were used from the 1820s, followed by steam buses in the 1830s, and electric
+      trolleybuses in 1882. The first internal combustion engine buses, or motor buses, were used in 1895.[3] Recently,
+      interest has been growing in hybrid electric buses, fuel cell buses, and electric buses, as well as ones powered
+      by compressed natural gas or biodiesel. As of the 2010s, bus manufacturing is increasingly globalised, with the
+      same designs appearing around the world.
     </p>
     <p>
       Now let's look at busways busway or transitway, is a bus-based public transport system designed to improve
@@ -45,10 +45,11 @@ const Article = () => (
       Europe and Indonesia, it is often called a "busway"; while in the British Isles, it may be called a "quality bus".
     </p>
     <p>
-      Critics have charged that the term "bus rapid transit" has sometimes been misapplied to systems that lack most or
-      all the essential features which differentiate it from conventional bus services. The term "bus rapid transit
-      creep" has been used to describe severely degraded levels of bus service which fall far short of the BRT Standard
-      promoted by the Institute for Transportation and Development Policy and other organizations.
+      <Trigger data={{ name: "Lviv" }}>Critics</Trigger> have charged that the term "bus rapid transit" has
+      sometimes been misapplied to systems that lack most or all the essential features which differentiate it from
+      conventional bus services. The term "bus rapid transit creep" has been used to describe severely degraded levels
+      of bus service which fall far short of the BRT Standard promoted by the Institute for Transportation and
+      Development Policy and other organizations.
     </p>
     <p>
       Lets look at{" "}
