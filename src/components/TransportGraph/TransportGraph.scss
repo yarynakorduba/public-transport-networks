@@ -1,0 +1,14 @@
+
+.TransportGraph {
+  &__heading {
+    color: var(--light-grey-blue);
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.78);
+  }
+}

@@ -1,15 +1,32 @@
 import React from "react"
 import { Graph } from "@vx/network"
-import { compose, defaultProps, branch, withState, withStateHandlers, lifecycle } from "recompose"
+import { Text } from "@vx/text"
+import { compose, defaultProps, branch, withState, withStateHandlers, lifecycle, renderComponent } from "recompose"
 import { find } from "ramda"
 import { withBiggestRoute, withData, withSmallestRoute, withVisualizationConfig } from "../HOC"
-import { renderComponent } from "recompose/index"
+
+import "./TransportGraph.scss"
 
 const TransportGraph = ({ showPicture, width, height, nodeProps, firstNodeInScreen }) => (
-  <svg width={width} height={height}>
-    <rect width={width} height={height} rx={14} fill={"white"} />
-    {nodeProps[firstNodeInScreen] && <Graph graph={nodeProps[firstNodeInScreen].graph} />}
-  </svg>
+  <>
+    <h1 className={"TransportGraph__heading"}>{nodeProps[firstNodeInScreen].label}</h1>
+    <svg width={width} height={height}>
+      <rect width={width} height={height} rx={14} fill={"white"} />
+      {<Graph graph={nodeProps[firstNodeInScreen].graph} />}
+      {nodeProps[firstNodeInScreen].stopLabels.map((stop, index) => (
+        <Text
+          scaleToFit={true}
+          verticalAnchor="start"
+          lineHeight="2"
+          key={index}
+          className={"TransportGraph__label"}
+          {...nodeProps[firstNodeInScreen].graph.nodes[index]}
+        >
+          {stop.substring(8, 12)}
+        </Text>
+      ))}
+    </svg>
+  </>
 )
 
 const enhancer = compose(
@@ -17,20 +34,17 @@ const enhancer = compose(
   withData,
   withSmallestRoute,
   withBiggestRoute,
-  withState(({ nodeProps, width, height, smallestRouteStops, biggestRouteStops, fill }) => ({
+  withState(({ nodeProps, smallestRouteStops, biggestRouteStops }) => ({
     nodeProps,
-    width,
-    height,
     smallestRouteStops,
-    biggestRouteStops,
-    fill
+    biggestRouteStops
   })),
   withStateHandlers(({ firstNode, nodeProps }) => ({ firstNode, nodeProps, firstNodeInScreen: 0 }), {
     showPicture: ({ nodeProps, firstNodeInScreen }) => () => {
       let spot = document.querySelectorAll(".anchor")
       const firstNode = find(a => a.getBoundingClientRect().top > 0)(spot)
       return {
-        firstNodeInScreen: firstNode && firstNode.id,
+        firstNodeInScreen: firstNode ? firstNode.id : firstNodeInScreen,
         displayProperties: nodeProps && firstNodeInScreen && nodeProps[firstNodeInScreen.id]
       }
     }
@@ -43,7 +57,8 @@ const enhancer = compose(
     }
   }),
   withVisualizationConfig,
-  branch(({ graph }) => !graph, renderComponent(() => "Loading the visualization... ... "))
+  branch(({ graph }) => !graph, renderComponent(() => "Loading the visualization... ... ")),
+  branch(({ nodeProps, firstNodeInScreen }) => !nodeProps[firstNodeInScreen], renderComponent(() => ""))
 )
 
 export default enhancer(TransportGraph)

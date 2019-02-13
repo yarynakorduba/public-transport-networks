@@ -38,19 +38,21 @@ export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestR
   nodeProps: {
     "1": {
       backgroundColor: "lemongrass",
+      label: "Shortest route",
+      stopLabels: smallestRouteStops,
       graph: {
         nodes: [
           ...smallestRouteStops.map((stop, index) => ({
-            x: (width / smallestRouteStops.length - 20) * index + 150,
-            y: height / 2.5 + (index % 2) * 100
+            x: (width / smallestRouteStops.length - 20) * index + 20,
+            y: height / 3.5 + (index % 2) * 100
           }))
         ],
         links: [
           ...pairs(
             [
               ...smallestRouteStops.map((stop, index) => ({
-                x: (width / smallestRouteStops.length - 20) * index + 150,
-                y: height / 2.5 + (index % 2) * 100
+                x: (width / smallestRouteStops.length - 20) * index + 20,
+                y: height / 3.5 + (index % 2) * 100
               }))
             ],
             pair
@@ -60,19 +62,21 @@ export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestR
     },
     "2": {
       backgroundColor: "yellow",
+      label: "Longest route",
+      stopLabels: biggestRouteStops,
       graph: {
         nodes: [
           ...biggestRouteStops.map((stop, index) => ({
-            x: (width / 1.25 / biggestRouteStops.length) * index + 50,
-            y: height / 4 + (index % 5) * 100
+            x: (width / 1.25 / biggestRouteStops.length) * index + 15,
+            y: height / 10 + (index % 5) * 100
           }))
         ],
         links: [
           ...pairs(
             [
               ...biggestRouteStops.map((stop, index) => ({
-                x: (width / 1.25 / biggestRouteStops.length) * index + 50,
-                y: height / 4 + (index % 5) * 100
+                x: (width / 1.25 / biggestRouteStops.length) * index + 15,
+                y: height / 10 + (index % 5) * 100
               }))
             ],
             pair
