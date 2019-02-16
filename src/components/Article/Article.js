@@ -1,8 +1,16 @@
 import React from "react"
-import { Trigger } from "../ArticleLayout/ArticleLayout"
+import Trigger from "../Trigger"
+import bristolLSpace from "../../images/bristolLSpace.png"
+import bristolCSpace from "../../images/bristolCSpace.png"
+import bristolPSpace from "../../images/bristolPSpace.png"
+import londonCSpace from "../../images/londonCSpace.png"
+import londonBusNetwork from "../../images/london_bus_network_1.png"
+import bristolBusNetwork from "../../images/bristol_bus_network.png"
+import lvivBusNetwork from "../../images/lviv_bus_network.png"
+
 import "./Article.scss"
 const Article = () => (
-  <div className={"ArticleContainer"}>
+  <div className={"Article"}>
     <header className="Article__header">London Public Transport Network</header>
     <p>
       <Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just imagine
@@ -45,24 +53,20 @@ const Article = () => (
       Europe and Indonesia, it is often called a "busway"; while in the British Isles, it may be called a "quality bus".
     </p>
     <p>
-      <Trigger data={{ name: "Lviv" }}>Critics</Trigger> have charged that the term "bus rapid transit" has
-      sometimes been misapplied to systems that lack most or all the essential features which differentiate it from
-      conventional bus services. The term "bus rapid transit creep" has been used to describe severely degraded levels
-      of bus service which fall far short of the BRT Standard promoted by the Institute for Transportation and
-      Development Policy and other organizations.
+      <Trigger data={{ name: "Lviv" }}>Critics</Trigger> have charged that the term "bus rapid transit" has sometimes
+      been misapplied to systems that lack most or all the essential features which differentiate it from conventional
+      bus services. The term "bus rapid transit creep" has been used to describe severely degraded levels of bus service
+      which fall far short of the BRT Standard promoted by the Institute for Transportation and Development Policy and
+      other organizations.
     </p>
     <p>
-      Lets look at{" "}
-      <span id="2" className="anchor" style={{ color: "red" }}>
-        the longest route ofBristol public transport network,
-      </span>{" "}
-      It was converted from trolley to bus use in 1948. However, the first BRT system in the world was the OC Transpo
-      system in Ottawa, Canada. Introduced in 1973, the first element of its BRT system was dedicated bus lanes through
-      the city centre, with platformed stops. The introduction of the first exclusive separate busways (termed
-      'Transitway') occurred in 1983. By 1996, all of the originally envisioned 31 km Transitway system was in
-      operation; further expansions were opened in 2009, 2011, and 2014. As of 2017, the central part of the Transitway
-      is being converted to a Light Rail Transit, due to the downtown section being operated beyond its designed
-      capacity.[4]
+      Lets look at the longest route ofBristol public transport network, It was converted from trolley to bus use in
+      1948. However, the first BRT system in the world was the OC Transpo system in Ottawa, Canada. Introduced in 1973,
+      the first element of its BRT system was dedicated bus lanes through the city centre, with platformed stops. The
+      introduction of the first exclusive separate busways (termed 'Transitway') occurred in 1983. By 1996, all of the
+      originally envisioned 31 km Transitway system was in operation; further expansions were opened in 2009, 2011, and
+      2014. As of 2017, the central part of the Transitway is being converted to a Light Rail Transit, due to the
+      downtown section being operated beyond its designed capacity.[4]
     </p>
     <p>
       The second BRT system in the world was the Rede Integrada de Transporte (RIT, integrated transportation network),
@@ -89,6 +93,39 @@ const Article = () => (
       often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
       phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
       measure for moving buses through intersections.
+    </p>
+    <p>
+      Public transport networks are complex systems that have many features to explore. In this article we will
+      concentrate on the three PTNs of different sizes. The first and the biggest one is London bus network.
+      <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} />
+    </p>
+    <p>
+      The second transport system is the bus network of Bristol.
+      <img className={"Article__image"} alt="Bristol Bus Network" src={bristolBusNetwork} />
+    </p>
+    <p>
+      Last but not least, we will explore Lviv public transport system.
+      <img className={"Article__image"} alt="Lviv Bus Network" src={lvivBusNetwork} />
+    </p>
+    <p>
+      Transport networks can be represented in different spaces. L-space is a representation where all the stops are the
+      nodes and two stops are connected if they are adjacent in a route. Here is an L-space representation of Bristol
+      bus network:
+      <img className={"Article__image"} src={bristolLSpace} alt={"Bristol Bus Network L-space"} />
+    </p>
+    <p>
+      Another type of representation is P-space. In P-space each route is a complete subgraph with the stops represented
+      by the nodes. Two routes are connected if they share at least one stop. Below you can see the representation of
+      Bristol bus network in P-space.
+      <img className={"Article__image"} src={bristolPSpace} alt={"Bristol Bus Network P-space"} />
+    </p>
+    <p>
+      To explore the network from different perspective, one can represent the routes by the nodes of the graph and show
+      connections between them by the edges. Such type of representation is called C-space. Below is the representation
+      of Bristol bus network in C-space.
+      <img className={"Article__image"} src={bristolCSpace} alt={"Bristol Bus Network C-space"} />
+      And the representation of London network in C-space.
+      <img className={"Article__image"} src={londonCSpace} alt={"London Bus Network C-space"} />
     </p>
   </div>
 )

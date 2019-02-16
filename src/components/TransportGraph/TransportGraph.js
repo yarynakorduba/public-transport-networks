@@ -15,10 +15,9 @@ const TransportGraph = ({ showPicture, width, height, displayProps, firstNodeInS
       {<Graph graph={displayProps[firstNodeInScreen].graph} />}
       {displayProps[firstNodeInScreen].stopLabels.map((stop, index) => (
         <Text
-          scaleToFit={true}
+          key={index}
           verticalAnchor="start"
           lineHeight="2"
-          key={index}
           className={"TransportGraph__label"}
           {...displayProps[firstNodeInScreen].graph.nodes[index]}
         >
@@ -39,16 +38,19 @@ const enhancer = compose(
     smallestRouteStops,
     biggestRouteStops
   })),
-  withStateHandlers(({ firstNode, displayProps }) => ({ firstNode, displayProps: displayProps, firstNodeInScreen: 0 }), {
-    showPicture: ({ displayProps, firstNodeInScreen }) => () => {
-      let spot = document.querySelectorAll(".anchor")
-      const firstNode = find(a => a.getBoundingClientRect().top > 0)(spot)
-      return {
-        firstNodeInScreen: firstNode ? firstNode.id : firstNodeInScreen,
-        displayProperties: displayProps && firstNodeInScreen && displayProps[firstNodeInScreen.id]
+  withStateHandlers(
+    ({ firstNode, displayProps }) => ({ firstNode, displayProps: displayProps, firstNodeInScreen: 0 }),
+    {
+      showPicture: ({ displayProps, firstNodeInScreen }) => () => {
+        let spot = document.querySelectorAll(".anchor")
+        const firstNode = find(a => a.getBoundingClientRect().top > 0)(spot)
+        return {
+          firstNodeInScreen: firstNode ? firstNode.id : firstNodeInScreen,
+          displayProperties: displayProps && firstNodeInScreen && displayProps[firstNodeInScreen.id]
+        }
       }
     }
-  }),
+  ),
   lifecycle({
     componentDidMount() {
       window.addEventListener("scroll", () => {

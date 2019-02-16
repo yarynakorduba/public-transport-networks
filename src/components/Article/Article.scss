@@ -1,0 +1,12 @@
+.Article {
+  padding: 0 10%;
+  &__image {
+    display: block;
+    width: 60%;
+    height: auto;
+  }
+
+  &__frame {
+    overflow: hidden;
+  }
+}

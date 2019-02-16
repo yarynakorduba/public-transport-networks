@@ -1,15 +1,19 @@
-import { branch, renderComponent, withProps, compose, withState } from "recompose"
-import { json, pairs, scan } from "d3"
+import { branch, renderComponent, withProps, compose } from "recompose"
+import { pairs, scan } from "d3"
+import { connect } from "react-redux"
+import { fetchRoutes } from "../../actions"
 
 const lengthComparator = (a, b) => a.length - b.length
 
 export const withData = compose(
-  withState("data", "setData"),
-  withProps(async ({ data, setData }) => {
-    if (!data) {
-      const data = await json("bristol_BUS.json", data => data)
-      setData(data)
-    }
+  connect(
+    state => ({
+      data: state.data.routes
+    }),
+    { fetchRoutes }
+  ),
+  withProps(async ({ data, fetchRoutes }) => {
+    !data && fetchRoutes() // if no data then fetch it
   }),
   branch(({ data }) => !data, renderComponent(() => "Loading data for the visualization..."))
 )
