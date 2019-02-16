@@ -1,7 +1,8 @@
 import React, { Component, createContext } from "react"
-import { dissoc, omit, without } from "ramda"
+import { omit } from "ramda"
+import "./ArticleLayout.scss"
 
-const ScrolledContext = createContext()
+export const ScrolledContext = createContext()
 
 class ArticleLayout extends Component {
   state = {
@@ -22,7 +23,7 @@ class ArticleLayout extends Component {
     const { scrolled, showState } = this.state
 
     return (
-      <section ref="root">
+      <section className={"ArticleLayout"} ref="root">
         <ScrolledContext.Provider
           value={{
             scrolled: -scrolled,
@@ -44,52 +45,16 @@ class ArticleLayout extends Component {
               color: "red",
               position: "fixed",
               top: 10,
-
               background: "white"
             }}
           >
             {JSON.stringify(showState)}
           </div>
 
-          <div>{article}</div>
-          <div>{illustration}</div>
+          <div className={"ArticleLayout__article"}>{article}</div>
+          <div className={"ArticleLayout__illustration"}>{illustration}</div>
         </ScrolledContext.Provider>
       </section>
-    )
-  }
-}
-
-export class Trigger extends Component {
-  state = {
-    position: null,
-    triggered: false
-  }
-
-  componentDidMount() {
-    this.setState({ position: this.refs.root.getBoundingClientRect().top })
-  }
-
-  render() {
-    let { children } = this.props
-    let { position, triggered } = this.state
-
-    return (
-      <span ref="root">
-        <ScrolledContext.Consumer>
-          {({ scrolled, onAction, offAction }) => {
-            if (position - scrolled < 0 && !triggered) {
-              this.setState({ triggered: true })
-              onAction(this.props.data)
-            }
-
-            if (position - scrolled > 0 && triggered) {
-              this.setState({ triggered: false })
-              offAction(this.props.data)
-            }
-            return children
-          }}
-        </ScrolledContext.Consumer>
-      </span>
     )
   }
 }

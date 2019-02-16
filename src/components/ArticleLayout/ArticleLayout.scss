@@ -1,0 +1,22 @@
+.ArticleLayout {
+  display: flex;
+  &__illustration,
+  &__article {
+    max-width: 55%;
+    padding-right: 5%;
+    flex: 1 1 auto;
+  }
+
+  &__illustration {
+    position: fixed;
+    width: 40%;
+
+    right: 0;
+  }
+}
+
+//&__header {
+//  color: var(--light-grey-blue);
+//  font-size: 2.25rem;
+//  font-weight: bold;
+//}
