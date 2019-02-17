@@ -1,0 +1,12 @@
+.ArticleLayout {
+  display: flex; }
+  .ArticleLayout__illustration, .ArticleLayout__article {
+    max-width: 55%;
+    padding-right: 5%;
+    flex: 1 1 auto; }
+  .ArticleLayout__illustration {
+    position: fixed;
+    width: 40%;
+    right: 0; }
+
+/*# sourceMappingURL=ArticleLayout.css.map */
