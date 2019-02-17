@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,yBAAU;EACR,KAAK,EAAE,sBAAsB;EAC7B,SAAS,EAAE,OAAO;EAClB,WAAW,EAAE,IAAI",
+"sources": ["ArticleContainer.scss"],
+"names": [],
+"file": "ArticleContainer.css"
+}
