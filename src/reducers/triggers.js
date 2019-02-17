@@ -1,12 +1,12 @@
 import { ADD_TRIGGER, REMOVE_TRIGGER } from "../actions/actionTypes"
-import { filter } from "ramda"
+import { filter, omit } from "ramda"
 
-const triggers = (state = [], action) => {
+const triggers = (state = {}, action) => {
   switch (action.type) {
     case ADD_TRIGGER:
-      return [...state, action.trigger]
+      return { ...state, ...action.trigger }
     case REMOVE_TRIGGER:
-      return filter(n => n !== action.trigger, state)
+      return omit(Object.keys(action.trigger), state)
     default:
       return state
   }
