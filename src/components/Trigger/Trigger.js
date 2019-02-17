@@ -8,6 +8,7 @@ class Trigger extends Component {
   }
   toggleTrigger(triggered, toggleAction) {
     this.setState({ triggered })
+
     toggleAction(this.props.data)
   }
 

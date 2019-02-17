@@ -1,4 +1,4 @@
-To store large datafiles use Git Large File Storage (https://git-lfs.github.com/):
+To store large data use Git Large File Storage (https://git-lfs.github.com/):
 
 1. <a href="https://git-lfs.github.com/">Download</a> from the site
 

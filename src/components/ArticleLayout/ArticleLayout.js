@@ -1,13 +1,14 @@
 import React, { Component, createContext } from "react"
 import { omit } from "ramda"
 import "./ArticleLayout.scss"
+import { connect } from "react-redux"
+import { addTrigger, removeTrigger } from "../../actions"
 
 export const ScrolledContext = createContext()
 
 class ArticleLayout extends Component {
   state = {
-    scrolled: 0,
-    showState: []
+    scrolled: 0
   }
 
   componentDidMount() {
@@ -19,25 +20,20 @@ class ArticleLayout extends Component {
   }
 
   render() {
-    const { article, illustration } = this.props
-    const { scrolled, showState } = this.state
-
+    const { article, illustration, addTrigger, removeTrigger, triggers } = this.props
+    const { scrolled } = this.state
+    console.log("props ===> ", this.props, this.state)
     return (
       <section className={"ArticleLayout"} ref="root">
         <ScrolledContext.Provider
           value={{
             scrolled: -scrolled,
-            onAction: data =>
-              this.setState({
-                showState: {
-                  ...showState,
-                  ...data
-                }
-              }),
-            offAction: data =>
-              this.setState({
-                showState: omit(Object.keys(data), showState)
-              })
+            onAction: data => {
+              addTrigger(data)
+            },
+            offAction: data => {
+              removeTrigger(data)
+            }
           }}
         >
           <div
@@ -48,7 +44,7 @@ class ArticleLayout extends Component {
               background: "white"
             }}
           >
-            {JSON.stringify(showState)}
+            {JSON.stringify(triggers)}
           </div>
 
           <div className={"ArticleLayout__article"}>{article}</div>
@@ -59,4 +55,11 @@ class ArticleLayout extends Component {
   }
 }
 
-export default ArticleLayout
+const enhancer = connect(
+  state => ({
+    triggers: state.triggers
+  }),
+  { addTrigger, removeTrigger }
+)
+
+export default enhancer(ArticleLayout)
