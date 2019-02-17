@@ -1,0 +1,11 @@
+:root {
+  --light-grey-blue: #a5b5da; }
+
+.App {
+  display: flex; }
+  .App__article-block {
+    flex: 1 1 45%; }
+  .App__graph-block {
+    flex: 1 1 55%; }
+
+/*# sourceMappingURL=App.css.map */
