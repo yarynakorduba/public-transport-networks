@@ -10,4 +10,5 @@ To store large datafiles use Git Large File Storage (https://git-lfs.github.com/
 
 5. Commit and push as you normally would
 
+6. When pulling the project, use >git lfs pull to fetch all the lfs tracked files
 
