@@ -11,7 +11,7 @@ const TransportGraph = ({ showPicture, width, height, displayProps, firstNodeInS
   <>
     <h1 className={"TransportGraph__heading"}>{displayProps[firstNodeInScreen].label}</h1>
     <svg width={width} height={height}>
-      <rect width={width} height={height} rx={14} fill={"white"} />
+      <rect width={width} height={height} rx={14} fill={"#e6e6e6"} />
       {<Graph graph={displayProps[firstNodeInScreen].graph} />}
       {displayProps[firstNodeInScreen].stopLabels.map((stop, index) => (
         <Text
