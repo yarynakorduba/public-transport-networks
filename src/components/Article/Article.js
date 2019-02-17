@@ -11,9 +11,9 @@ import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import "./Article.scss"
 const Article = () => (
   <div className={"Article"}>
-    <header className="Article__header">London Public Transport Network</header>
-    <p>
-      <Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just imagine
+    <header className={"Article__header"}>London Public Transport Network</header>
+    <p className={"Article__paragraph Article__paragraph--first"}>
+      <Trigger data={{ name: "London" }}>London</Trigger>London public transport network. It is really important. Just imagine
       you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does it mean
       to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed to carry
       many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is the
@@ -23,8 +23,8 @@ const Article = () => (
       shuttle buses within a post-secondary education campus do not charge a fare. In many jurisdictions, bus drivers
       require a special licence above and beyond a regular driver's licence.
     </p>
-    <p>
-      <Trigger data={{ time: "Whats" }}>What's</Trigger> the use of buses? Buses may be used for scheduled bus
+    <p className={"Article__paragraph"}>
+      <Trigger data={{ time: "Whats" }}>What's</Trigger>What's the use of buses? Buses may be used for scheduled bus
       transport, scheduled coach transport, school transport, private hire, or tourism; promotional buses may be used
       for political campaigns and others are privately operated for a wide range of purposes, including rock and pop
       band tour vehicles. Horse-drawn buses were used from the 1820s, followed by steam buses in the 1830s, and electric
@@ -33,7 +33,7 @@ const Article = () => (
       by compressed natural gas or biodiesel. As of the 2010s, bus manufacturing is increasingly globalised, with the
       same designs appearing around the world.
     </p>
-    <p>
+    <p className={"Article__paragraph"}>
       Now let's look at busways busway or transitway, is a bus-based public transport system designed to improve
       capacity and reliability relative to a conventional bus system.[2] Typically, a BRT system includes roadways that
       are dedicated to buses, and gives priority to buses at intersections where buses may interact with other traffic;
