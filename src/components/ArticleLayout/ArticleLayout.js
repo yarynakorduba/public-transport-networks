@@ -1,5 +1,4 @@
 import React, { Component, createContext } from "react"
-import { omit } from "ramda"
 import "./ArticleLayout.scss"
 import { connect } from "react-redux"
 import { addTrigger, removeTrigger } from "../../actions"
