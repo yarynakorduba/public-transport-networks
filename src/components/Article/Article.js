@@ -11,17 +11,60 @@ import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import "./Article.scss"
 const Article = () => (
   <div className={"Article"}>
-    <header className={"Article__header"}>London Public Transport Network</header>
+    <header className={"Article__chapter"}>Introduction</header>
+    <h1 className={"Article__header"}>Problem Description</h1>
+    <p>
+      Public transport networks resilience and efficiency are the important aspects of every big city`s life. In a
+      stable and well-structured network not only the average travel time and quantity of route changes are small, but
+      also the safety of the passengers under different circumstances is increased.
+    </p>
+    <p>
+      An unstable network can suffer unexpectedly under random failures as well as targeted attacks. Random failures
+      include accidents, large traffic jams or even poor weather conditions at some parts of the network that cause
+      inaccessibility of these parts. Much worse are targeted attacks, for example, terrorist acts. Such attacks often
+      occur at the highly connected stops, so called hubs, which are the most important for the whole network and where
+      a lot of passengers gather.
+    </p>
+    <h1 className={"Article__header"}>Historical Precedent</h1>
+    <p>
+      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
+      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
+      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
+      measure for moving buses through intersections.
+    </p>
+    <h1 className={"Article__header"}>Urban-base solutions</h1>
+    <p>
+      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
+      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
+      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
+      measure for moving buses through intersections.
+    </p>
+    <h1 className={"Article__header"}>Scientific approaches</h1>
+    <p>
+      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
+      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
+      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
+      measure for moving buses through intersections.
+    </p>
+    <h1 className={"Article__header"}>Related Works</h1>
+    <p>
+      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
+      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
+      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
+      measure for moving buses through intersections.
+    </p>
+    <header className={"Article__chapter"}>London and Bristol</header>
+    <h1 className={"Article__header"}>Repeated Explorations in L-space</h1>
     <p className={"Article__paragraph Article__paragraph--first"}>
-        London<Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just imagine
-      you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does it mean
-      to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed to carry
-      many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is the
-      single-deck rigid bus, with larger loads carried by double-decker and articulated buses, and smaller loads carried
-      by midibuses and minibuses; coaches are used for longer-distance services. Many types of buses, such as city
-      transit buses and inter-city coaches, charge a fare. Other types, such as elementary or secondary school buses or
-      shuttle buses within a post-secondary education campus do not charge a fare. In many jurisdictions, bus drivers
-      require a special licence above and beyond a regular driver's licence.
+      London<Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just
+      imagine you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does
+      it mean to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed
+      to carry many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is
+      the single-deck rigid bus, with larger loads carried by double-decker and articulated buses, and smaller loads
+      carried by midibuses and minibuses; coaches are used for longer-distance services. Many types of buses, such as
+      city transit buses and inter-city coaches, charge a fare. Other types, such as elementary or secondary school
+      buses or shuttle buses within a post-secondary education campus do not charge a fare. In many jurisdictions, bus
+      drivers require a special licence above and beyond a regular driver's licence.
     </p>
     <p className={"Article__paragraph"}>
       <Trigger data={{ time: "Whats" }}>What's</Trigger>What's the use of buses? Buses may be used for scheduled bus
@@ -59,6 +102,7 @@ const Article = () => (
       which fall far short of the BRT Standard promoted by the Institute for Transportation and Development Policy and
       other organizations.
     </p>
+    <h1 className={"Article__header"}>New Explorations: P-space and C-space</h1>
     <p>
       Lets look at the longest route ofBristol public transport network, It was converted from trolley to bus use in
       1948. However, the first BRT system in the world was the OC Transpo system in Ottawa, Canada. Introduced in 1973,
@@ -75,6 +119,8 @@ const Article = () => (
       the center of major arterial roads, in 1980 the Curitiba system added a feeder bus network and inter-zone
       connections, and in 1992 introduced off-board fare collection, enclosed stations, and platform-level boarding.
     </p>
+    <header className={"Article__chapter"}>Lviv</header>
+    <h1 className={"Article__header"}>Lviv Public Transport Dataset</h1>
     <p>
       In the United States, BRT began in 1977, with Pittsburgh's South Busway,[10] operating on 4.3 miles (6.9 km) of
       exclusive lanes. Its success led to the Martin Luther King Jr. East Busway in 1983, a fuller BRT deployment
@@ -88,12 +134,8 @@ const Article = () => (
       standing and turning. Separate rights of way may be used such as the completely elevated Xiamen BRT. Transit malls
       or 'bus streets' may also be created in city centers.
     </p>
-    <p>
-      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
-      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
-      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
-      measure for moving buses through intersections.
-    </p>
+    <h1 className={"Article__header"}>L-, P- and C-spaces: three views on Lviv`s Public Transport Network</h1>
+    <header>Conclusions</header>
     <p>
       Public transport networks are complex systems that have many features to explore. In this article we will
       concentrate on the three PTNs of different sizes. The first and the biggest one is London bus network.
