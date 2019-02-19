@@ -18,7 +18,7 @@ export const fetchRoutes = () => async dispatch => {
   dispatch(fetchRoutesStart())
 
   try {
-    const response = await json("bristol_BUS.json", data => data)
+    const response = await json("data/bristol_BUS.json", data => data)
     if (!response.error) {
       dispatch(fetchRoutesSuccess(response))
     } else {
