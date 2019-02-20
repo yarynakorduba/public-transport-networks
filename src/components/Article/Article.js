@@ -56,7 +56,7 @@ const Article = () => (
     <header className={"Article__chapter"}>London and Bristol</header>
     <h1 className={"Article__header"}>Repeated Explorations in L-space</h1>
     <p className={"Article__paragraph Article__paragraph--first"}>
-      London<Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just
+        London<Trigger data={{ name: "London" }}>London</Trigger> public <span className="Article__paragraph--highlighted">transport network</span>. It is really important. Just
       imagine you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does
       it mean to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed
       to carry many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is
