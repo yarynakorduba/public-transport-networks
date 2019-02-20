@@ -30,5 +30,11 @@
       font-size: 2rem;
       color: #1500c0;
     }
+
+    &--highlighted {
+      font-weight: 700;
+      font-style: italic;
+      background-color: #e6e6e6;
+    }
   }
 }
