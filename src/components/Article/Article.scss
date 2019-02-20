@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:400,900|Merriweather:400,700i');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,900|Merriweather:400,700i');
 
 
 .Article {
@@ -12,6 +12,14 @@
 
   &__frame {
     overflow: hidden;
+  }
+
+  &__chapter {
+    font-family: 'Lato', sans-serif;
+    margin: 40px 0;
+    letter-spacing: 1px;
+    font-size: 1.25rem;
+    font-weight: 300;
   }
 
   &__header {

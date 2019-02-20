@@ -7,64 +7,84 @@ import londonCSpace from "../../images/londonCSpace.png"
 import londonBusNetwork from "../../images/london_bus_network_1.png"
 import bristolBusNetwork from "../../images/bristol_bus_network.png"
 import lvivBusNetwork from "../../images/lviv_bus_network.png"
+import trafficJam from "../../images/traffic_jam.png"
 
 import "./Article.scss"
 const Article = () => (
   <div className={"Article"}>
     <header className={"Article__chapter"}>Introduction</header>
-    <h1 className={"Article__header"}>Problem Description</h1>
-    <p>
-      Public transport networks resilience and efficiency are the important aspects of every big city`s life. In a
-      stable and well-structured network not only the average travel time and quantity of route changes are small, but
+    <h1 className={"Article__header"}>Problem&nbsp;Description & Historical&nbsp;Precedent</h1>
+    <p className={"Article__paragraph Article__paragraph--first"}>
+      Public transport networks resilience and efficiency are the important aspects of every big city`s functioning. In
+      a stable and well-structured network not only the average travel time and quantity of route changes are small, but
       also the safety of the passengers under different circumstances is increased.
     </p>
-    <p>
+    <p className={"Article__paragraph"}>
       An unstable network can suffer unexpectedly under random failures as well as targeted attacks. Random failures
       include accidents, large traffic jams or even poor weather conditions at some parts of the network that cause
-      inaccessibility of these parts. Much worse are targeted attacks, for example, terrorist acts. Such attacks often
-      occur at the highly connected stops, so called hubs, which are the most important for the whole network and where
-      a lot of passengers gather.
+      inaccessibility of some stops or event the whole routes. Much worse are targeted attacks, for example, terrorist
+      acts. Such attacks often occur at the highly connected stops, so called hubs, which are the most important for the
+      whole network and where a lot of passengers gather.
     </p>
-    <h1 className={"Article__header"}>Historical Precedent</h1>
-    <p>
-      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
-      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
-      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
-      measure for moving buses through intersections.
-    </p>
+    <img src={trafficJam} alt={"Traffic Jam"} />
     <h1 className={"Article__header"}>Urban-base solutions</h1>
-    <p>
+    <p className={"Article__paragraph Article__paragraph--first"}>
       Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
       often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
       phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
       measure for moving buses through intersections.
     </p>
     <h1 className={"Article__header"}>Scientific approaches</h1>
-    <p>
-      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
-      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
-      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
-      measure for moving buses through intersections.
+    <p className={"Article__paragraph Article__paragraph--first"}>
+      A lot of different scientific approaches for the exploration of the public transport system appeared. Having a set
+      of the stops and their connections we can build a graph in different dimensions. E.g., we can display the stops as
+      the nodes and put edge between two stops only if they are adjacent on the route. and analyse the routes using
+      common estimations. This type of representation is called L-space. We can also display the stops of every route as
+      complete subgraphs of the network, as technically we can reach any stop of a route from any another stop of this
+      route. The subgraphs in such representation are connected if Mean degree of the nodes can give us
     </p>
     <h1 className={"Article__header"}>Related Works</h1>
-    <p>
+    <p className={"Article__paragraph Article__paragraph--first"}>
       Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
       often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
       phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
       measure for moving buses through intersections.
     </p>
     <header className={"Article__chapter"}>London and Bristol</header>
-    <h1 className={"Article__header"}>Repeated Explorations in L-space</h1>
+    <h1 className={"Article__header"}>Repeated&nbsp;Explorations in&nbsp;L-space</h1>
     <p className={"Article__paragraph Article__paragraph--first"}>
-      London<Trigger data={{ name: "London" }}>London</Trigger> public transport network. It is really important. Just
-      imagine you need to get to Big Ben. What would you use? Of course public transport. So let's figure out what does
-      it mean to be a bus. A bus (archaically also omnibus,[1] multibus, motorbus, autobus) is a road vehicle designed
-      to carry many passengers. Buses can have a capacity as high as 300 passengers.[2] The most common type of bus is
-      the single-deck rigid bus, with larger loads carried by double-decker and articulated buses, and smaller loads
-      carried by midibuses and minibuses; coaches are used for longer-distance services. Many types of buses, such as
-      city transit buses and inter-city coaches, charge a fare. Other types, such as elementary or secondary school
-      buses or shuttle buses within a post-secondary education campus do not charge a fare. In many jurisdictions, bus
-      drivers require a special licence above and beyond a regular driver's licence.
+      In this article we will concentrate on the three PTNs of different sizes. The first and the biggest one is In our
+      work, we first repeated the analysis of <Trigger data={{ name: "London" }}>London bus network</Trigger> in
+      L-space.
+      <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} />
+    </p>
+    <p className={"Article__paragraph"}>
+      The second transport system is the bus network of Bristol.
+      <img className={"Article__image"} alt="Bristol Bus Network" src={bristolBusNetwork} />
+    </p>
+    <p className={"Article__paragraph"}>
+      Last but not least, we will explore Lviv public transport system.
+      <img className={"Article__image"} alt="Lviv Bus Network" src={lvivBusNetwork} />
+    </p>
+    <p className={"Article__paragraph"}>
+      Transport networks can be represented in different spaces. L-space is a representation where all the stops are the
+      nodes and two stops are connected if they are adjacent in a route. Here is an L-space representation of Bristol
+      bus network:
+      <img className={"Article__image"} src={bristolLSpace} alt={"Bristol Bus Network L-space"} />
+    </p>
+    <p className={"Article__paragraph"}>
+      Another type of representation is P-space. In P-space each route is a complete subgraph with the stops represented
+      by the nodes. Two routes are connected if they share at least one stop. Below you can see the representation of
+      Bristol bus network in P-space.
+      <img className={"Article__image"} src={bristolPSpace} alt={"Bristol Bus Network P-space"} />
+    </p>
+    <p className={"Article__paragraph"}>
+      To explore the network from different perspective, one can represent the routes by the nodes of the graph and show
+      connections between them by the edges. Such type of representation is called C-space. Below is the representation
+      of Bristol bus network in C-space.
+      <img className={"Article__image"} src={bristolCSpace} alt={"Bristol Bus Network C-space"} />
+      And the representation of London network in C-space.
+      <img className={"Article__image"} src={londonCSpace} alt={"London Bus Network C-space"} />
     </p>
     <p className={"Article__paragraph"}>
       <Trigger data={{ time: "Whats" }}>What's</Trigger>What's the use of buses? Buses may be used for scheduled bus
@@ -84,26 +104,23 @@ const Article = () => (
       BRT aims to combine the capacity and speed of a metro with the flexibility, lower cost and simplicity of a bus
       system.
     </p>
-    <p>
-      Lets look at{" "}
-      <span id="1" className="anchor" style={{ color: "red" }}>
-        the shortest route of Bristol public transport network,
-      </span>{" "}
-      which describes a high-capacity urban public-transit system with its own right of way, multiple-car vehicles at
-      short headways, and longer stop spacing than traditional streetcars and buses. BRT uses buses on a wide variety of
-      rights-of-way, including mixed traffic, dedicated lanes on surface streets, and busways separated from traffic.
-      The expression "BRT" is mainly used in the Americas and China; in India, it is called "BRTS" (BRT System); in
-      Europe and Indonesia, it is often called a "busway"; while in the British Isles, it may be called a "quality bus".
+    <p className={"Article__paragraph"}>
+      Lets look at the shortest route of Bristol public transport network, which describes a high-capacity urban
+      public-transit system with its own right of way, multiple-car vehicles at short headways, and longer stop spacing
+      than traditional streetcars and buses. BRT uses buses on a wide variety of rights-of-way, including mixed traffic,
+      dedicated lanes on surface streets, and busways separated from traffic. The expression "BRT" is mainly used in the
+      Americas and China; in India, it is called "BRTS" (BRT System); in Europe and Indonesia, it is often called a
+      "busway"; while in the British Isles, it may be called a "quality bus".
     </p>
-    <p>
+    <p className={"Article__paragraph"}>
       <Trigger data={{ name: "Lviv" }}>Critics</Trigger> have charged that the term "bus rapid transit" has sometimes
       been misapplied to systems that lack most or all the essential features which differentiate it from conventional
       bus services. The term "bus rapid transit creep" has been used to describe severely degraded levels of bus service
       which fall far short of the BRT Standard promoted by the Institute for Transportation and Development Policy and
       other organizations.
     </p>
-    <h1 className={"Article__header"}>New Explorations: P-space and C-space</h1>
-    <p>
+    <h1 className={"Article__header"}>New&nbsp;Explorations: P-space and&nbsp;C-space</h1>
+    <p className={"Article__paragraph"}>
       Lets look at the longest route ofBristol public transport network, It was converted from trolley to bus use in
       1948. However, the first BRT system in the world was the OC Transpo system in Ottawa, Canada. Introduced in 1973,
       the first element of its BRT system was dedicated bus lanes through the city centre, with platformed stops. The
@@ -112,63 +129,25 @@ const Article = () => (
       2014. As of 2017, the central part of the Transitway is being converted to a Light Rail Transit, due to the
       downtown section being operated beyond its designed capacity.[4]
     </p>
-    <p>
-      The second BRT system in the world was the Rede Integrada de Transporte (RIT, integrated transportation network),
-      implemented in Curitiba, Brazil, in 1974.[5]:5[6] Most of the elements that have become associated with BRT were
-      innovations first suggested by Curitiba Mayor Architect Jaime Lerner.[7][8] Initially just dedicated bus lanes in
-      the center of major arterial roads, in 1980 the Curitiba system added a feeder bus network and inter-zone
-      connections, and in 1992 introduced off-board fare collection, enclosed stations, and platform-level boarding.
-    </p>
     <header className={"Article__chapter"}>Lviv</header>
-    <h1 className={"Article__header"}>Lviv Public Transport Dataset</h1>
-    <p>
+    <h1 className={"Article__header"}>Lviv Public&nbsp;Transport&nbsp;Dataset</h1>
+    <p className={"Article__paragraph Article__paragraph--first"}>
       In the United States, BRT began in 1977, with Pittsburgh's South Busway,[10] operating on 4.3 miles (6.9 km) of
       exclusive lanes. Its success led to the Martin Luther King Jr. East Busway in 1983, a fuller BRT deployment
       including a dedicated busway of 9.1 miles (14.6 km), traffic signal preemption, and peak service headway as low as
       two minutes. After the opening of the West Busway, 5.1 miles (8.2 km) in length in 1990, Pittsburgh’s Busway
       system is today over 18.5 miles long.
     </p>
-    <p>
+    <p className={"Article__paragraph"}>
       Bus-only lanes make for faster travel and ensure that buses are not delayed by mixed traffic congestion. A median
       alignment bus-only keeps buses away from busy curb-side side conflicts, where cars and trucks are parking,
       standing and turning. Separate rights of way may be used such as the completely elevated Xiamen BRT. Transit malls
       or 'bus streets' may also be created in city centers.
     </p>
     <h1 className={"Article__header"}>L-, P- and C-spaces: three views on Lviv`s Public Transport Network</h1>
+    <p className={"Article__paragraph"}>...</p>
     <header>Conclusions</header>
-    <p>
-      Public transport networks are complex systems that have many features to explore. In this article we will
-      concentrate on the three PTNs of different sizes. The first and the biggest one is London bus network.
-      <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} />
-    </p>
-    <p>
-      The second transport system is the bus network of Bristol.
-      <img className={"Article__image"} alt="Bristol Bus Network" src={bristolBusNetwork} />
-    </p>
-    <p>
-      Last but not least, we will explore Lviv public transport system.
-      <img className={"Article__image"} alt="Lviv Bus Network" src={lvivBusNetwork} />
-    </p>
-    <p>
-      Transport networks can be represented in different spaces. L-space is a representation where all the stops are the
-      nodes and two stops are connected if they are adjacent in a route. Here is an L-space representation of Bristol
-      bus network:
-      <img className={"Article__image"} src={bristolLSpace} alt={"Bristol Bus Network L-space"} />
-    </p>
-    <p>
-      Another type of representation is P-space. In P-space each route is a complete subgraph with the stops represented
-      by the nodes. Two routes are connected if they share at least one stop. Below you can see the representation of
-      Bristol bus network in P-space.
-      <img className={"Article__image"} src={bristolPSpace} alt={"Bristol Bus Network P-space"} />
-    </p>
-    <p>
-      To explore the network from different perspective, one can represent the routes by the nodes of the graph and show
-      connections between them by the edges. Such type of representation is called C-space. Below is the representation
-      of Bristol bus network in C-space.
-      <img className={"Article__image"} src={bristolCSpace} alt={"Bristol Bus Network C-space"} />
-      And the representation of London network in C-space.
-      <img className={"Article__image"} src={londonCSpace} alt={"London Bus Network C-space"} />
-    </p>
+    <p className={"Article__paragraph"}>...</p>
   </div>
 )
 

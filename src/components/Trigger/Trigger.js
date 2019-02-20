@@ -27,7 +27,7 @@ class Trigger extends Component {
   }
 
   render() {
-    return <span ref="root" />
+    return <span ref="root" >{this.props.children}</span>
   }
 }
 Trigger.contextType = ScrolledContext
