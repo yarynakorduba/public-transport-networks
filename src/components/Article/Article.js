@@ -6,8 +6,10 @@ import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import trafficJam from "../../images/traffic_jam.png"
 
 import "./Article.scss"
+import { getBristolLSpaceGraph } from "../../api"
 const Article = () => (
   <div className={"Article"}>
+    {console.log(getBristolLSpaceGraph())}
     <header className={"Article__chapter"}>Introduction</header>
     <h1 className={"Article__header"}>Problem&nbsp;Description & Historical&nbsp;Precedent</h1>
     <p className={"Article__paragraph Article__paragraph--first"}>
