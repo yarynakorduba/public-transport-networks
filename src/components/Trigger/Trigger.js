@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { ScrolledContext } from "../ArticleLayout/ArticleLayout"
+import "./Trigger.scss"
 
 class Trigger extends Component {
   state = {
@@ -8,7 +9,6 @@ class Trigger extends Component {
   }
   toggleTrigger(triggered, toggleAction) {
     this.setState({ triggered })
-
     toggleAction(this.props.data)
   }
 
@@ -17,9 +17,9 @@ class Trigger extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.position - this.context.scrolled < 0 && !this.state.triggered)
+    if (this.state.position - this.context.scrolled < 0 && !this.state.triggered) {
       this.toggleTrigger(true, this.context.onAction)
-
+    }
     if (this.state.position - this.context.scrolled > 0 && this.state.triggered)
       this.toggleTrigger(false, this.context.offAction)
 
@@ -27,7 +27,11 @@ class Trigger extends Component {
   }
 
   render() {
-    return <span ref="root" >{this.props.children}</span>
+    return (
+      <span ref="root" className={"Trigger--highlighted"}>
+        {this.props.children}
+      </span>
+    )
   }
 }
 Trigger.contextType = ScrolledContext

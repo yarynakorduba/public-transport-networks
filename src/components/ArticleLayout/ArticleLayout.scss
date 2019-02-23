@@ -2,15 +2,13 @@
   display: flex;
   &__illustration,
   &__article {
-    max-width: 55%;
-    padding-right: 5%;
+    max-width: 50%;
+    width: 50%;
     flex: 1 1 auto;
   }
 
   &__illustration {
     position: fixed;
-    width: 40%;
-
     right: 0;
   }
 }

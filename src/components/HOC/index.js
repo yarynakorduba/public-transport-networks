@@ -44,8 +44,7 @@ export const withBiggestRoute = compose(
 export const withNetworkStops = compose(
   withProps(({ data }) => ({
     networkStops: new Set([...map(stop => stop.id)(flatten(Object.values(data)))])
-  })),
-  withProps(({ ...props }) => console.log(props) || props)
+  }))
 )
 
 const pair = (a, b) => ({ source: a, target: b })

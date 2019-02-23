@@ -1,4 +1,9 @@
-.GraphContainer {
-  position: fixed;
-  margin-left: 5rem;
+@import "../../styles/variables";
+
+.Illustration {
+  background: var(--blue);
+  color: white;
+  height: 100vh;
+  width: 50vw;
+  padding: 5rem;
 }

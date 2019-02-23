@@ -22,7 +22,8 @@ export const fetchRoutes = () => async dispatch => {
     if (!response.error) {
       dispatch(fetchRoutesSuccess(response))
     } else {
-      dispatch(fetchRoutesError(response.error))    }
+      dispatch(fetchRoutesError(response.error))
+    }
   } catch (e) {
     fetchRoutesError(e)
   }

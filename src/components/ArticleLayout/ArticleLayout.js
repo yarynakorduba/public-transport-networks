@@ -1,7 +1,10 @@
 import React, { Component, createContext } from "react"
+import { compose } from "ramda"
 import "./ArticleLayout.scss"
 import { connect } from "react-redux"
 import { addTrigger, removeTrigger } from "../../actions"
+import { triggerRespondent } from "../HOC/triggerRespondent"
+import { withRouter } from "react-router-dom"
 
 export const ScrolledContext = createContext()
 
@@ -13,7 +16,7 @@ class ArticleLayout extends Component {
   componentDidMount() {
     window.addEventListener("scroll", () => {
       this.setState({
-        scrolled: this.refs.root.getBoundingClientRect().top
+        scrolled: this.refs.root && this.refs.root.getBoundingClientRect().top
       })
     })
   }
@@ -53,11 +56,15 @@ class ArticleLayout extends Component {
   }
 }
 
-const enhancer = connect(
-  state => ({
-    triggers: state.triggers
-  }),
-  { addTrigger, removeTrigger }
+const enhancer = compose(
+  withRouter,
+  connect(
+    state => ({
+      triggers: state.triggers
+    }),
+    { addTrigger, removeTrigger }
+  ),
+  triggerRespondent
 )
 
 export default enhancer(ArticleLayout)
