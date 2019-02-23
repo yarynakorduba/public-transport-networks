@@ -1,11 +1,16 @@
 import React from "react"
-import TransportGraph from "../TransportGraph"
-
 import "./Illustration.scss"
+import { Route, Switch, withRouter } from "react-router-dom"
+import GraphTabsContainer from "../LPCGraph/GraphTabsContainer"
+
+const EmptyState = () => <div />
 
 const Illustration = () => (
   <div className={"Illustration"}>
-    <TransportGraph />
+    <Switch>
+      <Route exact path={"/"} component={EmptyState} />
+      <Route exact path={"/cities/:city/spaces/:space"} component={GraphTabsContainer} />
+    </Switch>
   </div>
 )
-export default Illustration
+export default withRouter(Illustration)

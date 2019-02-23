@@ -12,7 +12,7 @@ const routes = (state = null, action) => {
   }
 }
 
-const areRoutesFetching = (state = false, action) => {
+const areFetching = (state = false, action) => {
   switch (action.type) {
     case FETCH_ROUTES_START:
       return true
@@ -26,5 +26,8 @@ const areRoutesFetching = (state = false, action) => {
 
 export default combineReducers({
   routes,
-  areRoutesFetching
+  areFetching
 })
+
+export const areRoutesFetching = state => state.areFetching
+export const getRoutes = state => state.routes

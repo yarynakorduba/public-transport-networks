@@ -4,9 +4,10 @@
     padding: 0.5rem;
     display: inline-block;
     text-decoration: none;
+    margin-bottom: 1rem;
+    color: white;
     &_active {
-      border-bottom: 2px solid cornflowerblue;
-      }
-
+      border-bottom: 4px solid white;
+    }
   }
 }
