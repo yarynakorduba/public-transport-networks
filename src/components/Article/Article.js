@@ -1,8 +1,5 @@
 import React from "react"
 import Trigger from "../Trigger"
-import bristolLSpace from "../../images/bristolLSpace.png"
-import bristolCSpace from "../../images/bristolCSpace.png"
-import bristolPSpace from "../../images/bristolPSpace.png"
 import londonCSpace from "../../images/londonCSpace.png"
 import londonBusNetwork from "../../images/london_bus_network_1.png"
 import bristolBusNetwork from "../../images/bristol_bus_network.png"
@@ -68,23 +65,23 @@ const Article = () => (
     </p>
     <p className={"Article__paragraph"}>
       Transport networks can be represented in different spaces. L-space is a representation where all the stops are the
-      nodes and two stops are connected if they are adjacent in a route. Here is an L-space representation of Bristol
-      bus network:
-      <img className={"Article__image"} src={bristolLSpace} alt={"Bristol Bus Network L-space"} />
+      nodes and two stops are connected if they are adjacent in a route. A{" "}
+      <Trigger data={{ name: "Bristol" }}>Bristol bus network</Trigger> in
+      <Trigger data={{ space: "L" }}>L-space</Trigger> representation is shown on the right side of the page. This type
+      of representation is the most understandable for people as it displays routes and their connections as they look
+      in the real world.
     </p>
     <p className={"Article__paragraph"}>
-      Another type of representation is P-space. In P-space each route is a complete subgraph with the stops represented
-      by the nodes. Two routes are connected if they share at least one stop. Below you can see the representation of
-      Bristol bus network in P-space.
-      <img className={"Article__image"} src={bristolPSpace} alt={"Bristol Bus Network P-space"} />
+      Another useful type of representation displays each route as a complete subgraph with the stops represented by the
+      nodes. Two routes are connected if they share at least one stop. Such perspective is called{" "}
+      <Trigger data={{ space: "P" }}>P-space</Trigger>. On the right side you can see the representation of Bristol bus
+      network in P-space.
     </p>
     <p className={"Article__paragraph"}>
       To explore the network from different perspective, one can represent the routes by the nodes of the graph and show
-      connections between them by the edges. Such type of representation is called C-space. Below is the representation
-      of Bristol bus network in C-space.
-      <img className={"Article__image"} src={bristolCSpace} alt={"Bristol Bus Network C-space"} />
-      And the representation of London network in C-space.
-      <img className={"Article__image"} src={londonCSpace} alt={"London Bus Network C-space"} />
+      connections between them by the edges. Such perspective is called <Trigger data={{ space: "C" }}>C-space</Trigger>
+      . Below is the representation of Bristol bus network in C-space. And the representation of London network in
+      C-space.
     </p>
     <p className={"Article__paragraph"}>
       <Trigger data={{ time: "Whats" }}>What's</Trigger>What's the use of buses? Buses may be used for scheduled bus

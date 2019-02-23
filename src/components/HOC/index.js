@@ -2,6 +2,7 @@ import { branch, renderComponent, withProps, compose } from "recompose"
 import { pairs, scan } from "d3"
 import { connect } from "react-redux"
 import { fetchRoutes } from "../../actions"
+import { flatten, map } from "ramda"
 
 const lengthComparator = (a, b) => a.length - b.length
 
@@ -20,20 +21,31 @@ export const withData = compose(
 
 export const withSmallestRoute = compose(
   withProps(({ data }) => ({
-    smallestRoute: Object.keys(data)[scan(Object.keys(data), (a, b) => lengthComparator(data[a], data[b]))]
+    smallestRoute: Object.keys(data)[
+      scan(Object.keys(data), (a, b) => lengthComparator(Object.keys(data[a]), Object.keys(data[b])))
+    ]
   })),
   withProps(({ smallestRoute, data }) => ({
-    smallestRouteStops: data[smallestRoute]
+    smallestRouteStops: Object.keys(data[smallestRoute])
   }))
 )
 
 export const withBiggestRoute = compose(
   withProps(({ data }) => ({
-    biggestRoute: Object.keys(data)[scan(Object.keys(data), (a, b) => lengthComparator(data[b], data[a]))]
+    biggestRoute: Object.keys(data)[
+      scan(Object.keys(data), (a, b) => lengthComparator(Object.keys(data[b]), Object.keys(data[a])))
+    ]
   })),
   withProps(({ biggestRoute, data }) => ({
-    biggestRouteStops: data[biggestRoute]
+    biggestRouteStops: Object.keys(data[biggestRoute])
   }))
+)
+
+export const withNetworkStops = compose(
+  withProps(({ data }) => ({
+    networkStops: new Set([...map(stop => stop.id)(flatten(Object.values(data)))])
+  })),
+  withProps(({ ...props }) => console.log(props) || props)
 )
 
 const pair = (a, b) => ({ source: a, target: b })

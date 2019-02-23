@@ -21,7 +21,6 @@ class ArticleLayout extends Component {
   render() {
     const { article, illustration, addTrigger, removeTrigger, triggers } = this.props
     const { scrolled } = this.state
-    console.log("props ===> ", this.props, this.state)
     return (
       <section className={"ArticleLayout"} ref="root">
         <ScrolledContext.Provider
