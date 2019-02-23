@@ -1,0 +1,12 @@
+.Tabs {
+  &__tab {
+    margin-left: 5px;
+    padding: 0.5rem;
+    display: inline-block;
+    text-decoration: none;
+    &_active {
+      border-bottom: 2px solid cornflowerblue;
+      }
+
+  }
+}
