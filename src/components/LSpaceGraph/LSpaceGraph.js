@@ -97,7 +97,6 @@ class LSpaceGraph extends Component {
     const graphEdges = nextState.data[1].slice(0, 500)
     // const graphNodes = nextState.data[0]
     const graphNodes = uniq(flatten(graphEdges))
-    console.log(graphNodes.length)
 
     const data = {
       nodes: graphNodes.map(d => ({ label: d, r: 7 })),
