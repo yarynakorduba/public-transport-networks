@@ -4,8 +4,6 @@ import { Route, Switch, withRouter } from "react-router-dom"
 import GraphTabsContainer from "../LPCGraph/GraphTabsContainer"
 import LSpaceGraph from "../LSpaceGraph/LSpaceGraph"
 
-const EmptyState = () => <div />
-
 const Illustration = () => (
   <div className={"Illustration"}>
     <Switch>
