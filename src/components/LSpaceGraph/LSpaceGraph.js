@@ -1,14 +1,11 @@
 import React, { Component } from "react"
 import { getBristolLSpaceGraph } from "../../api"
+import { withParentSize } from "@vx/responsive"
+import { compose, defaultProps, mapProps, renameProps } from "recompose"
 import * as d3 from "d3"
+import { flatten, uniq } from "ramda"
 
 class LSpaceGraph extends Component {
-  static defaultProps = {
-    width: 1600 * 2,
-    height: 600 * 2,
-    margin: { top: 0, left: 0, bottom: 0, right: 0 }
-  }
-
   state = {
     data: []
   }
@@ -21,7 +18,6 @@ class LSpaceGraph extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("render")
     if (nextState.data.length === 0) return true
 
     const { width, height, margin } = this.props
@@ -98,10 +94,13 @@ class LSpaceGraph extends Component {
       simulation.force("link").links(data.links)
     }
 
-    const [graphNodes, graphEdges] = nextState.data
+    const graphEdges = nextState.data[1].slice(0, 500)
+    // const graphNodes = nextState.data[0]
+    const graphNodes = uniq(flatten(graphEdges))
+    console.log(graphNodes.length)
 
     const data = {
-      nodes: graphNodes.map(d => ({ label: d, r: ~~d3.randomUniform(1, 3)() })),
+      nodes: graphNodes.map(d => ({ label: d, r: 7 })),
       links: graphEdges.map(([source, target]) => ({
         source: graphNodes.indexOf(source),
         target: graphNodes.indexOf(target)
@@ -119,4 +118,12 @@ class LSpaceGraph extends Component {
   }
 }
 
-export default LSpaceGraph
+export default compose(
+  defaultProps({
+    width: 1600 * 2,
+    height: 600 * 2,
+    margin: { top: 0, left: 0, bottom: 0, right: 0 }
+  }),
+  withParentSize,
+  renameProps({ parentHeight: "height", parentWidth: "width" })
+)(LSpaceGraph)
