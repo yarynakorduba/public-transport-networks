@@ -2,10 +2,12 @@ import triggers, * as fromTriggers from "./triggers"
 import data, * as fromData from "./data"
 
 import { combineReducers } from "redux"
+import graph from "./graph"
 
 const articleApp = combineReducers({
   data,
-  triggers
+  triggers,
+  graph
 })
 
 export default articleApp

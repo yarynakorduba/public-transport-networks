@@ -30,24 +30,12 @@
     letter-spacing: 1px;
     line-height: 1.4rem;
 
-    &--first::first-letter {
+    &_first::first-letter {
       font-size: 2rem;
       color: var(--blue);
     }
 
-    &--highlighted {
-      font-weight: 700;
-      font-style: italic;
-      background-color: #e6e6e6;
-    }
-
-    &--highlighted {
-      font-weight: 700;
-      font-style: italic;
-      background-color: #e6e6e6;
-    }
-
-    &--highlighted {
+    &_highlighted {
       font-weight: 700;
       font-style: italic;
       background-color: #e6e6e6;

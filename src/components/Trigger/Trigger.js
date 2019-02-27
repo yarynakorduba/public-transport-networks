@@ -28,7 +28,7 @@ class Trigger extends Component {
 
   render() {
     return (
-      <span ref="root" className={"Trigger--highlighted"}>
+      <span ref="root" className={"Trigger_highlighted"}>
         {this.props.children}
       </span>
     )
