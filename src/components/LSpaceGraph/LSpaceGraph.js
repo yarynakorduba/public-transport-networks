@@ -5,6 +5,8 @@ import { branch, compose, defaultProps, renameProps, renderComponent, withProps,
 import * as d3 from "d3"
 import { findIndex, flatten, propEq } from "ramda"
 import { withDragging } from "../HOC/dragging"
+import { connect } from "react-redux"
+import { fetchNodes } from "../../actions"
 
 const colorScale = d3.scaleOrdinal(["white", "yellow", "green"])
 
@@ -64,6 +66,12 @@ class LSpaceGraph extends Component {
 }
 
 export default compose(
+  connect(
+    state => ({
+      data: state.graph
+    }),
+    { fetchNodes }
+  ),
   defaultProps({
     width: 1600 * 2,
     height: 600 * 2,
@@ -71,23 +79,24 @@ export default compose(
   }),
   withParentSize,
   renameProps({ parentHeight: "height", parentWidth: "width" }),
-  withState("data", "setData", undefined),
-  withProps(({ data, setData }) => !data && getBristolLSpaceGraphNodes("bristol").then(data => setData(data))),
+  withProps(({ data, setData, fetchNodes }) => console.log(data) || (!data && fetchNodes("bristol"))),
   withProps(({ data }) => console.log(data) || data),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
-  withProps(({ data }) => ({
-    data: {
-      nodes: data.map(d => ({ ...d, r: d.connections.length })),
-      links: flatten(
-        data.map(node =>
-          node.connections.map(connection => ({
-            source: data.indexOf(node),
-            target: findIndex(propEq("id", connection))(data)
-          }))
-        )
-      )
-    }
-  })),
+  // withProps(({ data }) => {
+  //   const stopsWithDegreeTwo = []
+  //   return {
+  //     data: {
+  //       nodes: data.map(d => ({ ...d, r: d.connections.length })),
+  //       links: flatten(
+  //         data.map(node =>
+  //           node.connections.length === 2
+  //             ? {return node.connections}
+  //             : node.connections.map(connection => [data.indexOf(node), findIndex(propEq("id", connection))(data)])
+  //         )
+  //       )
+  //     }
+  //   }
+  // }),
   withProps(({ width, height, margin }) => ({
     chartWidth: width - (margin.left + margin.right),
     chartHeight: height - (margin.top + margin.bottom)

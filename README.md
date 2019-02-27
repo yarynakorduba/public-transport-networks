@@ -1,27 +1,17 @@
-To store large data use Git Large File Storage (https://git-lfs.github.com/):
-
-1. <a href="https://git-lfs.github.com/">Download</a> from the site
-
-2. Install command line extension 
+<h1>Important!</h1>
+1. There are large data files in the project. To work with these files you should download
+ Git Large File Storage (https://git-lfs.github.com/) and install it with
 ```
 git lfs install
 ```
-
-3. Add the file extensions you would like to track, e.g. 
-```
-git lfs track "*.json"
-```
-
-4. Add `.gitattributes` 
-```
-git add .gitattributes
-```
-
-5. Commit and push as you normally would
-
-6. When pulling the project, use 
+To load the files locally, use
 ```
 git lfs pull
 ```
-to fetch all the lfs tracked files
+You can see all the files that are tracked by Git LFS in `.gitattributes` file. If you need to start tracking another files, use
+```
+git lfs track <fileName pattern>
+```
 
+2. To name the CSS classes, we use BEM methodology with `__` separator for element and `_` separator for modifier:
+ `.Block__element_modifier`

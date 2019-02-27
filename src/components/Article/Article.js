@@ -10,7 +10,7 @@ const Article = () => (
   <div className={"Article"}>
     <header className={"Article__chapter"}>Introduction</header>
     <h1 className={"Article__header"}>Problem&nbsp;Description & Historical&nbsp;Precedent</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       Public transport networks resilience and efficiency are the important aspects of every big city`s functioning. In
       a stable and well-structured network not only the average travel time and quantity of route changes are small, but
       also the safety of the passengers under different circumstances is increased.
@@ -24,14 +24,14 @@ const Article = () => (
     </p>
     <img className={"Article__image"} src={trafficJam} alt={"Traffic Jam"} />
     <h1 className={"Article__header"}>Urban-base solutions</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
       often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
       phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
       measure for moving buses through intersections.
     </p>
     <h1 className={"Article__header"}>Scientific approaches</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       A lot of different scientific approaches for the exploration of the public transport system appeared. Having a set
       of the stops and their connections we can build a graph in different dimensions. E.g., we can display the stops as
       the nodes and put edge between two stops only if they are adjacent on the route. and analyse the routes using
@@ -40,7 +40,7 @@ const Article = () => (
       route. The subgraphs in such representation are connected if Mean degree of the nodes can give us
     </p>
     <h1 className={"Article__header"}>Related Works</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
       often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
       phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
@@ -48,7 +48,7 @@ const Article = () => (
     </p>
     <header className={"Article__chapter"}>London and Bristol</header>
     <h1 className={"Article__header"}>Repeated&nbsp;Explorations in&nbsp;L-space</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       In this article we will concentrate on the three PTNs of different sizes. The first and the biggest one is In our
       work, we first repeated the analysis of <Trigger data={{ name: "London" }}>London bus network</Trigger> in
       L-space.
@@ -133,7 +133,7 @@ const Article = () => (
     </p>
     <header className={"Article__chapter"}>Lviv</header>
     <h1 className={"Article__header"}>Lviv Public&nbsp;Transport&nbsp;Dataset</h1>
-    <p className={"Article__paragraph Article__paragraph--first"}>
+    <p className={"Article__paragraph Article__paragraph_first"}>
       In the United States, BRT began in 1977, with Pittsburgh's South Busway,[10] operating on 4.3 miles (6.9 km) of
       exclusive lanes. Its success led to the Martin Luther King Jr. East Busway in 1983, a fuller BRT deployment
       including a dedicated busway of 9.1 miles (14.6 km), traffic signal preemption, and peak service headway as low as
