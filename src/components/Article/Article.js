@@ -6,7 +6,6 @@ import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import trafficJam from "../../images/traffic_jam.png"
 
 import "./Article.scss"
-import { getBristolLSpaceGraph } from "../../api"
 const Article = () => (
   <div className={"Article"}>
     <header className={"Article__chapter"}>Introduction</header>
@@ -152,9 +151,19 @@ const Article = () => (
     <header>Conclusions</header>
     <p className={"Article__paragraph"}>...</p>
     <h1 className={"Article__header"}>Another visualizations</h1>
-    <p className={"Article__paragraph"}>
-      ...
-    </p>
+    {/*<p className={"Article__paragraph"}>*/}
+      {/*<iframe*/}
+        {/*title={"Uber Distribution"}*/}
+        {/*src={"http://1fykyq3mdn5r21tpna3wkdyi-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/blog_arcs.gif"}*/}
+      {/*/>*/}
+      {/*<iframe title="Netherlands Trains" src={"http://tulpinteractive.com/on-time-every-time/"} />*/}
+      {/*<iframe*/}
+        {/*title={"New York Bikes"}*/}
+        {/*src={*/}
+          {/*"http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/"*/}
+        {/*}*/}
+      {/*/>*/}
+    {/*</p>*/}
   </div>
 )
 

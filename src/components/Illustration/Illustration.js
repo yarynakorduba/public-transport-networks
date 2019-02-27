@@ -3,7 +3,6 @@ import "./Illustration.scss"
 import { Route, Switch, withRouter } from "react-router-dom"
 import GraphTabsContainer from "../LPCGraph/GraphTabsContainer"
 import LSpaceGraph from "../LSpaceGraph/LSpaceGraph"
-import * as Sandbox from "../Sandbox"
 
 const Illustration = () => (
   <div className={"Illustration"}>
