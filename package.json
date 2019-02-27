@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@most/core": "^1.3.4",
+    "@most/dom-event": "^2.0.0",
+    "@most/scheduler": "^1.2.2",
     "@vx/group": "0.0.183",
     "@vx/mock-data": "0.0.185",
     "@vx/network": "0.0.183",
@@ -10,14 +13,12 @@
     "@vx/shape": "0.0.184",
     "@vx/vx": "0.0.185",
     "d3": "^5.9.1",
-    "node-sass": "^4.11.0",
     "ramda": "^0.26.1",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-redux": "^6.0.0",
+    "react": "^16",
+    "react-dom": "^16",
+    "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.3",
-    "recompose": "^0.30.0",
+    "recompose": "^0",
     "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0"
@@ -38,6 +39,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "react-scripts": "^2",
+    "node-sass": "^4.11.0"
   }
 }
