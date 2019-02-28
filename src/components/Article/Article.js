@@ -152,17 +152,17 @@ const Article = () => (
     <p className={"Article__paragraph"}>...</p>
     <h1 className={"Article__header"}>Another visualizations</h1>
     {/*<p className={"Article__paragraph"}>*/}
-      {/*<iframe*/}
-        {/*title={"Uber Distribution"}*/}
-        {/*src={"http://1fykyq3mdn5r21tpna3wkdyi-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/blog_arcs.gif"}*/}
-      {/*/>*/}
-      {/*<iframe title="Netherlands Trains" src={"http://tulpinteractive.com/on-time-every-time/"} />*/}
-      {/*<iframe*/}
-        {/*title={"New York Bikes"}*/}
-        {/*src={*/}
-          {/*"http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/"*/}
-        {/*}*/}
-      {/*/>*/}
+    {/*<iframe*/}
+    {/*title={"Uber Distribution"}*/}
+    {/*src={"http://1fykyq3mdn5r21tpna3wkdyi-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/blog_arcs.gif"}*/}
+    {/*/>*/}
+    {/*<iframe title="Netherlands Trains" src={"http://tulpinteractive.com/on-time-every-time/"} />*/}
+    {/*<iframe*/}
+    {/*title={"New York Bikes"}*/}
+    {/*src={*/}
+    {/*"http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/"*/}
+    {/*}*/}
+    {/*/>*/}
     {/*</p>*/}
   </div>
 )
