@@ -7,8 +7,9 @@ import LSpaceGraph from "../LSpaceGraph/LSpaceGraph"
 const Illustration = () => (
   <div className={"Illustration"}>
     <Switch>
-      <Route exact path={"/"} component={LSpaceGraph} />
-      <Route exact path={"/cities/:city/spaces/:space"} component={GraphTabsContainer} />
+      <LSpaceGraph />
+      {/*<Route exact path={"/"} component={LSpaceGraph} />*/}
+      {/*<Route exact path={"/cities/:city/spaces/:space"} component={GraphTabsContainer} />*/}
     </Switch>
   </div>
 )

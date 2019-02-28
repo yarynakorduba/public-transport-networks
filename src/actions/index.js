@@ -6,10 +6,11 @@ import {
   FETCH_ROUTES_ERROR,
   FETCH_NODES_START,
   FETCH_NODES_SUCCESS,
-  FETCH_NODES_ERROR
+  FETCH_NODES_ERROR,
+  REMOVE_DEGREE_TWO_NODE
 } from "./actionTypes"
 import { json } from "d3"
-import { getBristolLSpaceGraphNodes } from "../api"
+import { getLSpaceGraphNodes } from "../api"
 
 export const fetchNodesStart = () => ({ type: FETCH_NODES_START })
 export const fetchNodesSuccess = nodes => ({ type: FETCH_NODES_SUCCESS, nodes })
@@ -18,7 +19,7 @@ export const fetchNodesError = error => ({ type: FETCH_NODES_ERROR, error })
 export const fetchNodes = city => async dispatch => {
   dispatch(fetchNodesStart())
   try {
-    const response = await getBristolLSpaceGraphNodes(city)
+    const response = await getLSpaceGraphNodes(city)
     if (!response.error) {
       dispatch(fetchNodesSuccess(response))
     } else {
@@ -28,6 +29,8 @@ export const fetchNodes = city => async dispatch => {
     dispatch(fetchNodesError(e))
   }
 }
+
+export const removeDegreeTwoNode = id => ({ type: REMOVE_DEGREE_TWO_NODE, id })
 
 export const addTrigger = trigger => dispatch => dispatch({ type: ADD_TRIGGER, trigger })
 export const removeTrigger = trigger => dispatch => dispatch({ type: REMOVE_TRIGGER, trigger })
