@@ -5,17 +5,9 @@ import * as d3 from "d3"
 import { flatten, indexOf } from "ramda"
 import { withDragging } from "../HOC/dragging"
 import { connect } from "react-redux"
-import { fetchNodes, removeDegreeTwoNode } from "../../actions"
-
-const colorScale = d3
-  .scaleThreshold()
-  .domain([2, 5])
-  .range(["white", "#f3dd6f", "#F3CC06"])
-
-const radiusScale = d3
-  .scaleLinear()
-  .domain([1, 10])
-  .range([2, 11])
+import { fetchNodes } from "../../actions"
+import { removeDegreeTwoNode } from "../../actions/actionCreators"
+import { colorScale, radiusScale } from "../../helpers/scales"
 
 const LSpaceGraph = ({ chartHeight, chartWidth }) => <svg height={chartHeight} width={chartWidth} />
 
