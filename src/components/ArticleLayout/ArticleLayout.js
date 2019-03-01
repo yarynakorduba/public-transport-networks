@@ -2,9 +2,9 @@ import React, { Component, createContext } from "react"
 import { compose } from "ramda"
 import "./ArticleLayout.scss"
 import { connect } from "react-redux"
-import { addTrigger, removeTrigger } from "../../actions"
 import { triggerRespondent } from "../HOC/triggerRespondent"
 import { withRouter } from "react-router-dom"
+import { addTrigger, removeTrigger } from "../../actions/actionCreators"
 
 export const ScrolledContext = createContext()
 

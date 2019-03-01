@@ -8,50 +8,56 @@ import trafficJam from "../../images/traffic_jam.png"
 import "./Article.scss"
 const Article = () => (
   <div className={"Article"}>
-    <header className={"Article__chapter"}>Introduction</header>
-    <h1 className={"Article__header"}>Problem&nbsp;Description & Historical&nbsp;Precedent</h1>
+    <header className={"Article__chapter"}>Вступ</header>
+    <h1 className={"Article__header"}>Опис&nbsp;проблеми & Історичний&nbsp;прецедент</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
-      Public transport networks resilience and efficiency are the important aspects of every big city`s functioning. In
-      a stable and well-structured network not only the average travel time and quantity of route changes are small, but
-      also the safety of the passengers under different circumstances is increased.
+      Робота транспортної системи - важливий аспект життя кожного міста. Для створення стабільної і добре структурованої
+      мережі громадського транспорту важливо не тільки забезпечити пасажирам якнайшвидше добирання до будь-якого пункту
+      із найменшою кількістю пересадок, але й подбати про безпеку при виникненні непередбачуваних ситуацій у мережі.
     </p>
     <p className={"Article__paragraph"}>
-      An unstable network can suffer unexpectedly under random failures as well as targeted attacks. Random failures
-      include accidents, large traffic jams or even poor weather conditions at some parts of the network that cause
-      inaccessibility of some stops or even the whole routes. Much worse are targeted attacks, for example, terrorist
-      acts. Such attacks often occur at the highly connected stops, so called hubs, which are the most important for the
-      whole network and where a lot of passengers gather.
+      Нестійка мережа може швидко розвалитися як через випадкові "випадання" зупинок, так і при спрямованих атаках.
+      Випадкові події включають у себе аварії, сильні затори чи навіть погані погодні умови у певній частині мережі,
+      через що частина зупинок чи навіть увесь маршрут стають недоступними.
+      <img className={"Article__image"} src={trafficJam} alt={"Traffic Jam"} />
+      Та ще більш небезпечними є спрямовані атаки, наприклад, страйк на одній із зупинок чи терористичний акт. Такі
+      події зазвичай трапляються у найбільш зв'язних точках мережі, так званих хабах, які є найбільш важливими для всієї
+      мережі, оскільки обслуговують велику кількість маршрутів.
     </p>
-    <img className={"Article__image"} src={trafficJam} alt={"Traffic Jam"} />
-    <h1 className={"Article__header"}>Urban-base solutions</h1>
+    <h1 className={"Article__header"}>Науковий підхід</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
-      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
-      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
-      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
-      measure for moving buses through intersections.
+      У науковому світі з'явилося багато підходів для визначення ефективності та стійкості різних систем. Дане
+      дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах* (оскільки зазвичай
+      зупинки прямого та зворотного маршрутів знаходяться через дорогу одна від одної, останніми можна знехтувати. Для
+      побудови графа у цьому дослідженні використовуються лише прямі маршрути): <i>L-space</i>, <i>P-space</i> i{" "}
+      <i>C-space</i>, кожен із яких відображає різні аспекти роботи транспортної системи. <i>L-space</i> - найпростіший
+      для нашого розуміння вимір, адже він відтворює "топографію" мережі. У цьому відображенні зупинки - це вузли графа,
+      і два вузли пов'язані між собою ребром лише, якщо вони суміжні на маршруті. Маршрути пов'язані між собою через
+      спільні зупинки. <i>P-space</i> відображає кількість пересадок, яку потрібно зробити, щоби здійснити поїздку між
+      будь-якими двома зупинками. У цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з
+      одною прямим ребром, адже між кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту. У{" "}
+      <i>C-space</i> інформація більш узагальнена. Цей простір відображає зв'язки не між зупинками, а між маршрутами для
+      того, щоби прослідкувати, скільки пересадок потрібно здійснити, щоби дістатися від зупинки одного маршруту до
+      зупинки іншого маршруту.
     </p>
-    <h1 className={"Article__header"}>Scientific approaches</h1>
+    <h1 className={"Article__header"}>Історія про три міста</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
-      A lot of different scientific approaches for the exploration of the public transport system appeared. Having a set
-      of the stops and their connections we can build a graph in different dimensions. E.g., we can display the stops as
-      the nodes and put edge between two stops only if they are adjacent on the route. and analyse the routes using
-      common estimations. This type of representation is called L-space. We can also display the stops of every route as
-      complete subgraphs of the network, as technically we can reach any stop of a route from any another stop of this
-      route. The subgraphs in such representation are connected if Mean degree of the nodes can give us
+      Для проведення дослідження ми обрали три різні транспортні системи: автобусні маршрути Лондона та Брістоля і
+      мережу громадського транспорту Львова. У Лондоні - ... маршрутів із ... зупинками. Автобусна мережа Брістоля
+      налічує 2873 зупинки, які входять до 143 маршрутів. Мережа Львова налічує 100 міських маршрутів, що обслуговують
+      771 зупинку. Таким чином ми мали змогу дослідити подібні та відмінні характеристики трьох різних за розміром та
+      систем.
     </p>
-    <h1 className={"Article__header"}>Related Works</h1>
+    <header className={"Article__chapter"}>Лондон та Брістоль</header>
     <p className={"Article__paragraph Article__paragraph_first"}>
-      Prohibiting turns for traffic across the bus lane significantly reduces delays to the buses. Bus priority will
-      often be provided at signalized intersections to reduce delays by extending the green phase or reducing the red
-      phase in the required direction compared to the normal sequence. Prohibiting turns may be the most important
-      measure for moving buses through intersections.
-    </p>
-    <header className={"Article__chapter"}>London and Bristol</header>
-    <h1 className={"Article__header"}>Repeated&nbsp;Explorations in&nbsp;L-space</h1>
-    <p className={"Article__paragraph Article__paragraph_first"}>
-      In this article we will concentrate on the three PTNs of different sizes. The first and the biggest one is In our
-      work, we first repeated the analysis of <Trigger data={{ name: "London" }}>London bus network</Trigger> in
-      L-space.
+      Дослідження для Лондона та Брістоля в <i>L-просторі</i> проводили раніше. Ці результати, а також характеристики
+      транспортних систем 12 інших міст представлені у статті{" "}
+      <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>.
+      Для отримання повної картини спочатку ми відтворили і порівняли із попередніми результати двох міст у <i>L-space</i>,
+      пізніше відобразили системи у двох інших вимірах.
+      <h1 className={"Article__header"}>Результати в &nbsp;L-просторі</h1>
+      <h3>Далі буде...</h3>
+      <Trigger data={{ name: "London" }}>London bus network</Trigger> in L-space.
       <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} />
     </p>
     <p className={"Article__paragraph"}>
@@ -151,19 +157,6 @@ const Article = () => (
     <header>Conclusions</header>
     <p className={"Article__paragraph"}>...</p>
     <h1 className={"Article__header"}>Another visualizations</h1>
-    {/*<p className={"Article__paragraph"}>*/}
-    {/*<iframe*/}
-    {/*title={"Uber Distribution"}*/}
-    {/*src={"http://1fykyq3mdn5r21tpna3wkdyi-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/blog_arcs.gif"}*/}
-    {/*/>*/}
-    {/*<iframe title="Netherlands Trains" src={"http://tulpinteractive.com/on-time-every-time/"} />*/}
-    {/*<iframe*/}
-    {/*title={"New York Bikes"}*/}
-    {/*src={*/}
-    {/*"http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/"*/}
-    {/*}*/}
-    {/*/>*/}
-    {/*</p>*/}
   </div>
 )
 
