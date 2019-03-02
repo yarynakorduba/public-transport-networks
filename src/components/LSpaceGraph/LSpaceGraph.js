@@ -1,6 +1,6 @@
 import React from "react"
 import { withParentSize } from "@vx/responsive"
-import { branch, compose, defaultProps, lifecycle, pure, renameProps, renderComponent, withProps } from "recompose"
+import { branch, compose, defaultProps, lifecycle, renameProps, renderComponent, withProps } from "recompose"
 import * as d3 from "d3"
 import { flatten, indexOf } from "ramda"
 import { withDragging } from "../HOC/dragging"
@@ -12,7 +12,6 @@ import { colorScale, radiusScale } from "../../helpers/scales"
 const LSpaceGraph = ({ chartHeight, chartWidth }) => <svg height={chartHeight} width={chartWidth} />
 
 export default compose(
-  pure,
   connect(
     state => ({
       data: state.graph
@@ -28,8 +27,10 @@ export default compose(
   renameProps({ parentHeight: "height", parentWidth: "width" }),
   withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol")),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
-  withProps(async ({ data, removeDegreeTwoNode }) =>
-    Object.keys(data).forEach(async node => data[node].connections.length === 2 && (await removeDegreeTwoNode(node)))
+  withProps(
+    ({ data, removeDegreeTwoNode }) =>
+      console.log("here") ||
+      Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
   ),
   withProps(
     ({ data, dataToDisplay }) =>
