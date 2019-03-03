@@ -29,7 +29,6 @@ export default compose(
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
   withProps(
     ({ data, removeDegreeTwoNode }) =>
-      console.log("here") ||
       Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
   ),
   withProps(

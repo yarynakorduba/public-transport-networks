@@ -40,7 +40,6 @@
   ],
   "devDependencies": {
     "prettier": "^1.16.4",
-    "react-scripts": "^2",
-    "node-sass": "^4.11.0"
+    "react-scripts": "^2"
   }
 }
