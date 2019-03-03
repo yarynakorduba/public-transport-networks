@@ -1,38 +1,35 @@
 import React, { Component } from "react"
 import { ScrolledContext } from "../ArticleLayout/ArticleLayout"
 import "./Trigger.scss"
+import compose from "ramda/es/compose"
+import { fromRenderProps, lifecycle, withHandlers, withState } from "recompose"
 
-class Trigger extends Component {
-  state = {
-    position: null,
-    triggered: false
-  }
-  toggleTrigger(triggered, toggleAction) {
-    this.setState({ triggered })
-    toggleAction(this.props.data)
-  }
-
-  componentDidMount() {
-    this.setState({ position: this.refs.root.getBoundingClientRect().top })
-  }
-
-  componentDidUpdate() {
-    if (this.state.position - this.context.scrolled < 0 && !this.state.triggered) {
-      this.toggleTrigger(true, this.context.onAction)
-    }
-    if (this.state.position - this.context.scrolled > 0 && this.state.triggered)
-      this.toggleTrigger(false, this.context.offAction)
-
-    return this.props.children
-  }
-
-  render() {
-    return (
-      <span ref="root" className={"Trigger_highlighted"}>
-        {this.props.children}
-      </span>
-    )
-  }
-}
+const Trigger = ({setRoot,children}) => (<span className={"Trigger_highlighted"} ref={setRoot}>{children}</span>)
 Trigger.contextType = ScrolledContext
-export default Trigger
+const enhancer = compose(
+  fromRenderProps(ScrolledContext.Consumer, ({scrolled,onAction,offAction})=>({scrolled,onAction,offAction})),
+  withState("position", "changePosition", 0),
+  withState("root", "setRoot", null),
+  withState("triggered", "changeTrigger", false),
+  withHandlers({
+    toggleTrigger: ({changeTrigger, data}) => (triggered, toggleAction) => {
+      changeTrigger(triggered)
+      toggleAction(data)
+    }
+  }),
+  lifecycle({
+    componentDidMount(){
+      window.addEventListener("scroll", () => this.props.changePosition(this.props.root.getBoundingClientRect().top))
+    },
+    componentDidUpdate(){
+      if (this.props.position - this.props.scrolled < 0 && !this.props.triggered) {
+        this.props.toggleTrigger(true, this.props.onAction)
+      }
+      if (this.props.position - this.props.scrolled > 0 && this.props.triggered)
+        this.props.toggleTrigger(false, this.props.offAction)
+
+      return this.props.children
+    }
+  })
+)
+export default enhancer(Trigger)

@@ -4,7 +4,7 @@ import "./ArticleLayout.scss"
 import { connect } from "react-redux"
 import { triggerRespondent } from "../HOC/triggerRespondent"
 import { withRouter } from "react-router-dom"
-import { lifecycle, withHandlers, withProps, withState } from "recompose"
+import { lifecycle, withProps, withState } from "recompose"
 import { addTrigger, removeTrigger } from "../../actions/actionCreators"
 
 export const ScrolledContext = createContext()
