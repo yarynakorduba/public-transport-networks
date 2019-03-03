@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,mBAAoB;EAClB,OAAO,EAAE,UAAU;EACnB,0BAAS;IACP,KAAK,EAAE,GAAG",
-"sources": ["GraphTabsContainer.scss"],
-"names": [],
-"file": "GraphTabsContainer.css"
-}

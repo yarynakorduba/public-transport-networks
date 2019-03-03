@@ -6,12 +6,11 @@ import { triggerRespondent } from "../HOC/triggerRespondent"
 import { withRouter } from "react-router-dom"
 import { lifecycle, withState } from "recompose"
 import { addTrigger, removeTrigger } from "../../actions/actionCreators"
-import { withStateHandlers } from "recompose"
 
 export const ScrolledContext = createContext()
 
-const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, triggers, scrolled, onRef }) => (
-  <section className={"ArticleLayout"} ref={onRef}>
+const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, triggers, scrolled, setRoot }) => (
+  <section className={"ArticleLayout"} ref={setRoot}>
     <ScrolledContext.Provider
       value={{
         scrolled,
@@ -48,15 +47,13 @@ const enhancer = compose(
     { addTrigger, removeTrigger }
   ),
   withState("scrolled", "setScrolled", 0),
-  withStateHandlers(() => ({ myScroll: null }), { onRef: () => ref => ({ myScroll: ref }) }),
+  withState("root", "setRoot", null),
   lifecycle({
     componentDidMount() {
-      window.addEventListener("scroll", () => {
-        this.props.setScrolled(-this.props.myScroll.getBoundingClientRect().top)
-      })
+      window.addEventListener("scroll", () => this.props.setScrolled(-this.props.root.getBoundingClientRect().top))
     }
   }),
-  triggerRespondent,
+  triggerRespondent
 )
 
 export default enhancer(ArticleLayout)
