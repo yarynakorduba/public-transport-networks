@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 683 657" xmlns="http://www.w3.org/2000/svg">
+    <g class="links" stroke="#1F1A40">
+        <line x1="391.14" x2="378.56" y1="381.24" y2="351.03" strokeWidth="0.4504"/>
+        <line x1="378.56" x2="391.14" y1="351.03" y2="381.24" strokeWidth="0.4504"/>
+        <line x1="378.56" x2="352.99" y1="351.03" y2="320.27" strokeWidth="0.4504"/>
+        <line x1="352.99" x2="378.56" y1="320.27" y2="351.03" strokeWidth="0.4504"/>
+        <line x1="352.99" x2="352.5" y1="320.27" y2="280.27" strokeWidth="0.4504"/>
+        <line x1="352.99" x2="388.26" y1="320.27" y2="307.53" strokeWidth="0.4504"/>
+        <line x1="352.99" x2="317.56" y1="320.27" y2="338.82" strokeWidth="0.4504"/>
+        <line x1="352.5" x2="352.99" y1="280.27" y2="320.27" strokeWidth="0.4504"/>
+        <line x1="352.5" x2="345.98" y1="280.27" y2="248.39" strokeWidth="0.4504"/>
+        <line x1="345.98" x2="352.5" y1="248.39" y2="280.27" strokeWidth="0.4504"/>
+        <line x1="388.26" x2="352.99" y1="307.53" y2="320.27" strokeWidth="0.4504"/>
+        <line x1="317.56" x2="352.99" y1="338.82" y2="320.27" strokeWidth="0.4504"/>
+        <line x1="317.56" x2="286.77" y1="338.82" y2="355.46" strokeWidth="0.4504"/>
+        <line x1="286.77" x2="317.56" y1="355.46" y2="338.82" strokeWidth="0.4504"/>
+        <line x1="286.77" x2="259.73" y1="355.46" y2="373.49" strokeWidth="0.4504"/>
+        <line x1="259.73" x2="286.77" y1="373.49" y2="355.46" strokeWidth="0.4504"/>
+    </g>
+    <g class="nodes">
+        <circle cx="391.14" cy="381.24" r="10" fill="#ff0"/>
+        <circle cx="378.56" cy="351.03" r="12.5" fill="#ff0"/>
+        <circle cx="352.99" cy="320.27" r="17.5" fill="red"/>
+        <circle cx="352.5" cy="280.27" r="12.5" fill="#ff0"/>
+        <circle cx="345.98" cy="248.39" r="10" fill="#ff0"/>
+        <circle cx="388.26" cy="307.53" r="10" fill="#90ee90"/>
+        <circle cx="317.56" cy="338.82" r="12.5" fill="#90ee90"/>
+        <circle cx="286.77" cy="355.46" r="12.5" fill="#90ee90"/>
+        <circle cx="259.73" cy="373.49" r="10" fill="#90ee90"/>
+    </g>
+    <g class="labels">
+        <text class="text-label" transform="translate(391.14 381.24)">1</text>
+        <text class="text-label" transform="translate(378.56 351.03)">2</text>
+        <text class="text-label" transform="translate(352.99 320.27)">3</text>
+        <text class="text-label" transform="translate(352.5 280.27)">4</text>
+        <text class="text-label" transform="translate(345.98 248.39)">5</text>
+        <text class="text-label" transform="translate(388.26 307.53)">K</text>
+        <text class="text-label" transform="translate(317.56 338.82)">L</text>
+        <text class="text-label" transform="translate(286.77 355.46)">M</text>
+        <text class="text-label" transform="translate(259.73 373.49)">N</text>
+    </g>
+</svg>
