@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i&subset=cyrillic");
+:root {
+  --light-grey-blue: #a5b5da;
+  --blue: #6775b6;
+  --pale-yellow: #f3dd6f;
+  --yellow: #f3cc06; }
+
+.Article {
+  padding: 0 10%; }
+  .Article__image {
+    display: block;
+    width: 100%;
+    height: auto; }
+  .Article__chapter {
+    font-family: "Roboto", sans-serif;
+    margin: 40px 0;
+    letter-spacing: 2px;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #292929; }
+  .Article__header {
+    font-family: "Roboto", sans-serif;
+    font-size: 2.65rem;
+    font-weight: 700;
+    margin: 50px 0;
+    color: #2e2e2e; }
+  .Article__paragraph {
+    font-family: "Roboto", sans-serif;
+    margin: 40px 0;
+    font-weight: 400;
+    color: #292929;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 1.4rem; }
+    .Article__paragraph_first::first-letter {
+      font-weight: 500;
+      font-size: 1.8rem;
+      color: var(--blue); }
+    .Article__paragraph_highlighted {
+      font-weight: 700;
+      font-style: italic;
+      background-color: #e6e6e6; }
+
+/*# sourceMappingURL=Article.css.map */
