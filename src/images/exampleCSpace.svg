@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 683 657" xmlns="http://www.w3.org/2000/svg">
+    <g class="links" stroke="#1F1A40">
+        <line x1="311.9" x2="250.6" y1="300.42" y2="356.58" strokeWidth="0.4504"/>
+        <line x1="250.6" x2="311.9" y1="356.58" y2="300.42" strokeWidth="0.4504"/>
+    </g>
+    <g class="nodes">
+        <circle cx="311.9" cy="300.42" r="10" fill="#ff0"/>
+        <circle cx="250.6" cy="356.58" r="10" fill="#90ee90"/>
+    </g>
+    <g class="labels">
+        <text class="text-label" transform="translate(311.9 300.42)">Route 1</text>
+        <text class="text-label" transform="translate(250.6 356.58)">Route 2</text>
+    </g>
+</svg>
