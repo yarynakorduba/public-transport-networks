@@ -4,22 +4,28 @@ import "./ArticleLayout.scss"
 import { connect } from "react-redux"
 import { triggerRespondent } from "../HOC/triggerRespondent"
 import { withRouter } from "react-router-dom"
-import { lifecycle, withState } from "recompose"
+import { lifecycle, withProps, withState } from "recompose"
 import { addTrigger, removeTrigger } from "../../actions/actionCreators"
 
 export const ScrolledContext = createContext()
 
-const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, triggers, scrolled, setRoot }) => (
+const ArticleLayout = ({
+  article,
+  illustration,
+  addTrigger,
+  removeTrigger,
+  triggers,
+  scrolled,
+  setRoot,
+  onAction,
+  offAction
+}) => (
   <section className={"ArticleLayout"} ref={setRoot}>
     <ScrolledContext.Provider
       value={{
         scrolled,
-        onAction: data => {
-          addTrigger(data)
-        },
-        offAction: data => {
-          removeTrigger(data)
-        }
+        onAction,
+        offAction
       }}
     >
       <div
@@ -48,6 +54,10 @@ const enhancer = compose(
   ),
   withState("scrolled", "setScrolled", 0),
   withState("root", "setRoot", null),
+  withProps(({ addTrigger, removeTrigger }) => ({
+    onAction: data => addTrigger(data),
+    offAction: data => removeTrigger(data)
+  })),
   lifecycle({
     componentDidMount() {
       window.addEventListener("scroll", () => this.props.setScrolled(-this.props.root.getBoundingClientRect().top))
