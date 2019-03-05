@@ -1,7 +1,7 @@
 import { withProps } from "recompose"
 import * as d3 from "d3"
 
-export const withDragging = withProps(({ simulation }) => ({
+const withDragging = withProps(({ simulation }) => ({
   dragstarted: d => {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart()
     d.fx = d.x
@@ -17,3 +17,4 @@ export const withDragging = withProps(({ simulation }) => ({
     d.fy = null
   }
 }))
+export default withDragging
