@@ -3,13 +3,16 @@ import { withParentSize } from "@vx/responsive"
 import { branch, compose, defaultProps, lifecycle, renameProps, renderComponent, withProps } from "recompose"
 import * as d3 from "d3"
 import { flatten, indexOf } from "ramda"
-import { withDragging } from "../HOC/dragging"
 import { connect } from "react-redux"
 import { fetchNodes } from "../../actions"
 import { removeDegreeTwoNode } from "../../actions/actionCreators"
 import { colorScale, radiusScale } from "../../helpers/scales"
+import withDrawedChart from "../HOC/drawChart"
+import withDragging from "../HOC/dragging"
 
-const LSpaceGraph = ({ chartHeight, chartWidth }) => <svg height={chartHeight} width={chartWidth} />
+const LSpaceGraph = ({ chartHeight, chartWidth }) => (
+  <svg className={"LSpaceGraph"} height={chartHeight} width={chartWidth} />
+)
 
 export default compose(
   connect(
@@ -27,9 +30,8 @@ export default compose(
   renameProps({ parentHeight: "height", parentWidth: "width" }),
   withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol")),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
-  withProps(
-    ({ data, removeDegreeTwoNode }) =>
-      Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
+  withProps(({ data, removeDegreeTwoNode }) =>
+    Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
   ),
   withProps(
     ({ data, dataToDisplay }) =>
@@ -68,53 +70,10 @@ export default compose(
       .force("x", d3.forceX(0).strength(0.5))
   })),
   withDragging,
-
-  withProps(({ dataToDisplay, dragstarted, dragended, dragged, simulation }) => ({
-    drawChart: () => {
-      const svg = d3.select("svg")
-      svg.selectAll("*").remove()
-      const link = svg
-        .append("g")
-        .attr("class", "links")
-        .selectAll("line")
-        .data(dataToDisplay.links)
-        .enter()
-        .append("line")
-        .attr("stroke", "#1F1A40")
-        .attr("strokeWidth", "0.4504")
-
-      const node = svg
-        .append("g")
-        .attr("class", "nodes")
-        .selectAll("circle")
-        .data(dataToDisplay.nodes)
-        .enter()
-        .append("circle")
-        .attr("fill", d => colorScale(d.connections.length))
-        .attr("r", d => radiusScale(d.r))
-        .on("click", d => console.log(d))
-
-        .call(
-          d3
-            .drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended)
-        )
-
-      const ticked = () => {
-        link
-          .attr("x1", d => d.source.x)
-          .attr("y1", d => d.source.y)
-          .attr("x2", d => d.target.x)
-          .attr("y2", d => d.target.y)
-        node.attr("cx", d => d.x).attr("cy", d => d.y)
-      }
-      simulation.nodes(dataToDisplay.nodes).on("tick", ticked)
-      simulation.force("link").links(dataToDisplay.links)
-      return false
-    }
+  withProps(() => ({
+    DOMElement: ".LSpaceGraph"
   })),
+  withDrawedChart,
   lifecycle({
     shouldComponentUpdate({ dataToDisplay, drawChart }) {
       return !dataToDisplay ? false : drawChart()

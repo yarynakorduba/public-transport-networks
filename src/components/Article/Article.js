@@ -4,7 +4,10 @@ import londonBusNetwork from "../../images/london_bus_network_1.png"
 import bristolBusNetwork from "../../images/bristol_bus_network.png"
 import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import trafficJam from "../../images/traffic_jam.png"
-
+// import {ReactComponent as BristolLSpace} from '../../images/bristolLSpace.svg'
+import { ReactComponent as ExampleLSpace } from "../../images/exampleLSpace.svg"
+import { ReactComponent as ExamplePSpace } from "../../images/examplepSpace.svg"
+import { ReactComponent as ExampleCSpace } from "../../images/exampleCSpace.svg"
 import "./Article.scss"
 const Article = () => (
   <div className={"Article"}>
@@ -33,12 +36,17 @@ const Article = () => (
       <i>C-space</i>, кожен із яких відображає різні аспекти роботи транспортної системи. <i>L-space</i> - найпростіший
       для нашого розуміння вимір, адже він відтворює "топографію" мережі. У цьому відображенні зупинки - це вузли графа,
       і два вузли пов'язані між собою ребром лише, якщо вони суміжні на маршруті. Маршрути пов'язані між собою через
-      спільні зупинки. <i>P-space</i> відображає кількість пересадок, яку потрібно зробити, щоби здійснити поїздку між
-      будь-якими двома зупинками. У цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з
-      одною прямим ребром, адже між кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту. У{" "}
-      <i>C-space</i> інформація більш узагальнена. Цей простір відображає зв'язки не між зупинками, а між маршрутами для
-      того, щоби прослідкувати, скільки пересадок потрібно здійснити, щоби дістатися від зупинки одного маршруту до
-      зупинки іншого маршруту.
+      спільні зупинки.
+      <ExampleLSpace className={"Article__image_small"} />
+      <i>P-space</i> відображає кількість
+      пересадок, яку потрібно зробити, щоби здійснити поїздку між будь-якими двома зупинками. У цьому просторі всі
+      зупинки-вузли, що належать до одного маршруту, з'єднані одна з одною прямим ребром, адже між кожними двома
+      зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
+      <ExamplePSpace className={"Article__image_small"} />
+      У <i>C-space</i> інформація більш узагальнена. Цей простір
+      відображає зв'язки не між зупинками, а між маршрутами для того, щоби прослідкувати, скільки пересадок потрібно
+      здійснити, щоби дістатися від зупинки одного маршруту до зупинки іншого маршруту.
+      <ExampleCSpace className={"Article__image_small"} />
     </p>
     <h1 className={"Article__header"}>Історія про три міста</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
@@ -55,6 +63,7 @@ const Article = () => (
       <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>.
       Спочатку для отримання повної картини ми відтворили результати двох міст у <i>L-space</i> і порівняли їх із
       попередніми даними, пізніше відобразили системи у двох інших вимірах.
+      {/*<BristolLSpace />*/}
     </p>
     <h1 className={"Article__header"}>Результати в &nbsp;L-просторі</h1>
     <p className={"Article__paragraph"}>

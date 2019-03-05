@@ -8,6 +8,10 @@
     display: block;
     width: 100%;
     height: auto;
+    &_small {
+      display: block;
+      max-width: 25rem;
+    }
   }
 
   &__chapter {
