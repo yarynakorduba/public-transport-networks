@@ -4,7 +4,7 @@ import londonBusNetwork from "../../images/london_bus_network_1.png"
 import bristolBusNetwork from "../../images/bristol_bus_network.png"
 import lvivBusNetwork from "../../images/lviv_bus_network.png"
 import trafficJam from "../../images/traffic_jam.png"
-// import {ReactComponent as BristolLSpace} from '../../images/bristolLSpace.svg'
+import * as BristolLSpace from "../../images/bristolLSpace.png"
 import { ReactComponent as ExampleLSpace } from "../../images/exampleLSpace.svg"
 import { ReactComponent as ExamplePSpace } from "../../images/examplepSpace.svg"
 import { ReactComponent as ExampleCSpace } from "../../images/exampleCSpace.svg"
@@ -30,40 +30,49 @@ const Article = () => (
     <h1 className={"Article__header"}>Науковий підхід</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
       У науковому світі з'явилося багато підходів для визначення ефективності та стійкості різних систем. Дане
-      дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах* (оскільки зазвичай
-      зупинки прямого та зворотного маршрутів знаходяться через дорогу одна від одної, останніми можна знехтувати. Для
-      побудови графа у цьому дослідженні використовуються лише прямі маршрути): <i>L-space</i>, <i>P-space</i> i{" "}
-      <i>C-space</i>, кожен із яких відображає різні аспекти роботи транспортної системи. <i>L-space</i> - найпростіший
-      для нашого розуміння вимір, адже він відтворює "топографію" мережі. У цьому відображенні зупинки - це вузли графа,
-      і два вузли пов'язані між собою ребром лише, якщо вони суміжні на маршруті. Маршрути пов'язані між собою через
-      спільні зупинки.
-      <ExampleLSpace className={"Article__image_small"} />
-      <i>P-space</i> відображає кількість
-      пересадок, яку потрібно зробити, щоби здійснити поїздку між будь-якими двома зупинками. У цьому просторі всі
-      зупинки-вузли, що належать до одного маршруту, з'єднані одна з одною прямим ребром, адже між кожними двома
-      зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
-      <ExamplePSpace className={"Article__image_small"} />
-      У <i>C-space</i> інформація більш узагальнена. Цей простір
-      відображає зв'язки не між зупинками, а між маршрутами для того, щоби прослідкувати, скільки пересадок потрібно
-      здійснити, щоби дістатися від зупинки одного маршруту до зупинки іншого маршруту.
-      <ExampleCSpace className={"Article__image_small"} />
+      дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах: <i>L-space</i>,{" "}
+      <i>P-space</i> i <i>C-space</i>, кожен із яких відображає різні аспекти роботи транспортної системи.{" "}
+      <i>L-space</i> - найпростіший для нашого розуміння вимір, адже він відтворює "топографію" мережі. У цьому
+      відображенні зупинки - це вузли графа, і два вузли пов'язані між собою ребром лише, якщо вони суміжні на маршруті.
+      Маршрути пов'язані між собою через спільні зупинки. (Оскільки зазвичай зупинки прямого та зворотного маршрутів
+      знаходяться через дорогу одна від одної, останніми можна знехтувати. Для побудови графа у цьому дослідженні
+      використовуються лише прямі маршрути)
+      <ExampleLSpace className={"Article__image Article__image_small"} />
+      <i>P-space</i> відображає кількість пересадок, яку потрібно зробити, щоби здійснити поїздку між будь-якими двома
+      зупинками. У цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з одною прямим
+      ребром, адже між кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
+      <ExamplePSpace className={"Article__image Article__image_small"} />У <i>C-space</i> інформація більш узагальнена.
+      Цей простір відображає зв'язки не між зупинками, а між маршрутами для того, щоби прослідкувати, скільки пересадок
+      потрібно здійснити, щоби дістатися від зупинки одного маршруту до зупинки іншого маршруту.
+      <ExampleCSpace className={"Article__image Article__image_small"} />
     </p>
     <h1 className={"Article__header"}>Історія про три міста</h1>
     <p className={"Article__paragraph Article__paragraph_first"}>
+      Завдяки проведеним дослідженням науковці помітили, що набір певних характеристик у багатьох мереж транспорту
+      незалежно від розміру є подібним. Однак існують ознаки, між якими часто відсутня кореляція. Для розуміння
+      функціонування мереж та знаходження шляхів для їх оптимізації важливо навчитися відслідковувати як наявність, так
+      і відсутність закономірностей.
+    </p>
+    <p className={"Article__paragraph"}>
       Для проведення дослідження ми обрали три різні транспортні системи: автобусні маршрути Лондона та Брістоля і
-      мережу громадського транспорту Львова. У Лондоні - 767 маршрутів зі 16397 зупинками. Автобусна мережа Брістоля
-      налічує 2873 зупинки, які входять до 143 маршрутів. Мережа Львова налічує 100 міських маршрутів, що обслуговують
-      771 зупинку. Таким чином ми мали змогу дослідити подібні та відмінні характеристики трьох різних за розміром та
-      систем.
+      мережу громадського транспорту Львова. У Лондоні - 767 маршрутів зі 16397 зупинками.
+      <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} /> Автобусна мережа Брістоля
+      налічує 2873 зупинки, які входять до 143 маршрутів.{" "}
+      <img className={"Article__image"} alt="Bristol Bus Network" src={bristolBusNetwork} />
+      Мережа Львова налічує 100 міських маршрутів, що обслуговують 771 зупинку.{" "}
+      <img className={"Article__image"} alt="Lviv Bus Network" src={lvivBusNetwork} />
+      Таким чином ми мали змогу порівняти характеристики трьох різних за розміром та систем.
     </p>
     <header className={"Article__chapter"}>Лондон та Брістоль</header>
     <p className={"Article__paragraph Article__paragraph_first"}>
-      Дослідження для Лондона та Брістоля в <i>L-просторі</i> проводили раніше. Ці результати, а також характеристики
+      Дослідження для Лондона та Брістоля в <i>L-просторі</i> проводили раніше. Ці результати, а також аналіз
       транспортних систем 12 інших міст представлені у статті{" "}
       <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>.
-      Спочатку для отримання повної картини ми відтворили результати двох міст у <i>L-space</i> і порівняли їх із
-      попередніми даними, пізніше відобразили системи у двох інших вимірах.
-      {/*<BristolLSpace />*/}
+      Для отримання повної картини ми відтворили результати двох міст у <i>L-space</i> і порівняли їх із попередніми
+      даними, пізніше відобразили системи у двох інших вимірах. На зображенні представлена візуалізація Брістоля в
+      L-просторі. Білі вузли - кінцеві зупинки. Жовті - зупинки із більш, ніж п'ятьма з'єднаннями. (Задля покращення
+      сприйняття інформації проміжні зупинки (зупинки із двома з'єднаннями) не відображаються.)
+      <img src={BristolLSpace} className={"Article__image Article__image_small"} />
     </p>
     <h1 className={"Article__header"}>Результати в &nbsp;L-просторі</h1>
     <p className={"Article__paragraph"}>
@@ -96,16 +105,52 @@ const Article = () => (
       розподіл імовірності або випадковим процесом, що генерує їх. Випадкові графи використовують, щоби відповісти на
       запитання про характеристики типових графів. [Вікіпедія])
     </p>
-    <p className={"Article__paragraph"}>Clustering coefficient (0.012 for London, 0.034 for Bristol)</p>
-    <p className={"Article__paragraph"}>Assortativity (0.19 for London, 0.26 for Bristol)</p>
-    <p className={"Article__paragraph"}>Betweenness centrality (0.01 for Bristol)</p>
-    <p className={"Article__paragraph"}>Resilience --- Molloy-Reed criterion (2.471 for London, 2.734 for Bristol)</p>
+    <p className={"Article__paragraph"}>
+      Ще один показник для досліджень - коефіцієнт кластерності <i>С</i>. Ця характеристика показує, скільки найближчих
+      сусідів певного вузла є сусідами одне одного. І в Брістоля і в Лондона коефіцієнти кластерності доволі високі,
+      причому показник першого є вищим - 0.034 у Брістоля проти 0.012 у Лондона.
+    </p>
+    <p className={"Article__paragraph"}>
+      Мережі Лондона та Брістоля мають також високі значення асортативності: 0.19 та 0.26. Асортативність <i>r</i> -
+      тенденція вузлів одного ступеня приєднуватися. Мережі, де така тенденція спостерігається, тобто <i>r &gt; 0</i>,
+      називають асортативними. І навпаки, якщо <i>r &lt; 0</i>, можна зробити висновок, що вузли високого ступеня
+      частіше будують зв'язки із вузлами невисокого ступеня. Такі мережі називають неасортативними.
+    </p>
+    <p className={"Article__paragraph"}>
+      Що може вказувати на важливість певної зупинки у мережі? Раніше ми описували, що одним із таких показників є її
+      ступінь. Однак пасажиру громадського транспорту зазвичай важливі не зупинки на перетині найбільшої кількості
+      маршрутів, а станції, через які проходить найбільша кількість оптимальних шляхів. Тому для характеристики вузла
+      вагомішим за ступінь може бути показник центральності (betweenness centrality)
+      <i>
+        C<sub>&beta;</sub>
+      </i>
+      . Значення betweenness centrality пов'язане зі зв'язністю мережі. Наявність вузлів із дуже високою центральністю
+      робить мережу більш вразливою до атак. Припинення функціонування однієї із зупинок із високим значенням{" "}
+      <i>
+        C<sub>&beta;</sub>
+      </i>{" "}
+      може призвести до суттєвого збільшення довжини оптимальних шляхів, а в гіршому випадку до роз'єднання мережі.
+      (0.01 for Bristol)
+    </p>
+    <p className={"Article__paragraph"}>
+      Загальна стійкість мережі до вилучення вузлів може вимірюватися різними способами. Один із них - Molloy-Reed
+      criterion (
+      <a href={"https://onlinelibrary.wiley.com/doi/abs/10.1002/rsa.3240060204"}>
+        Molloy and Reed "A critical point for random graphs with a given degree sequence"
+      </a>
+      ) <i>к</i>. Цей критерій дозволяє визначити стійкість до рандомних атак і відображає наявність гігантської
+      зв'язної компоненти (Giant Connected Component) у мережі. Вважається, що мережа є стійкою, якщо{" "}
+      <i>
+        к = &lt;k<sup>2</sup>&gt;/&lt;k&gt; &lte;2
+      </i>{" "}
+      (відношення квадрата середнього ступеня вузлів до середнього ступеня вузлів). Molloy-Reed критерій показав, що
+      обидві досліджувані мережі є стійкими, причому транспортна системи Брістоля в <i>L-просторі</i> має краще значення
+      стійкості - <i>к=2.734</i>, в той час, як для Лондона <i>k=2.471</i>.
+    </p>
     <h3>Далі буде...</h3>
-
     <p className={"Article__paragraph"}>
       The second transport system is the bus network of Bristol.
       <Trigger data={{ name: "London" }}>London bus network</Trigger> in L-space.
-      <img className={"Article__image"} alt="London Bus Network" src={londonBusNetwork} />{" "}
       <img className={"Article__image"} alt="Bristol Bus Network" src={bristolBusNetwork} />
     </p>
     <p className={"Article__paragraph"}>
@@ -164,38 +209,9 @@ const Article = () => (
       Americas and China; in India, it is called "BRTS" (BRT System); in Europe and Indonesia, it is often called a
       "busway"; while in the British Isles, it may be called a "quality bus".
     </p>
-    <p className={"Article__paragraph"}>
-      <Trigger data={{ name: "Lviv" }}>Critics</Trigger> have charged that the term "bus rapid transit" has sometimes
-      been misapplied to systems that lack most or all the essential features which differentiate it from conventional
-      bus services. The term "bus rapid transit creep" has been used to describe severely degraded levels of bus service
-      which fall far short of the BRT Standard promoted by the Institute for Transportation and Development Policy and
-      other organizations.
-    </p>
     <h1 className={"Article__header"}>New&nbsp;Explorations: P-space and&nbsp;C-space</h1>
-    <p className={"Article__paragraph"}>
-      Lets look at the longest route ofBristol public transport network, It was converted from trolley to bus use in
-      1948. However, the first BRT system in the world was the OC Transpo system in Ottawa, Canada. Introduced in 1973,
-      the first element of its BRT system was dedicated bus lanes through the city centre, with platformed stops. The
-      introduction of the first exclusive separate busways (termed 'Transitway') occurred in 1983. By 1996, all of the
-      originally envisioned 31 km Transitway system was in operation; further expansions were opened in 2009, 2011, and
-      2014. As of 2017, the central part of the Transitway is being converted to a Light Rail Transit, due to the
-      downtown section being operated beyond its designed capacity.[4]
-    </p>
     <header className={"Article__chapter"}>Lviv</header>
     <h1 className={"Article__header"}>Lviv Public&nbsp;Transport&nbsp;Dataset</h1>
-    <p className={"Article__paragraph Article__paragraph_first"}>
-      In the United States, BRT began in 1977, with Pittsburgh's South Busway,[10] operating on 4.3 miles (6.9 km) of
-      exclusive lanes. Its success led to the Martin Luther King Jr. East Busway in 1983, a fuller BRT deployment
-      including a dedicated busway of 9.1 miles (14.6 km), traffic signal preemption, and peak service headway as low as
-      two minutes. After the opening of the West Busway, 5.1 miles (8.2 km) in length in 1990, Pittsburgh’s Busway
-      system is today over 18.5 miles long.
-    </p>
-    <p className={"Article__paragraph"}>
-      Bus-only lanes make for faster travel and ensure that buses are not delayed by mixed traffic congestion. A median
-      alignment bus-only keeps buses away from busy curb-side side conflicts, where cars and trucks are parking,
-      standing and turning. Separate rights of way may be used such as the completely elevated Xiamen BRT. Transit malls
-      or 'bus streets' may also be created in city centers.
-    </p>
     <h1 className={"Article__header"}>L-, P- and C-spaces: three views on Lviv`s Public Transport Network</h1>
     <p className={"Article__paragraph"}>...</p>
     <header>Conclusions</header>

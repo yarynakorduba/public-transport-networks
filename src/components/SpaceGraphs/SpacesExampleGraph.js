@@ -4,7 +4,7 @@ import * as d3 from "d3"
 import { flatten, indexOf } from "ramda"
 import withDragging from "../HOC/dragging"
 import { connect } from "react-redux"
-import { fetchNodes } from "../../actions"
+import { fetchStops } from "../../actions"
 import { removeDegreeTwoNode } from "../../actions/actionCreators"
 import { radiusScale } from "../../helpers/scales"
 import { examplePSpaceData } from "../../helpers/examplesData"
@@ -17,7 +17,7 @@ export default compose(
     state => ({
       data: state.graph
     }),
-    { fetchNodes, removeDegreeTwoNode }
+    { fetchNodes: fetchStops, removeDegreeTwoNode }
   ),
   defaultProps({
     width: 550,

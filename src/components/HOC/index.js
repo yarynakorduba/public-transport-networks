@@ -1,7 +1,7 @@
 import { branch, renderComponent, withProps, compose } from "recompose"
 import { pairs, scan } from "d3"
 import { connect } from "react-redux"
-import { fetchRoutes } from "../../actions"
+import { fetchData } from "../../actions"
 import { flatten, map } from "ramda"
 
 const lengthComparator = (a, b) => a.length - b.length
@@ -11,7 +11,7 @@ export const withData = compose(
     state => ({
       data: state.data.routes
     }),
-    { fetchRoutes }
+    { fetchRoutes: fetchData }
   ),
   withProps(async ({ data, fetchRoutes }) => {
     !data && fetchRoutes() // if no data then fetch it

@@ -1,11 +1,11 @@
-import { FETCH_ROUTES_ERROR, FETCH_ROUTES_START, FETCH_ROUTES_SUCCESS } from "../actions/actionTypes"
+import { FETCH_DATA_ERROR, FETCH_DATA_START, FETCH_DATA_SUCCESS } from "../actions/actionTypes"
 import { combineReducers } from "redux"
 
 const routes = (state = null, action) => {
   switch (action.type) {
-    case FETCH_ROUTES_SUCCESS:
+    case FETCH_DATA_SUCCESS:
       return action.routes
-    case FETCH_ROUTES_ERROR:
+    case FETCH_DATA_ERROR:
       return state
     default:
       return state
@@ -14,10 +14,10 @@ const routes = (state = null, action) => {
 
 const areFetching = (state = false, action) => {
   switch (action.type) {
-    case FETCH_ROUTES_START:
+    case FETCH_DATA_START:
       return true
-    case FETCH_ROUTES_SUCCESS:
-    case FETCH_ROUTES_ERROR:
+    case FETCH_DATA_SUCCESS:
+    case FETCH_DATA_ERROR:
       return false
     default:
       return state
