@@ -3,24 +3,15 @@ import { withParentSize } from "@vx/responsive"
 import { branch, compose, defaultProps, lifecycle, renameProps, renderComponent, withProps } from "recompose"
 import * as d3 from "d3"
 import { flatten, indexOf } from "ramda"
-import { connect } from "react-redux"
-import { fetchNodes } from "../../actions"
-import { removeDegreeTwoNode } from "../../actions/actionCreators"
-import { colorScale, radiusScale } from "../../helpers/scales"
+import { radiusScale } from "../../helpers/scales"
 import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
 
 const LSpaceGraph = ({ chartHeight, chartWidth }) => (
-  <svg className={"LSpaceGraph"} height={chartHeight} width={chartWidth} />
+  <svg className={"CSpaceGraph"} height={chartHeight} width={chartWidth} />
 )
 
 export default compose(
-  connect(
-    state => ({
-      data: state.graph
-    }),
-    { fetchNodes, removeDegreeTwoNode }
-  ),
   defaultProps({
     width: 300,
     height: 600,
@@ -28,7 +19,7 @@ export default compose(
   }),
   withParentSize,
   renameProps({ parentHeight: "height", parentWidth: "width" }),
-  withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol")),
+  // withProps(({ data, setData, fetchNodes }) => !data && ),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
   withProps(({ data, removeDegreeTwoNode }) =>
     Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))

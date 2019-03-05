@@ -1,39 +1,39 @@
 import { json } from "d3"
 import { getLSpaceGraphNodes } from "../api"
 import {
-  fetchNodesError,
-  fetchNodesStart,
-  fetchNodesSuccess, fetchRoutesError,
-  fetchRoutesStart,
-  fetchRoutesSuccess
+  fetchStopsError,
+  fetchStopsStart,
+  fetchStopsSuccess, fetchDataError,
+  fetchDataStart,
+  fetchDataSuccess
 } from "./actionCreators"
 
 
-export const fetchNodes = city => async dispatch => {
-  dispatch(fetchNodesStart())
+export const fetchStops = city => async dispatch => {
+  dispatch(fetchStopsStart())
   try {
     const response = await getLSpaceGraphNodes(city)
     if (!response.error) {
-      dispatch(fetchNodesSuccess(response))
+      dispatch(fetchStopsSuccess(response))
     } else {
-      dispatch(fetchNodesError(response.error))
+      dispatch(fetchStopsError(response.error))
     }
   } catch (e) {
-    dispatch(fetchNodesError(e))
+    dispatch(fetchStopsError(e))
   }
 }
 
 
-export const fetchRoutes = () => async dispatch => {
-  dispatch(fetchRoutesStart())
+export const fetchData = () => async dispatch => {
+  dispatch(fetchDataStart())
   try {
     const response = await json("data/bristol_BUS.json", data => data)
     if (!response.error) {
-      dispatch(fetchRoutesSuccess(response))
+      dispatch(fetchDataSuccess(response))
     } else {
-      dispatch(fetchRoutesError(response.error))
+      dispatch(fetchDataError(response.error))
     }
   } catch (e) {
-    fetchRoutesError(e)
+    fetchDataError(e)
   }
 }
