@@ -1,4 +1,4 @@
-import { reduce, curry, addIndex, map, filter, without } from "ramda"
+import { reduce, curry, addIndex, map, clone, without, assoc, append } from "ramda"
 
 export const mapIndexed = addIndex(map)
 
@@ -9,22 +9,19 @@ export const arrayToObject = curry((keyFn, array) =>
   }, {})(array)
 )
 
-const removeNodeFromTree = (nodeId, treeClone) => {
-  const [first, second] = treeClone[nodeId].connections
-  treeClone[first] = {
-    ...treeClone[first],
-    connections: [...without([nodeId], treeClone[first].connections), second]
-  }
-  treeClone[second] = {
-    ...treeClone[second],
-    connections: [...without([nodeId], treeClone[second].connections), first]
-  }
+const replaceConnectionsInNode = (from, to, node) =>
+  assoc("connections", append(to, without([from], node.connections)), node)
 
-  delete treeClone[nodeId]
+/* Important!!! Be careful, mutable. */
+const DANGEROUSLY_removeNodeFromTree = (nodeId, tree) => {
+  const [first, second] = tree[nodeId].connections
+  tree[first] = replaceConnectionsInNode(nodeId, second, tree[first])
+  tree[second] = replaceConnectionsInNode(nodeId, first, tree[second])
+  delete tree[nodeId]
 }
 export const removeNodeListFromTree = (arrayOfNodes, tree) => {
-  const treeClone = JSON.parse(JSON.stringify(tree))
-  arrayOfNodes.forEach(node => removeNodeFromTree(node, treeClone))
+  const treeClone = clone(tree)
+  arrayOfNodes.forEach(node => DANGEROUSLY_removeNodeFromTree(node, treeClone))
   return treeClone
 }
 
