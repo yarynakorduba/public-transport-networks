@@ -38,22 +38,21 @@ export default compose(
     Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
   ),
 
-  withProps(
-    ({ data, dataToDisplay }) =>
-      !dataToDisplay && {
-        dataToDisplay: {
-          nodes: Object.keys(data).map(d => ({ ...data[d], r: data[d].connections.length })),
-          links: flatten(
-            Object.keys(data).map(node =>
-              data[node].connections.map(connection => ({
-                source: Object.keys(data).indexOf(node),
-                target: indexOf(connection, Object.keys(data))
-              }))
-            )
-          )
-        }
+  withProps(({ data }) => {
+    const nodeIds = Object.keys(data)
+    return {
+      dataToDisplay: {
+        nodes: map(d => ({ ...d, r: d.connections.length }), values(data)),
+        links: compose(
+          flatten,
+          mapIndexed(({ connections }, index) =>
+            map(connection => ({ source: index, target: indexOf(connection, nodeIds) }), connections)
+          ),
+          values
+        )(data)
       }
-  ),
+    }
+  }),
   withProps(({ width, height, margin }) => ({
     chartWidth: width - (margin.left + margin.right),
     chartHeight: height - (margin.top + margin.bottom)
