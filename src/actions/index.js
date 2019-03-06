@@ -1,18 +1,18 @@
 import { json } from "d3"
-import { getLSpaceGraphNodes } from "../api"
+import { getGraphSpaceData } from "../api"
 import {
   fetchStopsError,
   fetchStopsStart,
-  fetchStopsSuccess, fetchDataError,
+  fetchStopsSuccess,
+  fetchDataError,
   fetchDataStart,
   fetchDataSuccess
 } from "./actionCreators"
 
-
-export const fetchStops = city => async dispatch => {
+export const fetchStops = (city, space) => async dispatch => {
   dispatch(fetchStopsStart())
   try {
-    const response = await getLSpaceGraphNodes(city)
+    const response = await getGraphSpaceData(city, space)
     if (!response.error) {
       dispatch(fetchStopsSuccess(response))
     } else {
@@ -22,7 +22,6 @@ export const fetchStops = city => async dispatch => {
     dispatch(fetchStopsError(e))
   }
 }
-
 
 export const fetchData = () => async dispatch => {
   dispatch(fetchDataStart())
