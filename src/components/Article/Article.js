@@ -73,7 +73,7 @@ const Article = () => (
       даними, пізніше відобразили системи у двох інших вимірах. На зображенні представлена візуалізація Брістоля в
       L-просторі. Білі вузли - кінцеві зупинки. Жовті - зупинки із більш, ніж п'ятьма з'єднаннями. (Задля покращення
       сприйняття інформації проміжні зупинки (зупинки із двома з'єднаннями) не відображаються.)
-      <img src={BristolLSpace} className={"Article__image Article__image_small"} />
+      <img alt="Bristol L Space" src={BristolLSpace} className={"Article__image Article__image_small"} />
     </p>
     <h1 className={"Article__header"}>Результати в &nbsp;L-просторі</h1>
     <p className={"Article__paragraph"}>
@@ -155,7 +155,7 @@ const Article = () => (
     <h3>Далі буде...</h3>
     <p className={"Article__paragraph Article__paragraph_first"}>
       C-простір - найбільш компактний. Адже замість зв'язків між зупинками він відображає перетини маршрутів.
-      <img class="Article__image Article__image_small" src={BristolCSpace} />
+      <img alt="Bristol C Space" className="Article__image Article__image_small" src={BristolCSpace} />
     </p>
     <p className={"Article__paragraph"}>
       <Trigger data={{ name: "Bristol" }}>Bristol bus network</Trigger>

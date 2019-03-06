@@ -4,7 +4,7 @@ import { getTriggers } from "../../reducers/index"
 import { withRouter } from "react-router-dom"
 import { withProps } from "recompose"
 
-export const triggerRespondent = compose(
+export const triggerRespondent = compose( // = (config) => compose()
   withRouter,
   connect(state => ({
     triggers: getTriggers(state)

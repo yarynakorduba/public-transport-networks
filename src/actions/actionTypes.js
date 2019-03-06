@@ -1,3 +1,4 @@
+export const SET_SCROLL = "SET_SCROLL"
 export const ADD_TRIGGER = "ADD_TRIGGER"
 export const REMOVE_TRIGGER = "REMOVE_TRIGGER"
 
