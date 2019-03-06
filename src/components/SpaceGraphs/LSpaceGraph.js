@@ -2,14 +2,13 @@ import React from "react"
 import { withParentSize } from "@vx/responsive"
 import { branch, compose, defaultProps, lifecycle, renameProps, renderComponent, withProps } from "recompose"
 import * as d3 from "d3"
-import { flatten, indexOf, values, addIndex, map } from "ramda"
+import { flatten, indexOf, values, addIndex, map, filter } from "ramda"
 import { connect } from "react-redux"
 import { fetchStops } from "../../actions"
-import { removeDegreeTwoNode } from "../../actions/actionCreators"
 import { radiusGraphScale } from "../../helpers/scales"
 import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
-import { max, min } from "../../helpers"
+import { max, min, removeNodeListFromTree } from "../../helpers"
 
 const LSpaceGraph = ({ chartHeight, chartWidth }) => (
   <svg className={"LSpaceGraph"} height={chartHeight} width={chartWidth} />
@@ -22,10 +21,10 @@ export default compose(
     state => ({
       data: state.graph
     }),
-    { fetchNodes: fetchStops, removeDegreeTwoNode }
+    { fetchNodes: fetchStops }
   ),
   defaultProps({
-    width: 300,
+    width: 600,
     height: 600,
     margin: { top: 0, left: 0, bottom: 0, right: 0 },
     colorConfig: { domain: [1, 4] }
@@ -34,11 +33,12 @@ export default compose(
   renameProps({ parentHeight: "height", parentWidth: "width" }),
   withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol", "l")),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
-  withProps(({ data, removeDegreeTwoNode }) =>
-    Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
-  ),
+  withProps(({ data }) => ({
+    data: removeNodeListFromTree(values(filter(node => node.connections.length === 2, data)).map(node => node.id), data)
+  })),
 
   withProps(({ data }) => {
+    console.log(data)
     const nodeIds = Object.keys(data)
     return {
       dataToDisplay: {
@@ -86,8 +86,8 @@ export default compose(
   })),
   withDrawedChart,
   lifecycle({
-    shouldComponentUpdate({ dataToDisplay, drawChart }) {
-      return !dataToDisplay ? false : drawChart()
+    componentDidMount() {
+      return !this.props.dataToDisplay ? false : this.props.drawChart()
     }
   })
 )(LSpaceGraph)

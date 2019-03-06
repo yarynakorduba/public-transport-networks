@@ -6,12 +6,10 @@ import {
   FETCH_DATA_ERROR,
   FETCH_DATA_START,
   FETCH_DATA_SUCCESS,
-  REMOVE_DEGREE_TWO_NODE,
   REMOVE_TRIGGER,
   SET_SCROLL
 } from "./actionTypes"
 
-export const removeDegreeTwoNode = id => ({ type: REMOVE_DEGREE_TWO_NODE, id })
 export const setScroll = scrolled => ({ scroll: SET_SCROLL, scrolled })
 
 export const addTrigger = trigger => dispatch => dispatch({ type: ADD_TRIGGER, trigger })
