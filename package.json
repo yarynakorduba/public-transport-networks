@@ -41,6 +41,7 @@
   ],
   "devDependencies": {
     "@storybook/react": "^5.0.0",
+    "node-sass": "^4.11.0",
     "prettier": "^1.16.4",
     "react-scripts": "^2"
   }
