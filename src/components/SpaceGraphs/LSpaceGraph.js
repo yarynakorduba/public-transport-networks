@@ -2,19 +2,17 @@ import React from "react"
 import { withParentSize } from "@vx/responsive"
 import { branch, compose, defaultProps, lifecycle, renameProps, renderComponent, withProps } from "recompose"
 import * as d3 from "d3"
-import { flatten, indexOf, values, addIndex, map, filter } from "ramda"
+import { flatten, indexOf, values, map, filter } from "ramda"
 import { connect } from "react-redux"
 import { fetchStops } from "../../actions"
 import { radiusGraphScale } from "../../helpers/scales"
 import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
-import { max, min, removeNodeListFromTree } from "../../helpers"
+import { max, min, removeNodeListFromTree, mapIndexed } from "../../helpers"
 
 const LSpaceGraph = ({ chartHeight, chartWidth }) => (
   <svg className={"LSpaceGraph"} height={chartHeight} width={chartWidth} />
 )
-
-const mapIndexed = addIndex(map)
 
 export default compose(
   connect(
@@ -38,7 +36,6 @@ export default compose(
   })),
 
   withProps(({ data }) => {
-    console.log(data)
     const nodeIds = Object.keys(data)
     return {
       dataToDisplay: {

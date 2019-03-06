@@ -1,6 +1,6 @@
 import { FETCH_STOPS_ERROR, FETCH_STOPS_SUCCESS } from "../actions/actionTypes"
 import { arrayToObject, mapIndexed } from "../helpers"
-import { filter, prop, compose, assoc, flip } from "ramda"
+import { prop, compose, assoc, flip } from "ramda"
 
 const graph = (state = null, action) => {
   switch (action.type) {
