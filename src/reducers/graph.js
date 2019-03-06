@@ -5,6 +5,7 @@ import { filter } from "ramda"
 const graph = (state = null, action) => {
   switch (action.type) {
     case FETCH_STOPS_SUCCESS:
+      console.log(action)
       return arrayToObject(action.nodes)
     case REMOVE_DEGREE_TWO_NODE:
       const [first, second] = state[action.id].connections
