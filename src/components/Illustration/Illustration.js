@@ -5,14 +5,17 @@ import GraphTabsContainer from "../LPCGraph/GraphTabsContainer"
 import LSpaceGraph from "../SpaceGraphs/LSpaceGraph"
 import SpacesExampleGraph from "../SpaceGraphs/SpacesExampleGraph"
 
-const Illustration = () => (
+export const Illustration = () => (
   <div className={"Illustration"}>
-    <Switch>
-      {/*<SpacesExampleGraph />*/}
-      {/*<LSpaceGraph />*/}
-      {/*<Route exact path={"/"} component={LSpaceGraph} />*/}
-      {/*<Route exact path={"/cities/:cityill/spaces/:space"} component={GraphTabsContainer} />*/}
-    </Switch>
+    Hello!
+    {/*<SpacesExampleGraph />*/}
+    {/*<LSpaceGraph />*/}
+    {/*<Route exact path={"/"} component={LSpaceGraph} />*/}
+    {/*<Route exact path={"/cities/:cityill/spaces/:space"} component={GraphTabsContainer} />*/}
   </div>
 )
-export default withRouter(Illustration)
+export default withRouter(() => (
+  <Switch>
+    <Illustration />
+  </Switch>
+))
