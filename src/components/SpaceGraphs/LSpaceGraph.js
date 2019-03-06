@@ -6,7 +6,7 @@ import { flatten, indexOf } from "ramda"
 import { connect } from "react-redux"
 import { fetchStops } from "../../actions"
 import { removeDegreeTwoNode } from "../../actions/actionCreators"
-import { radiusScale } from "../../helpers/scales"
+import { radiusGraphScale } from "../../helpers/scales"
 import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
 
@@ -28,7 +28,7 @@ export default compose(
   }),
   withParentSize,
   renameProps({ parentHeight: "height", parentWidth: "width" }),
-  withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol")),
+  withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol", "l")),
   branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
   withProps(({ data, removeDegreeTwoNode }) =>
     Object.keys(data).forEach(async node => data[node].connections.length === 2 && removeDegreeTwoNode(node))
@@ -63,7 +63,7 @@ export default compose(
           .id(d => d.index)
           .strength(0.8)
       )
-      .force("collide", d3.forceCollide(d => (d.connections.length === 1 ? 11 : radiusScale(d.r) + 2)).strength(0.5))
+      .force("collide", d3.forceCollide(d => (d.connections.length === 1 ? 11 : radiusGraphScale([1, 10])(d.r) + 2)).strength(0.5))
       .force("charge", d3.forceManyBody())
       .force("center", d3.forceCenter(chartWidth / 2, chartHeight / 2))
       .force("y", d3.forceY(0).strength(0.5))
