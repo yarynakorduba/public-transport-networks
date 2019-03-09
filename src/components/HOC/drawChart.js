@@ -1,4 +1,4 @@
-import { withProps, compose } from "recompose"
+import { withProps, compose, lifecycle } from "recompose"
 import * as d3 from "d3"
 import { colorScale, radiusGraphScale } from "../../helpers/scales"
 import withDragging from "./dragging"
@@ -6,19 +6,19 @@ import withDragging from "./dragging"
 const withDrawedChart = compose(
   withProps(
     ({
-      dataToDisplay: { nodes, links },
+      data: { nodes, links },
       dragstarted,
       dragended,
       dragged,
       simulation,
-      DOMElement,
+      classNameOfVisualizationContainer,
       minDegree,
       maxDegree,
       colorConfig: { domain },
       showLabels = false
     }) => ({
       drawChart: () => {
-        const svg = d3.select(DOMElement)
+        const svg = d3.select(classNameOfVisualizationContainer)
         svg.selectAll("*").remove()
         const link = svg
           .append("g")
@@ -82,7 +82,11 @@ const withDrawedChart = compose(
       }
     })
   ),
-  withDragging
+  lifecycle({
+    componentDidMount() {
+      return !this.props.data ? false : this.props.drawChart()
+    }
+  })
 )
 
 export default withDrawedChart

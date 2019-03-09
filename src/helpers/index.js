@@ -13,16 +13,16 @@ const replaceConnectionsInNode = (from, to, node) =>
   assoc("connections", append(to, without([from], node.connections)), node)
 
 /* Important!!! Be careful, mutable. */
-const DANGEROUSLY_removeNodeFromTree = (nodeId, tree) => {
-  const [first, second] = tree[nodeId].connections
-  tree[first] = replaceConnectionsInNode(nodeId, second, tree[first])
-  tree[second] = replaceConnectionsInNode(nodeId, first, tree[second])
-  delete tree[nodeId]
+const DANGEROUSLY_removeNodeFromGraph = (nodeId, graph) => {
+  const [first, second] = graph[nodeId].connections
+  graph[first] = replaceConnectionsInNode(nodeId, second, graph[first])
+  graph[second] = replaceConnectionsInNode(nodeId, first, graph[second])
+  delete graph[nodeId]
 }
-export const removeNodeListFromTree = (arrayOfNodes, tree) => {
-  const treeClone = clone(tree)
-  arrayOfNodes.forEach(node => DANGEROUSLY_removeNodeFromTree(node, treeClone))
-  return treeClone
+export const removeNodeListFromGraph = (arrayOfNodes, graph) => {
+  const graphClone = clone(graph)
+  arrayOfNodes.forEach(node => DANGEROUSLY_removeNodeFromGraph(node, graphClone))
+  return graphClone
 }
 
 export const min = (a, b) => a.connections.length - b.connections.length
