@@ -9,23 +9,11 @@ import { addTrigger, removeTrigger } from "../../actions/actionCreators"
 
 export const ScrolledContext = createContext()
 
-const ArticleLayout = ({
-  article,
-  illustration,
-  addTrigger,
-  removeTrigger,
-  triggers,
-  scrolled,
-  setRoot,
-  onAction,
-  offAction
-}) => (
+const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, triggers, scrolled, setRoot }) => (
   <section className={"ArticleLayout"} ref={setRoot}>
     <ScrolledContext.Provider
       value={{
-        scrolled,
-        onAction,
-        offAction
+        scrolled
       }}
     >
       <div
@@ -45,22 +33,17 @@ const ArticleLayout = ({
 )
 
 const enhancer = compose(
-  withRouter,
-  connect(
-    state => ({
-      triggers: state.triggers
-    }),
-    { addTrigger, removeTrigger }
-  ),
+  connect(state => ({
+    triggers: state.triggers
+  })),
   withState("scrolled", "setScrolled", 0),
   withState("root", "setRoot", null),
-  withProps(({ addTrigger, removeTrigger }) => ({
-    onAction: data => addTrigger(data),
-    offAction: data => removeTrigger(data)
-  })),
   lifecycle({
     componentDidMount() {
       window.addEventListener("scroll", () => this.props.setScrolled(-this.props.root.getBoundingClientRect().top))
+    },
+    componentWillUnmount() {
+      window.removeEventListener("scroll", this.props.setScrolled)
     }
   }),
   triggerRespondent

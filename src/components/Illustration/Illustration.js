@@ -5,7 +5,7 @@ import LSpaceGraph from "../SpaceGraphs/LSpaceGraph"
 
 const Illustration = () => (
   <div className={"Illustration"}>
-    <LSpaceGraph />
+    <LSpaceGraph classNameOfVisualizationContainer={".LSpaceGraph"}/>
   </div>
 )
 export default withRouter(Illustration)

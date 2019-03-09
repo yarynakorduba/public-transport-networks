@@ -1,7 +1,7 @@
 import { ADD_TRIGGER, REMOVE_TRIGGER } from "../actions/actionTypes"
-import { omit } from "ramda"
+import { omit, eqProps, keys } from "ramda"
 
-const triggers = (state = {}, action) => {
+const progress = (state = {}, action) => {
   switch (action.type) {
     case ADD_TRIGGER:
       return { ...state, ...action.trigger }
@@ -12,6 +12,7 @@ const triggers = (state = {}, action) => {
   }
 }
 
-export default triggers
+export default progress
 
+export const isTriggerActive = (state, trigger) => eqProps(...keys(trigger), trigger, state)
 export const getTriggers = state => state

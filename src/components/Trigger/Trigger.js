@@ -1,33 +1,48 @@
 import React from "react"
 import { ScrolledContext } from "../ArticleLayout/ArticleLayout"
 import "./Trigger.scss"
-import compose from "ramda/es/compose"
-import { fromRenderProps, lifecycle, withHandlers, withState } from "recompose"
+import { fromRenderProps, lifecycle, withHandlers, withProps, withState, compose } from "recompose"
+import { connect } from "react-redux"
+import { addTrigger, removeTrigger } from "../../actions/actionCreators"
+import { isTriggerActive } from "../../reducers"
 
-const Trigger = ({setRoot,children}) => (<span className={"Trigger_highlighted"} ref={setRoot}>{children}</span>)
+const Trigger = ({ setRoot, children }) => (
+  <span className={"Trigger_highlighted"} ref={setRoot}>
+    {children}
+  </span>
+)
+
 const enhancer = compose(
-  fromRenderProps(ScrolledContext.Consumer, ({scrolled,onAction,offAction})=>({scrolled,onAction,offAction})),
-  withState("position", "changePosition", 0),
+  connect(
+    (state, ownProps) => ({
+      isActive: isTriggerActive(state, ownProps.data)
+    }),
+    { addTrigger, removeTrigger }
+  ),
+  fromRenderProps(ScrolledContext.Consumer, ({ scrolled }) => ({ scrolled })),
   withState("root", "setRoot", null),
-  withState("triggered", "changeTrigger", false),
+  withProps(
+    ({ root }) =>
+      root && {
+        position: root && root.offsetTop
+      }
+  ),
   withHandlers({
-    toggleTrigger: ({changeTrigger, data}) => (triggered, toggleAction) => {
-      changeTrigger(triggered)
-      toggleAction(data)
+    toggleTriggerIfNeeded: ({ position, data, scrolled, isActive, children, addTrigger, removeTrigger }) => () => {
+      if (position - scrolled < 0 && !isActive) {
+        addTrigger(data)
+      } else if (position - scrolled > 0 && isActive) {
+        removeTrigger(data)
+      }
+      return children
     }
   }),
   lifecycle({
-    componentDidMount(){
-      window.addEventListener("scroll", () => this.props.changePosition(this.props.root.getBoundingClientRect().top))
+    componentDidMount() {
+      window.addEventListener("scroll", this.props.toggleTriggerIfNeeded)
     },
-    componentDidUpdate(){
-      if (this.props.position - this.props.scrolled < 0 && !this.props.triggered) {
-        this.props.toggleTrigger(true, this.props.onAction)
-      }
-      if (this.props.position - this.props.scrolled > 0 && this.props.triggered)
-        this.props.toggleTrigger(false, this.props.offAction)
-
-      return this.props.children
+    componentWillUnmount() {
+      window.removeEventListener("scroll", this.props.toggleTriggerIfNeeded)
     }
   })
 )
