@@ -1,8 +1,6 @@
 import progress, * as fromTriggers from "./progress"
-import data, * as fromData from "./data"
-
 import { combineReducers } from "redux"
-import graph from "./graph"
+import data, * as fromData from "./data"
 import { SET_SCROLL } from "../actions/actionTypes"
 
 const scrolled = (state = null, action) => {
@@ -15,16 +13,15 @@ const scrolled = (state = null, action) => {
 }
 
 const articleApp = combineReducers({
-  data,
   triggers: progress,
-  graph,
+  data,
   scrolled
 })
 
 export default articleApp
 
-export const areRoutesFetching = state => fromData.areRoutesFetching(state.data)
-export const getRoutes = state => fromData.getRoutes(state.data)
-
 export const getTriggers = state => fromTriggers.getTriggers(state.triggers)
 export const isTriggerActive = (state, trigger) => fromTriggers.isTriggerActive(state.triggers, trigger)
+
+export const getData = state => fromData.getData(state.data)
+export const areDataFetching = state => fromData.areDataFetching(state.data)

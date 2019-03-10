@@ -18,7 +18,7 @@ You can see all the files that are tracked by Git LFS in `.gitattributes` file. 
 git lfs track <fileName pattern>
 ```
 
-In case you have accidentally committed untracked large file and receive errors while pushing, use 
+In case you have accidentally committed untracked large file and receive errors while pushing, use
 
 ```
 git filter-branch --index-filter "git rm --cached --ignore-unmatch PATH_TO_YOUR_FILE" --tag-name-filter cat -- --all
@@ -29,5 +29,12 @@ to remove the file from commit.
 </li>
 <li>To name the CSS classes, we use BEM methodology with <code>__</code> separator for element and <code>_</code> separator for modifier:
  <code>.Block__element_modifier</code>
+</li>
+<li>
+We use <a href="https://storybook.js.org/">Storybook</a> for developing the UI components. If you want to see our storybook, run 
+```
+npm run storybook 
+```
+in the terminal.
 </li>
 </ol>

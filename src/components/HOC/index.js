@@ -55,7 +55,7 @@ export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestR
       backgroundColor: "lemongrass",
       label: "Shortest route",
       stopLabels: smallestRouteStops,
-      graph: {
+      data: {
         nodes: [
           ...smallestRouteStops.map((stop, index) => ({
             x: (width / smallestRouteStops.length - 20) * index + 20,
@@ -79,7 +79,7 @@ export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestR
       backgroundColor: "yellow",
       label: "Longest route",
       stopLabels: biggestRouteStops,
-      graph: {
+      data: {
         nodes: [
           ...biggestRouteStops.map((stop, index) => ({
             x: (width / 1.25 / biggestRouteStops.length) * index + 15,

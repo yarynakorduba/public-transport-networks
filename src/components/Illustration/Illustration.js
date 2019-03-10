@@ -1,11 +1,10 @@
 import React from "react"
 import "./Illustration.scss"
-import { withRouter } from "react-router-dom"
-import LSpaceGraph from "../SpaceGraphs/LSpaceGraph"
+import SpaceGraph from "../SpaceGraph/SpaceGraph"
 
-const Illustration = () => (
+export const Illustration = () => (
   <div className={"Illustration"}>
-    <LSpaceGraph classNameOfVisualizationContainer={".LSpaceGraph"}/>
+    <SpaceGraph space={"l"} representationOf={"bristol"} classNameOfVisualizationContainer={"SpaceGraph"} />
   </div>
 )
-export default withRouter(Illustration)
+export default Illustration
