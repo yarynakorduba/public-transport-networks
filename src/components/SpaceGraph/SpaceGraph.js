@@ -9,6 +9,7 @@ import { radiusGraphScale } from "../../helpers/scales"
 import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
 import { removeNodeListFromGraph, mapIndexed } from "../../helpers"
+import { areDataFetching, getData } from "../../reducers"
 
 const prepareDataForLSpaceVisualization = data => {
   data = removeNodeListFromGraph(values(filter(node => node.connections.length === 2, data)).map(node => node.id), data)
@@ -25,18 +26,16 @@ const prepareDataForLSpaceVisualization = data => {
   }
 }
 
-const LSpaceGraph = ({ chartHeight, chartWidth }) => (
-  <svg className={"LSpaceGraph"} height={chartHeight} width={chartWidth} />
+const SpaceGraph = ({ chartHeight, chartWidth, classNameOfVisualizationContainer }) => (
+  <svg className={classNameOfVisualizationContainer} height={chartHeight} width={chartWidth} />
 )
 
 export default compose(
-
   defaultProps({
     width: 600,
     height: 600,
     margin: { top: 0, left: 0, bottom: 0, right: 0 },
-    colorConfig: { domain: [1, 4] },
-    classNameOfVisualizationContainer: ".LSpaceGraph" //dom element for visualization, visualization container
+    colorConfig: { domain: [1, 4] }
   }),
 
   // chart size definition
@@ -49,11 +48,12 @@ export default compose(
 
   // data processing
   connect(
-    state => ({ data: state.graph }),
+    state => ({ data: getData(state), areDataFetching: areDataFetching(state) }),
     { fetchNodes: fetchStops }
   ),
-  withProps(({ data, setData, fetchNodes }) => !data && fetchNodes("bristol", "l")),
-  branch(({ data }) => !data, renderComponent(() => "Loading the dataset")),
+  branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Preparing the visualization...")),
+  withProps(({ data, setData, fetchNodes, representationOf, space }) => !data && fetchNodes(representationOf, space)),
+  branch(({ data }) => !data, renderComponent(() => "Something went wrong. We didn`t manage to load the data...")),
   withProps(({ data }) => ({ data: prepareDataForLSpaceVisualization(data) })),
 
   // visualization preparation
@@ -82,4 +82,4 @@ export default compose(
     maxDegree: nodes[d3.scan(nodes, (a, b) => b.connections.length - a.connections.length)].connections.length
   })),
   withDrawedChart
-)(LSpaceGraph)
+)(SpaceGraph)

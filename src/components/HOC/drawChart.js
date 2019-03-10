@@ -18,7 +18,7 @@ const withDrawedChart = compose(
       showLabels = false
     }) => ({
       drawChart: () => {
-        const svg = d3.select(classNameOfVisualizationContainer)
+        const svg = d3.select(`.${classNameOfVisualizationContainer}`)
         svg.selectAll("*").remove()
         const link = svg
           .append("g")
