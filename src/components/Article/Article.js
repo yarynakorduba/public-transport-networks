@@ -1,21 +1,11 @@
 import React from "react"
 import Latex from "react-latex"
 import Trigger from "../Trigger"
-import londonBusNetwork from "../../images/london_bus_network_1.png"
-import bristolBusNetwork from "../../images/bristol_bus_network.png"
-import lvivBusNetwork from "../../images/lviv_bus_network.png"
-import trafficJam from "../../images/traffic_jam.png"
-import BristolLSpace from "../../images/bristolLSpace.png"
-import BristolCSpace from "../../images/bristolCSpace.png"
-import bristolLSpaceRandomAttack from "../../images/simulations/bristol_l_space_random_attacks_5_trials.png"
-import bristolLSpaceTargetedByBetweennessInitial from "../../images/simulations/bristol_l_space_targeted_attack_by_betweenness_initial.png"
-import bristolLSpaceTargetedByBetweennessRecalculated from "../../images/simulations/bristol_l_space_targeted_attack_by_betweenness_recalculated.png"
-import { ReactComponent as ExampleLSpace } from "../../images/exampleLSpace.svg"
-import { ReactComponent as ExamplePSpace } from "../../images/examplepSpace.svg"
-import { ReactComponent as ExampleCSpace } from "../../images/exampleCSpace.svg"
+
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 import Note from "../Note/Note"
+import { assoc, dissoc } from "ramda"
 
 const b = BEM("Article")
 
@@ -32,12 +22,15 @@ const Article = () => (
       Нестійка мережа може швидко розвалитися як через випадкові "випадання" зупинок, так і при спрямованих атаках.
       Випадкові події включають у себе аварії, сильні затори чи навіть погані погодні умови у певній частині мережі,
       через що частина зупинок чи навіть увесь маршрут стають недоступними.
-      <img className={b("image")} src={trafficJam} alt={"Traffic Jam"} />
+      <img className={b("image")} src="img/traffic_jam.png" alt={"Traffic Jam"} />
       Та ще більш небезпечними є спрямовані атаки, наприклад, страйк на одній із зупинок чи терористичний акт. Такі
       події зазвичай трапляються у найбільш зв'язних точках мережі, так званих хабах, які є найбільш важливими для всієї
       мережі, оскільки обслуговують велику кількість маршрутів.
     </p>
     <h1 className={b("header")}>Науковий підхід</h1>
+
+    <Trigger action={assoc("data", 1)}> data : 1</Trigger>
+
     <p className={b("paragraph", ["first"])}>
       У науковому світі з'явилося багато підходів для визначення ефективності та стійкості різних систем. Дане
       дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах:{" "}
@@ -47,16 +40,18 @@ const Article = () => (
       вузли пов'язані між собою ребром лише, якщо вони суміжні на маршруті. Маршрути пов'язані між собою через спільні
       зупинки. (Оскільки зазвичай зупинки прямого та зворотного маршрутів знаходяться через дорогу одна від одної,
       останніми можна знехтувати. Для побудови графа у цьому дослідженні використовуються лише прямі маршрути)
-      <ExampleLSpace className={b("image", ["small"])} />
-      <Latex>$P\text-space$</Latex> відображає кількість пересадок, яку потрібно зробити, щоби здійснити поїздку між
-      будь-якими двома зупинками. У цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з
-      одною прямим ребром, адже між кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
-      <ExamplePSpace className={b("image", ["small"])} />У <Latex>$C\text-space$</Latex> інформація більш узагальнена.
-      Цей простір відображає зв'язки не між зупинками, а між маршрутами для того, щоби прослідкувати, скільки пересадок
-      потрібно здійснити, щоби дістатися від зупинки одного маршруту до зупинки іншого маршруту.
-      <ExampleCSpace className={b("image", ["small"])} />
+      <img src="img/exampleLSpace.svg" className={b("image", ["small"])} alt="example LSpace graph" />
+      <Latex children={"$P\\text-space$"} /> відображає кількість пересадок, яку потрібно зробити, щоби здійснити
+      поїздку між будь-якими двома зупинками. У цьому просторі всі зупинки-вузли, що належать до одного маршруту,
+      з'єднані одна з одною прямим ребром, адже між кожними двома зупинками одного маршруту можна проїхати, не змінюючи
+      транспорту. <img src="img/exampleCSpace.svg" className={b("image", ["small"])} alt="Example PSpace" />У{" "}
+      <Latex>$C\text-space$</Latex> інформація більш узагальнена. Цей простір відображає зв'язки не між зупинками, а між
+      маршрутами для того, щоби прослідкувати, скільки пересадок потрібно здійснити, щоби дістатися від зупинки одного
+      маршруту до зупинки іншого маршруту.
+      <img src="img/exampleCSpace.svg" alt="Example CSpace" className={b("image", ["small"])} />
     </p>
     <h1 className={b("header")}>Історія про три міста</h1>
+    <Trigger action={assoc("data", 2)}> data : 2</Trigger>
     <p className={b("paragraph", ["first"])}>
       Завдяки проведеним дослідженням науковці помітили, що набір певних характеристик у багатьох мереж транспорту
       незалежно від розміру є подібним. Однак існують ознаки, між якими часто відсутня кореляція. Для розуміння
@@ -66,14 +61,17 @@ const Article = () => (
     <p className={b("paragraph")}>
       Для проведення дослідження ми обрали три різні транспортні системи: автобусні маршрути Лондона та Брістоля і
       мережу громадського транспорту Львова. У Лондоні - 767 маршрутів зі 16397 зупинками.
-      <img className={b("image")} alt="London Bus Network" src={londonBusNetwork} /> Автобусна мережа Брістоля налічує
-      2873 зупинки, які входять до 143 маршрутів.{" "}
-      <img className={b("image")} alt="Bristol Bus Network" src={bristolBusNetwork} />
+      <img className={b("image")} alt="London Bus Network" src="img/london_bus_network_1.png" /> Автобусна мережа
+      Брістоля налічує 2873 зупинки, які входять до 143 маршрутів.{" "}
+      <img className={b("image")} alt="Bristol Bus Network" src="img/bristol_bus_network.png" />
       Мережа Львова налічує 100 міських маршрутів, що обслуговують 771 зупинку.{" "}
-      <img className={b("image")} alt="Lviv Bus Network" src={lvivBusNetwork} />
+      <img className={b("image")} alt="Lviv Bus Network" src="img/lviv_bus_network.png" />
       Таким чином ми мали змогу порівняти характеристики трьох різних за розміром та систем.
     </p>
-    <header className={b("chapter")}>Лондон та Брістоль</header>
+
+    <h2 className={b("chapter")}>Лондон та Брістоль</h2>
+    <Trigger action={assoc("data", 3)}> data : 3</Trigger>
+
     <p className={b("paragraph", ["first"])}>
       Дослідження для Лондона та Брістоля в <Latex>$L\text-просторі$</Latex> проводили раніше. Ці результати, а також
       аналіз транспортних систем 12 інших міст представлені у статті{" "}
@@ -84,7 +82,7 @@ const Article = () => (
       із попередніми даними, пізніше відобразили системи у двох інших вимірах. На зображенні представлена візуалізація
       Брістоля в L-просторі. Білі вузли - кінцеві зупинки. Жовті - зупинки із більш, ніж п'ятьма з'єднаннями. (Задля
       покращення сприйняття інформації проміжні зупинки (зупинки із двома з'єднаннями) не відображаються.)
-      <img src={BristolLSpace} className={b("image")} />
+      <img src="img/bristolLSpace.png" className={b("image")} />
     </p>
     <h1 className={b("header")}>Топографічні характеристики в &nbsp;L-просторі</h1>
     <p className={b("paragraph")}>
@@ -160,11 +158,12 @@ const Article = () => (
       <Latex displayMode={true}>$$ \kappa = \lang k^2 \rang \div \lang k \rang \geq 2 $$</Latex> (відношення квадрата
       середнього ступеня вузлів до середнього ступеня вузлів). Molloy-Reed критерій показав, що обидві досліджувані
       мережі є стійкими, причому транспортна системи Брістоля в <Latex>$L\text-просторі$</Latex> має краще значення
-      стійкості - <Latex>$к=2.734$</Latex>, в той час, як для Лондона <Latex>$k=2.471$</Latex>.
+      стійкості - <Latex>$\kappa=2.734$</Latex>, в той час, як для Лондона <Latex>$k=2.471$</Latex>.
     </p>
     <h1 className={b("header")}>
       Топографічні характеристики в&nbsp;<Latex>$P$</Latex>&nbsp;та&nbsp;<Latex>$C\text-space$</Latex>
     </h1>
+    <Trigger action={dissoc("data")}> remove data</Trigger>
     <h3>Далі буде...</h3>
     <p className={b("paragraph", ["first"])}>
       У <Latex>$P\text-просторі$</Latex> мережа є сильно зв'язною.
@@ -173,7 +172,7 @@ const Article = () => (
       <Latex>$C\text-space$</Latex> - найбільш компактний. Адже замість зв'язків між зупинками він відображає перетини
       маршрутів. Цей простір є корисним, наприклад, для визначення середньої кількості пересадок між різними маршрутами.
       Ось як виглядає автобусна мережа Брістоля у цьому відображенні:
-      <img className={b("image")} src={BristolCSpace} />У цій мережі є 143 вузли-маршрути, які поєднуються 1897
+      <img className={b("image")} src="img/bristolCSpace.png" />У цій мережі є 143 вузли-маршрути, які поєднуються 1897
       зв'язками. Значення k (середня кількість зв'язків, що відходять від вузла), відповідно, високе - 26.5. Це означає,
       що маршрут брістольської мережі у середньому поєднаний із ще 26.5 іншими маршрутами (має з ними хоча б одну
       спільну зупинку). А максимальний ступінь вузла k max (max node найбільша кількість зв'язків, що зустрічається у
@@ -223,40 +222,25 @@ const Article = () => (
     <p className={b("paragraph")}>
       Симуляція атак на Брістоль в <Latex>$L\text-просторі$</Latex> показує, що випадкові атаки руйнують мережу
       найповільніше.
-      <img className={b("image")} alt={"Bristol L Space Random Attack"} src={bristolLSpaceRandomAttack} />
+      <img
+        className={b("image")}
+        alt={"Bristol L Space Random Attack"}
+        src="img/simulations/bristol_l_space_random_attacks_5_trials.png"
+      />
       Трошки швидше мережа руйнується при атаках на вузли за значенням betweenness centrality, причому видалення із
       пересортуванням є значно ефективнішим, ніж видалення за первинним порядком.
     </p>
     <img
       className={b("image", ["small", "inline"])}
       alt={"Bristol L Space Targeted Attack By Betweenness Initial"}
-      src={bristolLSpaceTargetedByBetweennessInitial}
+      src="img/simulations/bristol_l_space_targeted_attack_by_betweenness_initial.png"
     />
     <img
       className={b("image", ["small", "inline"])}
       alt={"Bristol L Space Targeted Attack By Betweenness Recalculated"}
-      src={bristolLSpaceTargetedByBetweennessRecalculated}
+      src="img/simulations/bristol_l_space_targeted_attack_by_betweenness_recalculated.png"
     />
-    <p className={b("paragraph")}>
-      <Trigger data={{ name: "Bristol" }}>Bristol bus network</Trigger>
-      <Trigger data={{ space: "L" }}>L-space</Trigger>
-      Another useful type of representation displays each route as a complete subgraph with the stops represented by the
-      nodes. Two routes are connected if they share at least one stop. Such perspective is called{" "}
-      <Trigger data={{ space: "P" }}>P-space</Trigger>. On the right side you can see the representation of Bristol bus
-      network in P-space.
-    </p>
-    <p className={b("paragraph")}>
-      To explore the network from different perspective, one can represent the routes by the nodes of the graph and show
-      connections between them by the edges. Such perspective is called <Trigger data={{ space: "C" }}>C-space</Trigger>
-      . Below is the representation of Bristol bus network in C-space.
-    </p>
-    <p className={b("paragraph")}>
-      Explorations of <Trigger data={{ name: "London" }}>London public transport network</Trigger> were also made in
-      three different spaces. Few years ago the scientists generated <Trigger data={{ space: "L" }}>L-space</Trigger>{" "}
-      representation and extracted some features, such as mean node degree, mean shortest path length and the overall
-      network resilience. Later, the representation in <Trigger>C-space</Trigger> was generated to analyse the network
-      from the routes perspective.
-    </p>
+
     <p className={b("paragraph")}>
       What's the use of buses? Buses may be used for scheduled bus transport, scheduled coach transport, school
       transport, private hire, or tourism; promotional buses may be used for political campaigns and others are
