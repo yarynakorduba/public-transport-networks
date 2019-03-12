@@ -13,9 +13,11 @@
     "@vx/shape": "0.0.184",
     "@vx/vx": "0.0.185",
     "d3": "^5.9.1",
+    "katex": "^0.10.1",
     "ramda": "^0.26.1",
     "react": "^16",
     "react-dom": "^16",
+    "react-latex": "^1.2.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "recompose": "^0",
@@ -43,6 +45,6 @@
     "@storybook/react": "^5.0.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.16.4",
-    "react-scripts": "^2"
+    "react-scripts": "^2.1.8"
   }
 }

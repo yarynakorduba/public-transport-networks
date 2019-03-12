@@ -5,10 +5,12 @@ import { fromRenderProps, lifecycle, withHandlers, withProps, withState, compose
 import { connect } from "react-redux"
 import { addTrigger, removeTrigger } from "../../actions/actionCreators"
 import { isTriggerActive } from "../../reducers"
-import { assoc } from "ramda"
+import BEM from "../../helpers/BEM"
+
+const b = BEM("Trigger")
 
 export const Trigger = ({ setRoot, children, isActive }) => (
-  <span className={isActive ? "Trigger Trigger_highlighted" : "Trigger"} ref={setRoot}>
+  <span className={isActive ? b(["highlighted"]) : b()} ref={setRoot}>
     {children}
   </span>
 )
@@ -30,11 +32,9 @@ const enhancer = compose(
   ),
   withHandlers({
     toggleTriggerIfNeeded: ({ position, data, scrolled, isActive, children, addTrigger, removeTrigger }) => () => {
-      children === "L-space" && console.log(children, position, " - ", scrolled, isActive)
       if (position - scrolled < 200 && position - scrolled > 0 && !isActive) {
         addTrigger(data)
       } else if (position - scrolled > 200 && isActive && data) {
-        console.log(data, isActive)
         removeTrigger(data)
       }
       return children
