@@ -1,4 +1,4 @@
-import { path, prop } from "ramda"
+import { filter, flatten, indexOf, map, prop, values } from "ramda"
 import {
   forceCenter,
   forceCollide,
@@ -9,8 +9,12 @@ import {
   forceY,
   interpolateWarm,
   scaleLinear,
-  scaleSequential
+  scaleSequential,
+  drag,
+  event
 } from "d3"
+import { mapIndexed, removeNodeListFromGraph } from "../../helpers"
+import { compose } from "recompose"
 
 const STRENGTH = 0.2
 const MIN_NODE_SPACE = 4
@@ -42,3 +46,38 @@ export const spaceGraphScales = connectionsDomain => ({
   nodeSpaceRadiusScale: nodeSpaceRadiusScale.copy().domain(connectionsDomain),
   colorScale: colorScale.copy().domain(connectionsDomain)
 })
+
+export const prepareDataForLSpaceVisualization = data => {
+  const dataWithoutExcessiveNodes = removeNodeListFromGraph(
+    values(filter(node => node.connections.length === 2, data)).map(node => node.id),
+    data
+  )
+  const nodeIds = Object.keys(dataWithoutExcessiveNodes)
+  return {
+    nodes: map(d => ({ ...d, r: d.connections.length }), values(dataWithoutExcessiveNodes)),
+    links: compose(
+      flatten,
+      mapIndexed(({ connections }, index) =>
+        map(connection => ({ source: index, target: indexOf(connection, nodeIds) }), connections)
+      ),
+      values
+    )(dataWithoutExcessiveNodes)
+  }
+}
+
+export const getDragHandler = simulation =>
+  drag()
+    .on("start", d => {
+      if (!event.active) simulation.alphaTarget(0.3).restart()
+      d.fx = d.x
+      d.fy = d.y
+    })
+    .on("drag", d => {
+      d.fx = event.x
+      d.fy = event.y
+    })
+    .on("end", d => {
+      if (!event.active) simulation.alphaTarget(0)
+      d.fx = null
+      d.fy = null
+    })
