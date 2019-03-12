@@ -30,6 +30,8 @@ const prepareDataForLSpaceVisualization = data => {
   }
 }
 
+
+
 export default compose(
   defaultProps({
     width: 600,
@@ -71,8 +73,8 @@ export default compose(
       )
       .force("charge", forceManyBody())
       .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
-      .force("y", forceY(0).strength(0.5))
-      .force("x", forceX(0).strength(0.5))
+      .force("y", forceY(0).strength(0.2))
+      .force("x", forceX(0).strength(0.2))
   })),
   withDragging,
   withProps(({ data: { nodes } }) => ({
