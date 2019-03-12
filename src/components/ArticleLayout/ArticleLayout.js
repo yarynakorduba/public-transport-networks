@@ -2,15 +2,15 @@ import React, { createContext } from "react"
 import { compose } from "ramda"
 import "./ArticleLayout.scss"
 import { connect } from "react-redux"
-import { triggerRespondent } from "../HOC/triggerRespondent"
-import { withRouter } from "react-router-dom"
-import { lifecycle, withProps, withState } from "recompose"
-import { addTrigger, removeTrigger } from "../../actions/actionCreators"
+import { lifecycle, withState } from "recompose"
+import BEM from "../../helpers/BEM"
+
+const b = BEM("ArticleLayout")
 
 export const ScrolledContext = createContext()
 
 const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, triggers, scrolled, setRoot }) => (
-  <section className={"ArticleLayout"} ref={setRoot}>
+  <section className={b()} ref={setRoot}>
     <ScrolledContext.Provider
       value={{
         scrolled
@@ -26,8 +26,8 @@ const ArticleLayout = ({ article, illustration, addTrigger, removeTrigger, trigg
       >
         {JSON.stringify(triggers)}
       </div>
-      <div className={"ArticleLayout__article"}>{article}</div>
-      <div className={"ArticleLayout__illustration"}>{illustration}</div>
+      <div className={b("article")}>{article}</div>
+      <div className={b("illustration")}>{illustration}</div>
     </ScrolledContext.Provider>
   </section>
 )
@@ -45,8 +45,7 @@ const enhancer = compose(
     componentWillUnmount() {
       window.removeEventListener("scroll", this.props.setScrolled)
     }
-  }),
-  triggerRespondent
+  })
 )
 
 export default enhancer(ArticleLayout)

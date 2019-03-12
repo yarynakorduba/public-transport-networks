@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i&subset=cyrillic");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css");
 @import "../../styles/variables";
 
 .Article {
@@ -10,7 +11,10 @@
     height: auto;
     margin: 0.75rem auto;
     &_small {
-      max-width: 25rem;
+      max-width: 50%;
+    }
+    &_inline {
+      display: inline-block;
     }
   }
 

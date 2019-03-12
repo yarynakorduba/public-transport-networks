@@ -1,7 +1,7 @@
 import React from "react"
 import { withParentSize } from "@vx/responsive"
 import { branch, compose, defaultProps, renameProps, renderComponent, withProps } from "recompose"
-import * as d3 from "d3"
+import { forceCollide, forceSimulation, scan, forceManyBody, forceCenter, forceY, forceX, forceLink } from "d3"
 import { flatten, indexOf, values, map, filter } from "ramda"
 import { connect } from "react-redux"
 import { fetchStops } from "../../actions"
@@ -10,6 +10,10 @@ import withDrawedChart from "../HOC/drawChart"
 import withDragging from "../HOC/dragging"
 import { removeNodeListFromGraph, mapIndexed } from "../../helpers"
 import { areDataFetching, getData } from "../../reducers"
+
+const SpaceGraph = ({ chartHeight, chartWidth, classNameOfVisualizationContainer }) => (
+  <svg className={classNameOfVisualizationContainer} height={chartHeight} width={chartWidth} />
+)
 
 const prepareDataForLSpaceVisualization = data => {
   data = removeNodeListFromGraph(values(filter(node => node.connections.length === 2, data)).map(node => node.id), data)
@@ -25,10 +29,6 @@ const prepareDataForLSpaceVisualization = data => {
     )(data)
   }
 }
-
-const SpaceGraph = ({ chartHeight, chartWidth, classNameOfVisualizationContainer }) => (
-  <svg className={classNameOfVisualizationContainer} height={chartHeight} width={chartWidth} />
-)
 
 export default compose(
   defaultProps({
@@ -58,28 +58,26 @@ export default compose(
 
   // visualization preparation
   withProps(({ chartWidth, chartHeight }) => ({
-    simulation: d3
-      .forceSimulation()
+    simulation: forceSimulation()
       .force(
         "link",
-        d3
-          .forceLink()
+        forceLink()
           .id(d => d.index)
           .strength(0.8)
       )
       .force(
         "collide",
-        d3.forceCollide(d => (d.connections.length === 1 ? 11 : radiusGraphScale([1, 10])(d.r) + 2)).strength(0.5)
+        forceCollide(d => (d.connections.length === 1 ? 11 : radiusGraphScale([1, 10])(d.r) + 2)).strength(0.5)
       )
-      .force("charge", d3.forceManyBody())
-      .force("center", d3.forceCenter(chartWidth / 2, chartHeight / 2))
-      .force("y", d3.forceY(0).strength(0.5))
-      .force("x", d3.forceX(0).strength(0.5))
+      .force("charge", forceManyBody())
+      .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
+      .force("y", forceY(0).strength(0.5))
+      .force("x", forceX(0).strength(0.5))
   })),
   withDragging,
   withProps(({ data: { nodes } }) => ({
-    minDegree: nodes[d3.scan(nodes, (a, b) => a.connections.length - b.connections.length)].connections.length,
-    maxDegree: nodes[d3.scan(nodes, (a, b) => b.connections.length - a.connections.length)].connections.length
+    minDegree: nodes[scan(nodes, (a, b) => a.connections.length - b.connections.length)].connections.length,
+    maxDegree: nodes[scan(nodes, (a, b) => b.connections.length - a.connections.length)].connections.length
   })),
   withDrawedChart
 )(SpaceGraph)
