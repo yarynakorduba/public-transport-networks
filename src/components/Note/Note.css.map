@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,WAAQ;EACN,KAAK,EAAE,OAAO;EACd,SAAS,EAAE,OAAO;EAClB,QAAQ,EAAE,MAAM;AAElB,aAAU;EACR,KAAK,EAAE,OAAO",
+"sources": ["Note.scss"],
+"names": [],
+"file": "Note.css"
+}
