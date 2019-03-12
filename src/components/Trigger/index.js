@@ -1,2 +1,1 @@
-import Trigger from "./Trigger"
-export default Trigger
+export { default, TriggerContext } from "./Trigger"
