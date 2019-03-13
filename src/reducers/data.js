@@ -3,7 +3,7 @@ import { arrayToObject, mapIndexed } from "../helpers"
 import { prop, compose, assoc, flip } from "ramda"
 import { combineReducers } from "redux"
 
-const data = (state = null, action) => {
+const data = (state:object = null, action:object):object => {
   switch (action.type) {
     case FETCH_STOPS_SUCCESS:
       return compose(
@@ -17,7 +17,7 @@ const data = (state = null, action) => {
   }
 }
 
-const areFetching = (state = false, action) => {
+const areFetching = (state:boolean = false, action:object):boolean => {
   switch (action.type) {
     case FETCH_STOPS_START:
       return true
