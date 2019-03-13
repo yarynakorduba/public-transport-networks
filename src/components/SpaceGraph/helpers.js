@@ -27,7 +27,7 @@ const nodeSpaceRadiusScale = scaleLinear().range([MIN_NODE_SPACE, MAX_NODE_SPACE
 const nodeRadiusScale = scaleLinear().range([MIN_NODE_RADIUS, MAX_NODE_RADIUS])
 const colorScale = scaleSequential(interpolateWarm)
 
-export const getForceSimulation = (chartWidth, chartHeight, nodeSpaceRadiusScale) =>
+export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
   forceSimulation()
     .force(
       "link",
@@ -47,7 +47,7 @@ export const spaceGraphScales = connectionsDomain => ({
   colorScale: colorScale.copy().domain(connectionsDomain)
 })
 
-export const prepareDataForLSpaceVisualization = data => {
+export const prepareDataForLSpaceVisualization = (data:object):object => {
   const dataWithoutExcessiveNodes = removeNodeListFromGraph(
     values(filter(node => node.connections.length === 2, data)).map(node => node.id),
     data
@@ -65,7 +65,7 @@ export const prepareDataForLSpaceVisualization = data => {
   }
 }
 
-export const getDragHandler = simulation =>
+export const getDragHandler = (simulation:object):function =>
   drag()
     .on("start", d => {
       if (!event.active) simulation.alphaTarget(0.3).restart()
