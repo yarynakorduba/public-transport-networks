@@ -16,7 +16,7 @@ import {
 import { mapIndexed, removeNodeListFromGraph } from "../../helpers"
 import { compose } from "recompose"
 
-const STRENGTH = 0.2
+const STRENGTH = 0.5
 const MIN_NODE_SPACE = 4
 const MAX_NODE_SPACE = 50
 
@@ -33,7 +33,7 @@ export const getForceSimulation = (chartWidth, chartHeight, nodeSpaceRadiusScale
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(STRENGTH)
+        .strength(0.8)
     )
     .force("collide", forceCollide(({ r }) => nodeSpaceRadiusScale(r)).strength(STRENGTH))
     .force("charge", forceManyBody())

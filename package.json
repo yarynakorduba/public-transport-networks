@@ -5,6 +5,7 @@
   "dependencies": {
     "@vx/vx": "0.0.185",
     "d3": "^5.9.1",
+    "katex": "^0.10.1",
     "ramda": "^0.26.1",
     "react": "^16",
     "react-dom": "^16",
