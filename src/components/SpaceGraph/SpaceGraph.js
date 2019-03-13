@@ -18,6 +18,67 @@ const SpaceGraph = ({ chartHeight, chartWidth, drawChart }) => {
   return <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
 }
 
+const withDrawingChart = withProps(({ chartWidth, chartHeight, data, showLabels }) => ({
+  drawChart: rootEl => {
+    const graphData = prepareDataForLSpaceVisualization(data)
+    const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
+    const { nodeRadiusScale, nodeSpaceRadiusScale, colorScale } = spaceGraphScales(connectionsDomain)
+    const simulation = getForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale)
+    const dragHandler = getDragHandler(simulation)
+
+    const svg = select(rootEl)
+    svg.selectAll("*").remove()
+
+    const links = svg
+      .append("g")
+      .attr("class", b("links"))
+      .selectAll(b("line"))
+      .data(graphData.links)
+      .enter()
+      .append("line")
+      .attr("class", b("line"))
+
+    const nodes = svg
+      .append("g")
+      .selectAll(b("node"))
+      .data(graphData.nodes)
+      .enter()
+      .append("g")
+      .attr("class", b("node"))
+      .call(dragHandler)
+
+    nodes
+      .append("circle")
+      .attr("fill", d => colorScale(d.connections.length))
+      .attr("r", ({ r }) => nodeRadiusScale(r))
+
+    if (showLabels) {
+      nodes
+        .append("g")
+        .attr("class", b("labels"))
+        .append("text")
+        .attr("class", b("text-label"))
+        .text(prop("label"))
+    }
+
+    simulation
+      .nodes(graphData.nodes)
+      .on("tick", () => {
+        links
+          .attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y)
+
+        nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
+      })
+      .force("link")
+      .links(graphData.links)
+  }
+}))
+
+export const SpaceGraphWithDrawing = withDrawingChart(SpaceGraph)
+
 export default compose(
   defaultProps({
     width: 600,
@@ -42,64 +103,6 @@ export default compose(
   branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Preparing the visualization...")),
   withProps(({ data, setData, fetchNodes, representationOf, space }) => !data && fetchNodes(representationOf, space)),
   branch(({ data }) => !data, renderComponent(() => "Something went wrong. We didn`t manage to load the data...")),
-
   // visualization preparation
-  withProps(({ chartWidth, chartHeight, data, showLabels }) => ({
-    drawChart: rootEl => {
-      const graphData = prepareDataForLSpaceVisualization(data)
-      const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
-      const { nodeRadiusScale, nodeSpaceRadiusScale, colorScale } = spaceGraphScales(connectionsDomain)
-      const simulation = getForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale)
-      const dragHandler = getDragHandler(simulation)
-
-      const svg = select(rootEl)
-      svg.selectAll("*").remove()
-
-      const links = svg
-        .append("g")
-        .attr("class", b("links"))
-        .selectAll(b("line"))
-        .data(graphData.links)
-        .enter()
-        .append("line")
-        .attr("class", b("line"))
-
-      const nodes = svg
-        .append("g")
-        .selectAll(b("node"))
-        .data(graphData.nodes)
-        .enter()
-        .append("g")
-        .attr("class", b("node"))
-        .call(dragHandler)
-
-      nodes
-        .append("circle")
-        .attr("fill", d => colorScale(d.connections.length))
-        .attr("r", ({ r }) => nodeRadiusScale(r))
-
-      if (showLabels) {
-        nodes
-          .append("g")
-          .attr("class", b("labels"))
-          .append("text")
-          .attr("class", b("text-label"))
-          .text(prop("label"))
-      }
-
-      simulation
-        .nodes(graphData.nodes)
-        .on("tick", () => {
-          links
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y)
-
-          nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
-        })
-        .force("link")
-        .links(graphData.links)
-    }
-  }))
+  withDrawingChart
 )(SpaceGraph)
