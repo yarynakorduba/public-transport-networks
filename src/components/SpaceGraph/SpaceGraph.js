@@ -1,43 +1,29 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { withParentSize } from "@vx/responsive"
+import { prop, path } from "ramda"
+import { extent, select } from "d3"
 import { branch, compose, defaultProps, renameProps, renderComponent, withProps } from "recompose"
-import { forceCollide, forceSimulation, scan, forceManyBody, forceCenter, forceY, forceX, forceLink } from "d3"
-import { flatten, indexOf, values, map, filter } from "ramda"
+import { getForceSimulation, spaceGraphScales, prepareDataForLSpaceVisualization, getDragHandler } from "./helpers"
 import { connect } from "react-redux"
 import { fetchStops } from "../../actions"
-import { radiusGraphScale } from "../../helpers/scales"
-import withDrawedChart from "../HOC/drawChart"
-import withDragging from "../HOC/dragging"
-import { removeNodeListFromGraph, mapIndexed } from "../../helpers"
 import { areDataFetching, getData } from "../../reducers"
 
-const SpaceGraph = ({ chartHeight, chartWidth, classNameOfVisualizationContainer }) => (
-  <svg className={classNameOfVisualizationContainer} height={chartHeight} width={chartWidth} />
-)
+import "./SpaceGraph.scss"
+import BEM from "../../helpers/BEM"
+const b = BEM("SpaceGraph")
 
-const prepareDataForLSpaceVisualization = data => {
-  data = removeNodeListFromGraph(values(filter(node => node.connections.length === 2, data)).map(node => node.id), data)
-  const nodeIds = Object.keys(data)
-  return {
-    nodes: map(d => ({ ...d, r: d.connections.length }), values(data)),
-    links: compose(
-      flatten,
-      mapIndexed(({ connections }, index) =>
-        map(connection => ({ source: index, target: indexOf(connection, nodeIds) }), connections)
-      ),
-      values
-    )(data)
-  }
+const SpaceGraph = ({ chartHeight, chartWidth, drawChart }) => {
+  const rootEl = useRef(null)
+  useEffect(() => drawChart(rootEl.current))
+  return <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
 }
-
-
 
 export default compose(
   defaultProps({
     width: 600,
     height: 600,
     margin: { top: 0, left: 0, bottom: 0, right: 0 },
-    colorConfig: { domain: [1, 4] }
+    showLabels: false
   }),
 
   // chart size definition
@@ -56,30 +42,64 @@ export default compose(
   branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Preparing the visualization...")),
   withProps(({ data, setData, fetchNodes, representationOf, space }) => !data && fetchNodes(representationOf, space)),
   branch(({ data }) => !data, renderComponent(() => "Something went wrong. We didn`t manage to load the data...")),
-  withProps(({ data }) => ({ data: prepareDataForLSpaceVisualization(data) })),
 
   // visualization preparation
-  withProps(({ chartWidth, chartHeight }) => ({
-    simulation: forceSimulation()
-      .force(
-        "link",
-        forceLink()
-          .id(d => d.index)
-          .strength(0.8)
-      )
-      .force(
-        "collide",
-        forceCollide(d => (d.connections.length === 1 ? 11 : radiusGraphScale([1, 10])(d.r) + 2)).strength(0.5)
-      )
-      .force("charge", forceManyBody())
-      .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
-      .force("y", forceY(0).strength(0.2))
-      .force("x", forceX(0).strength(0.2))
-  })),
-  withDragging,
-  withProps(({ data: { nodes } }) => ({
-    minDegree: nodes[scan(nodes, (a, b) => a.connections.length - b.connections.length)].connections.length,
-    maxDegree: nodes[scan(nodes, (a, b) => b.connections.length - a.connections.length)].connections.length
-  })),
-  withDrawedChart
+  withProps(({ chartWidth, chartHeight, data, showLabels }) => ({
+    drawChart: rootEl => {
+      const graphData = prepareDataForLSpaceVisualization(data)
+      const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
+      const { nodeRadiusScale, nodeSpaceRadiusScale, colorScale } = spaceGraphScales(connectionsDomain)
+      const simulation = getForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale)
+      const dragHandler = getDragHandler(simulation)
+
+      const svg = select(rootEl)
+      svg.selectAll("*").remove()
+
+      const links = svg
+        .append("g")
+        .attr("class", b("links"))
+        .selectAll(b("line"))
+        .data(graphData.links)
+        .enter()
+        .append("line")
+        .attr("class", b("line"))
+
+      const nodes = svg
+        .append("g")
+        .selectAll(b("node"))
+        .data(graphData.nodes)
+        .enter()
+        .append("g")
+        .attr("class", b("node"))
+        .call(dragHandler)
+
+      nodes
+        .append("circle")
+        .attr("fill", d => colorScale(d.connections.length))
+        .attr("r", ({ r }) => nodeRadiusScale(r))
+
+      if (showLabels) {
+        nodes
+          .append("g")
+          .attr("class", b("labels"))
+          .append("text")
+          .attr("class", b("text-label"))
+          .text(prop("label"))
+      }
+
+      simulation
+        .nodes(graphData.nodes)
+        .on("tick", () => {
+          links
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y)
+
+          nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
+        })
+        .force("link")
+        .links(graphData.links)
+    }
+  }))
 )(SpaceGraph)
