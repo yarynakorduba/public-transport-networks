@@ -5,7 +5,7 @@ import BEM from "../../helpers/BEM"
 import { pipe, identity, equals } from "ramda"
 const b = BEM("Trigger")
 
-const ScrolledContext = createContext()
+export const ScrolledContext = createContext()
 
 let scrolledData = []
 const registerTriggers = (position, action) => {
@@ -15,12 +15,10 @@ const registerTriggers = (position, action) => {
 export const TriggerContext = ({ children, ...props }) => {
   const rootEl = useRef()
   const [enhancedProps, enhanceProps] = useState({})
-
   useEffect(() => {
     let prevProps = enhancedProps //TODO: find better solution
     const onWindowScroll = () => {
       const scrolled = Math.abs(rootEl.current.getBoundingClientRect().top)
-
       const nextProps = pipe(
         ...scrolledData
           .sort(([a], [b]) => a > b)
@@ -42,21 +40,23 @@ export const TriggerContext = ({ children, ...props }) => {
   return (
     <div ref={rootEl} style={{ height: "100%", width: "100%" }}>
       <div style={{ position: "fixed", top: 20, left: 20 }}>{JSON.stringify(enhancedProps)}</div>
-      <ScrolledContext.Provider value={registerTriggers}>{children}</ScrolledContext.Provider>
+      <ScrolledContext.Provider value={{ registerTriggers, scrolledProgress: enhancedProps }}>
+        {children}
+      </ScrolledContext.Provider>
     </div>
   )
 }
 
 const SCROLL_TOP_OFFSET = 200
 export const Trigger = ({ children, action }) => {
-  const registerTrigger = useContext(ScrolledContext)
+  const { registerTriggers: registerTrigger } = useContext(ScrolledContext)
   const rootEl = useRef(null)
-
   useEffect(() => {
-    const position = rootEl.current.offsetTop
+    const position = rootEl.current.offsetTop - SCROLL_TOP_OFFSET
     registerTrigger(position, action)
   }, [])
 
+  //TODO: find adequate solution for trigger highlighting
   return (
     <span ref={rootEl} className={b()}>
       {children}

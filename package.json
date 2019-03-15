@@ -2,10 +2,10 @@
   "name": "public_transport_networks",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://yarynakorduba.github.io/public-transport-networks",
   "dependencies": {
     "@vx/vx": "0.0.185",
     "d3": "^5.9.1",
-    "katex": "^0.10.1",
     "ramda": "^0.26.1",
     "react": "^16",
     "react-dom": "^16",
@@ -22,7 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +36,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "@storybook/react": "^5.0.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.16.4",

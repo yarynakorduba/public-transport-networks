@@ -1,6 +1,5 @@
 import React from "react"
 import { TriggerContext } from "../Trigger"
-
 import "./ArticleLayout.scss"
 
 import BEM from "../../helpers/BEM"
