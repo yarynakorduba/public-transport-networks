@@ -20,14 +20,14 @@
     stroke-linejoin:round;
   }
 
-  line {
+  &__axis line{
     stroke: #fff;
     stroke-opacity: .2;
     shape-rendering: crispEdges;
     stroke-width: 1;
   }
 
-  path{
+  &__axis path{
     fill: none;
     stroke: #1B1733;
     stroke-width: 2;
