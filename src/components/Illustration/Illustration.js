@@ -18,7 +18,9 @@ export const Illustration = () => {
       setIllustrationToDisplay("...Scroll through the article and watch the visualizations here...")
     }
   })
-  return <div className={b()}>{IllustrationToDisplay}</div>
+  return <div className={b()}>
+    <DistributionViz/>
+  </div>
 }
 
 export default Illustration

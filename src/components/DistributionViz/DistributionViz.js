@@ -8,17 +8,17 @@ import "./DistributionViz.scss"
 import BEM from "../../helpers/BEM"
 const b = BEM("DistributionViz")
 
-const DistributionViz = ({ chartHeight, chartWidth, drawChart }) => {
+const DistributionViz = ({ height, width, drawChart }) => {
   const rootEl = useRef(null)
   useEffect(() => drawChart(rootEl.current))
-  return <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
+  return <svg ref={rootEl} className={b()} height={height} width={width} />
 }
 
 export default compose(
   defaultProps({
-    width: 600,
-    height: 600,
-    margin: { top: 0, left: 0, bottom: 0, right: 0 },
+    width: 500,
+    height: 250,
+    margin: { top: 150, left: 100, bottom: 30, right: 50 },
   }),
 
   // visualization preparation
@@ -26,8 +26,6 @@ export default compose(
     drawChart: rootEl => {
 
       const graph = select(rootEl)
-      graph.selectAll("*").remove()
-        .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -45,34 +43,33 @@ export default compose(
 
       // Define the line
       let valueline = line()
-        .x(function(d) { return x(d.paths); })
-        .y(function(d) { return y(d.quantity); });
+        .x(d => { return x(d.paths); })
+        .y(d => { return y(d.quantity); });
 
-      json("../../../public/data/testik.json", function(error, data) {
-        console.log("asdghjfhg")
-        x.domain(extent(data, function(d) { return d.paths; }));
-        y.domain([0, max(data, function(d) { return d.quantity; })]);
+      json("/data/testik.json").then(data => {
+        console.log(data)
+        x.domain(extent(data, d => { return d.paths; }));
+        y.domain([0, max(data, d => { return d.quantity; })]);
 
         graph.append("path")
-          .attr("class", "line")
-          .attr("class", "DistributionViz__bristol_c_space")
+          .attr("class", b("bristol_c_space"))
           .attr("d", valueline(data));
 
         graph.selectAll("dot")
           .data(data)
           .enter().append("circle")
           .attr("r", 3)
-          .attr("cx", function(d) { return x(d.paths); })
-          .attr("cy", function(d) { return y(d.quantity); })
+          .attr("cx", d => { return x(d.paths); })
+          .attr("cy", d => { return y(d.quantity); })
           .attr("fill", "#1B1733")
 
         graph.append("g")
-          .attr("class", "x axis")
+          .attr("class", b("axis"))
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis);
 
         graph.append("g")
-          .attr("class", "y axis")
+          .attr("class", b("axis"))
           .call(yAxis);
 
       });
