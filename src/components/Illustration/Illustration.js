@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import "./Illustration.scss"
 import SpaceGraph from "../SpaceGraph/SpaceGraph"
+import DistributionViz from "../DistributionViz/DistributionViz"
 import BEM from "../../helpers/BEM"
 
 import { ScrolledContext } from "../Trigger/Trigger"
