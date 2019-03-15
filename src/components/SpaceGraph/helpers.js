@@ -11,7 +11,7 @@ import {
   scaleSequential,
   drag,
   event,
-  interpolatePlasma
+  interpolatePlasma, forceRadial
 } from "d3"
 import { mapIndexed, removeNodeListFromGraph } from "../../helpers"
 import { compose } from "recompose"
@@ -50,6 +50,28 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
     .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
     .force("y", forceY(chartHeight / 2).strength(STRENGTH))
     .force("x", forceX(chartWidth / 2).strength(STRENGTH))
+
+
+export const getRadialForceSimulation = (chartWidth:number, chartHeight:number):object =>
+  forceSimulation()
+    .force(
+      "link",
+      forceLink()
+        .id(prop("index"))
+        .strength(0.5)
+    )
+    .force("charge", forceCollide().radius(7))
+    .force(
+      "r",
+      forceRadial(function(d) {
+        return d.connections.length >= 5 ? 50 : 170
+      })
+        .x(300)
+        .y(300)
+        .strength(1)
+    )
+
+
 
 export const prepareDataForGraphSpaceVisualization = (data, showGraphWithoutExcessiveNodes) => {
   const graphData = showGraphWithoutExcessiveNodes
