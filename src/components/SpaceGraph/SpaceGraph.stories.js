@@ -80,6 +80,8 @@ const mockData = {
 }
 
 storiesOf("SpaceGraph", module)
+  .addDecorator(story => <div style={{ padding: "3rem" }}>{story()}</div>)
+
   .add("Simple Graph", () => {
     return (
       <Provider store={configureStore(data)}>
