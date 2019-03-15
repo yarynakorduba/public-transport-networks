@@ -89,6 +89,7 @@ const withDrawingChart = withProps(
 
       simulation
         .nodes(graphData.nodes)
+
         .on("tick", () => {
           links
             .attr("x1", d => d.source.x)
@@ -98,8 +99,8 @@ const withDrawingChart = withProps(
 
           nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
         })
-        .force("link")
         .links(graphData.links)
+        .force("link")
     }
   })
 )
