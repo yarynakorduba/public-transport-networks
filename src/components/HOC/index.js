@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { fetchData } from "../../actions"
 import { flatten, map } from "ramda"
 
-const lengthComparator = (a, b) => a.length - b.length
+const lengthComparator = (a:object, b:object):number => a.length - b.length
 
 export const withData = compose(
   connect(
@@ -47,9 +47,9 @@ export const withNetworkStops = compose(
   }))
 )
 
-const pair = (a, b) => ({ source: a, target: b })
+const pair = (a:object, b:object):object => ({ source: a, target: b })
 
-export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestRouteStops, height, width }) => ({
+export const withVisualizationConfig = withProps(({ smallestRouteStops, biggestRouteStops, height, width }):object => ({
   displayProps: {
     "1": {
       backgroundColor: "lemongrass",

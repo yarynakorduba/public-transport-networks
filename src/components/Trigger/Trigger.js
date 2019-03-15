@@ -8,7 +8,7 @@ const b = BEM("Trigger")
 export const ScrolledContext = createContext()
 
 let scrolledData = []
-const registerTriggers = (position, action) => {
+const registerTriggers = (position:number, action:function) => {
   scrolledData.push([position, action])
 }
 

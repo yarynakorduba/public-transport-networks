@@ -37,7 +37,7 @@ export const getDefaultSpaceGraphScales = connectionsDomain => ({
   fontSizeScale: fontSizeScale.copy().domain(connectionsDomain)
 })
 
-export const getForceSimulation = (chartWidth, chartHeight, nodeSpaceRadiusScale) =>
+export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
   forceSimulation()
     .force(
       "link",
@@ -68,7 +68,7 @@ export const prepareDataForGraphSpaceVisualization = (data, showGraphWithoutExce
   }
 }
 
-export const getDragHandler = simulation =>
+export const getDragHandler = (simulation:object):function =>
   drag()
     .on("start", d => {
       if (!event.active) simulation.alphaTarget(0.3).restart()
