@@ -13,12 +13,12 @@
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round; }
-.DistributionViz line {
+.DistributionViz__axis line {
   stroke: #fff;
   stroke-opacity: .2;
   shape-rendering: crispEdges;
   stroke-width: 1; }
-.DistributionViz path {
+.DistributionViz__axis path {
   fill: none;
   stroke: #1B1733;
   stroke-width: 2;
