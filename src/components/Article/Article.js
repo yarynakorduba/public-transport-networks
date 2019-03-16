@@ -34,11 +34,11 @@ const Article = () => (
       відображає різні аспекти роботи транспортної системи.{" "}
       <Trigger
         action={mergeLeft({
-          representationOf: "example",
           space: "l",
           showLabels: true,
           showGraphWithoutExcessiveNodes: false,
-          illustrationTitle: "Приклад структури графа в L-просторі"
+          illustrationTitle: "Приклад структури графа в L-просторі",
+          representationOf: "example"
         })}
       >
         <Latex>$L\text-space$</Latex>
@@ -56,7 +56,13 @@ const Article = () => (
       цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з одною прямим ребром, адже між
       кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
       <img src="img/examplePSpace.svg" className={b("image", ["small"])} alt="Example PSpace" />У{" "}
-      <Trigger action={mergeLeft({ space: "c", illustrationTitle: "Приклад структури графа в C-просторі" })}>
+      <Trigger
+        action={mergeLeft({
+          space: "c",
+          illustrationTitle: "Приклад структури графа в C-просторі",
+          representationOf: "example"
+        })}
+      >
         <Latex>$C\text-space$</Latex>
       </Trigger>{" "}
       інформація більш узагальнена. Цей простір відображає зв'язки не між зупинками, а між маршрутами для того, щоби
