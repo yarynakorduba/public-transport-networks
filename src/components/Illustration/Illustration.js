@@ -13,10 +13,10 @@ export const Illustration = () => {
   const { scrolledProgress } = useContext(ScrolledContext)
   const [illustrationToDisplay, setIllustrationToDisplay] = useState()
   useEffect(() => {
-    if (scrolledProgress.representationOf && scrolledProgress.space) {
-      setIllustrationToDisplay(<SpaceGraph {...scrolledProgress} />)
-    } else if (scrolledProgress.representationOf && scrolledProgress.space && scrolledProgress.graphType === "radial") {
+    if (scrolledProgress.representationOf && scrolledProgress.space && scrolledProgress.graphType === "radial") {
       setIllustrationToDisplay(<RadialForceGraph {...scrolledProgress} />)
+    } else if (scrolledProgress.representationOf && scrolledProgress.space) {
+      setIllustrationToDisplay(<SpaceGraph {...scrolledProgress} />)
     } else {
       setIllustrationToDisplay("...Scroll through the article and watch the visualizations here...")
     }

@@ -52,19 +52,19 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
     .force("x", forceX(chartWidth / 2).strength(STRENGTH))
 
 
-export const getRadialForceSimulation = (chartWidth:number, chartHeight:number):object =>
+export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
   forceSimulation()
     .force(
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(0.5)
+        .strength(0.01)
     )
-    .force("charge", forceCollide().radius(7))
+    .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)+1).strength(1))
     .force(
       "r",
       forceRadial(function(d) {
-        return d.connections.length >= 5 ? 50 : 170
+        return d.connections.length >= 7 ? 20 : d.connections.length >= 5 ? 70 : d.connections.length >= 4 ? 120 : d.connections.length >= 2 ? 180 : 270
       })
         .x(300)
         .y(300)
