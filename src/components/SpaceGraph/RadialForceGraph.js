@@ -6,7 +6,12 @@ import { branch, defaultProps, renameProps, renderComponent, withProps } from "r
 import connect from "react-redux/es/connect/connect"
 import { areDataFetching, getData } from "../../reducers"
 import { fetchStops } from "../../actions"
-import { getDefaultSpaceGraphScales, getRadialForceSimulation, prepareDataForGraphSpaceVisualization } from "./helpers"
+import {
+  getDefaultSpaceGraphScales,
+  getRadialForceSimulation,
+  getRadialSpaceGraphScales,
+  prepareDataForGraphSpaceVisualization
+} from "./helpers"
 import BEM from "../../helpers/BEM"
 import "./RadialForceGraph.scss"
 
@@ -23,9 +28,11 @@ const withDrawingChart = withProps(({ chartWidth, chartHeight, data, getVisualiz
     const graphData = prepareDataForGraphSpaceVisualization(data, true)
 
     const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
-    const { nodeRadiusScale, colorScale } = getVisualizationScales(connectionsDomain)
+    const { nodeRadiusScale, colorScale, positionScale, nodeSpaceRadiusScale } = getVisualizationScales(
+      connectionsDomain
+    )
 
-    const simulation = getRadialForceSimulation(chartWidth, chartHeight, nodeRadiusScale)
+    const simulation = getRadialForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale, positionScale)
     const svg = select(rootEl)
     svg.selectAll("*").remove()
     const links = svg
@@ -70,7 +77,7 @@ const enhancer = compose(
     margin: { top: 0, left: 0, bottom: 0, right: 0 },
     showLabels: false,
     showGraphWithoutExcessiveNodes: true,
-    getVisualizationScales: getDefaultSpaceGraphScales
+    getVisualizationScales: getRadialSpaceGraphScales
   }),
 
   // chart size definition
