@@ -9,7 +9,7 @@ import {
   fetchDataSuccess
 } from "./actionCreators"
 
-export const fetchStops = (city, space) => async dispatch => {
+export const fetchStops = (city:string, space:string) => async (dispatch:function) => {
   dispatch(fetchStopsStart())
   try {
     const response = await getGraphSpaceData(city, space)
@@ -23,7 +23,7 @@ export const fetchStops = (city, space) => async dispatch => {
   }
 }
 
-export const fetchData = () => async dispatch => {
+export const fetchData = () => async (dispatch:function) => {
   dispatch(fetchDataStart())
   try {
     const response = await json("data/bristol_BUS.json", data => data)
