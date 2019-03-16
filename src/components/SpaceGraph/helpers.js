@@ -87,8 +87,8 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
     .force(
       "r",
       forceRadial(d => positionScale(d.connections.length))
-        .x(300)
-        .y(300)
+        .x(chartWidth/2)
+        .y(chartHeight/2)
         .strength(1)
     )
 
