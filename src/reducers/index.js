@@ -1,18 +1,22 @@
-import triggers, * as fromTriggers from "./triggers"
-import data, * as fromData from "./data"
-
 import { combineReducers } from "redux"
-import graph from "./graph"
+import data, * as fromData from "./data"
+import { SET_SCROLL } from "../actions/actionTypes"
+
+const scrolled = (state:number = null, action:object):number => {
+  switch (action.type) {
+    case SET_SCROLL:
+      return action.scrolled
+    default:
+      return state
+  }
+}
 
 const articleApp = combineReducers({
   data,
-  triggers,
-  graph
+  scrolled
 })
 
 export default articleApp
 
-export const areRoutesFetching = state => fromData.areRoutesFetching(state.data)
-export const getRoutes = state => fromData.getRoutes(state.data)
-
-export const getTriggers = state => fromTriggers.getTriggers(state.triggers)
+export const getData = (state:object):object => fromData.getData(state.data)
+export const areDataFetching = (state:object):object => fromData.areDataFetching(state.data)

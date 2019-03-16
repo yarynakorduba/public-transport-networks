@@ -1,35 +1,67 @@
-import React, { Component } from "react"
-import { ScrolledContext } from "../ArticleLayout/ArticleLayout"
+import React, { createContext, useEffect, useContext, useRef, useState } from "react"
+
 import "./Trigger.scss"
-import compose from "ramda/es/compose"
-import { fromRenderProps, lifecycle, withHandlers, withState } from "recompose"
+import BEM from "../../helpers/BEM"
+import { pipe, identity, equals } from "ramda"
+const b = BEM("Trigger")
 
-const Trigger = ({setRoot,children}) => (<span className={"Trigger_highlighted"} ref={setRoot}>{children}</span>)
-Trigger.contextType = ScrolledContext
-const enhancer = compose(
-  fromRenderProps(ScrolledContext.Consumer, ({scrolled,onAction,offAction})=>({scrolled,onAction,offAction})),
-  withState("position", "changePosition", 0),
-  withState("root", "setRoot", null),
-  withState("triggered", "changeTrigger", false),
-  withHandlers({
-    toggleTrigger: ({changeTrigger, data}) => (triggered, toggleAction) => {
-      changeTrigger(triggered)
-      toggleAction(data)
-    }
-  }),
-  lifecycle({
-    componentDidMount(){
-      window.addEventListener("scroll", () => this.props.changePosition(this.props.root.getBoundingClientRect().top))
-    },
-    componentDidUpdate(){
-      if (this.props.position - this.props.scrolled < 0 && !this.props.triggered) {
-        this.props.toggleTrigger(true, this.props.onAction)
+export const ScrolledContext = createContext()
+
+let scrolledData = []
+const registerTriggers = (position:number, action:function) => {
+  scrolledData.push([position, action])
+}
+
+export const TriggerContext = ({ children, ...props }) => {
+  const rootEl = useRef()
+  const [enhancedProps, enhanceProps] = useState({})
+  useEffect(() => {
+    let prevProps = enhancedProps //TODO: find better solution
+    const onWindowScroll = () => {
+      const scrolled = Math.abs(rootEl.current.getBoundingClientRect().top)
+      const nextProps = pipe(
+        ...scrolledData
+          .sort(([a], [b]) => a > b)
+          .filter(([scroll]) => scroll <= scrolled)
+          .map(([, action]) => action),
+        identity
+      )(props)
+
+      if (!equals(prevProps, nextProps)) {
+        prevProps = nextProps
+        enhanceProps(nextProps)
       }
-      if (this.props.position - this.props.scrolled > 0 && this.props.triggered)
-        this.props.toggleTrigger(false, this.props.offAction)
-
-      return this.props.children
     }
-  })
-)
-export default enhancer(Trigger)
+    window.addEventListener("scroll", onWindowScroll)
+
+    return () => window.removeEventListener("scroll", onWindowScroll)
+  }, [])
+
+  return (
+    <div ref={rootEl} style={{ height: "100%", width: "100%" }}>
+      <div style={{ position: "fixed", top: 20, left: 20 }}>{JSON.stringify(enhancedProps)}</div>
+      <ScrolledContext.Provider value={{ registerTriggers, scrolledProgress: enhancedProps }}>
+        {children}
+      </ScrolledContext.Provider>
+    </div>
+  )
+}
+
+const SCROLL_TOP_OFFSET = 200
+export const Trigger = ({ children, action }) => {
+  const { registerTriggers: registerTrigger } = useContext(ScrolledContext)
+  const rootEl = useRef(null)
+  useEffect(() => {
+    const position = rootEl.current.offsetTop - SCROLL_TOP_OFFSET
+    registerTrigger(position, action)
+  }, [])
+
+  //TODO: find adequate solution for trigger highlighting
+  return (
+    <span ref={rootEl} className={b()}>
+      {children}
+    </span>
+  )
+}
+
+export default Trigger
