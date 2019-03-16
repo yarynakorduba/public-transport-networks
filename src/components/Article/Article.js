@@ -86,10 +86,8 @@ const Article = () => (
     <p className={b("paragraph", ["first"])}>
       Дослідження для Лондона та Брістоля в <Latex>$L$</Latex> просторі проводили раніше. Ці результати, а також аналіз
       транспортних систем 12 інших міст представлені у статті{" "}
-      <Trigger action={assoc("noteText", "Автори: Головач, де Регт")}>
-        <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>
-      </Trigger>
-      . Для отримання повної картини ми відтворили результати двох міст у<Latex>$L\text-space$</Latex> і порівняли їх із
+      <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>.
+      Для отримання повної картини ми відтворили результати двох міст у<Latex>$L\text-space$</Latex> і порівняли їх із
       попередніми даними, пізніше відобразили системи у двох інших вимірах. Погляньте на візуалізацію
       <Trigger
         action={mergeLeft({
