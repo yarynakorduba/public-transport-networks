@@ -11,7 +11,9 @@ import {
   scaleSequential,
   drag,
   event,
-  interpolatePlasma, forceRadial
+  interpolatePlasma,
+  forceRadial,
+  scaleThreshold
 } from "d3"
 import { mapIndexed, removeNodeListFromGraph } from "../../helpers"
 import { compose } from "recompose"
@@ -25,10 +27,22 @@ const MAX_NODE_RADIUS = 12
 const MIN_FONT_SIZE = 0.5
 const MAX_FONT_SIZE = 1
 
+const MIN_RADIAL_NODE_SPACE = 3
+const MAX_RADIAL_NODE_SPACE = 13
+const MIN_RADIAL_NODE_RADIUS = 2
+const MAX_RADIAL_NODE_RADIUS = 10
+
+
 const nodeSpaceRadiusScale = scaleLinear().range([MIN_NODE_SPACE, MAX_NODE_SPACE])
 const nodeRadiusScale = scaleLinear().range([MIN_NODE_RADIUS, MAX_NODE_RADIUS])
 const fontSizeScale = scaleLinear().range([MIN_FONT_SIZE, MAX_FONT_SIZE])
 const colorScale = scaleSequential(interpolatePlasma)
+
+const radialNodeSpaceRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_SPACE, MAX_RADIAL_NODE_SPACE])
+const radialNodeRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_RADIUS, MAX_RADIAL_NODE_RADIUS])
+const radialColorScale = scaleSequential(interpolatePlasma)
+const radialPositionScale = scaleThreshold().range([280, 180, 120, 70, 10])
+
 
 export const getDefaultSpaceGraphScales = connectionsDomain => ({
   nodeRadiusScale: nodeRadiusScale.copy().domain(connectionsDomain),
@@ -36,6 +50,15 @@ export const getDefaultSpaceGraphScales = connectionsDomain => ({
   colorScale: colorScale.copy().domain(connectionsDomain),
   fontSizeScale: fontSizeScale.copy().domain(connectionsDomain)
 })
+
+export const getRadialSpaceGraphScales = connectionsDomain => ({
+  nodeRadiusScale: radialNodeRadiusScale.copy().domain(connectionsDomain),
+  nodeSpaceRadiusScale: radialNodeSpaceRadiusScale.copy().domain(connectionsDomain),
+  colorScale: radialColorScale.copy().domain(connectionsDomain),
+  positionScale: radialPositionScale.copy().domain([2, 4, 5, 7])
+})
+
+
 
 export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
   forceSimulation()
@@ -52,7 +75,7 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
     .force("x", forceX(chartWidth / 2).strength(STRENGTH))
 
 
-export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
+export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function, positionScale:function):object =>
   forceSimulation()
     .force(
       "link",
@@ -60,12 +83,10 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
         .id(prop("index"))
         .strength(0.01)
     )
-    .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)+1).strength(1))
+    .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)).strength(0.6))
     .force(
       "r",
-      forceRadial(function(d) {
-        return d.connections.length >= 7 ? 20 : d.connections.length >= 5 ? 70 : d.connections.length >= 4 ? 120 : d.connections.length >= 2 ? 180 : 270
-      })
+      forceRadial(d => positionScale(d.connections.length))
         .x(300)
         .y(300)
         .strength(1)

@@ -47,7 +47,6 @@ export default compose(
         .y(d => { return y(d.quantity); });
 
       json("/data/testik.json").then(data => {
-        console.log(data)
         x.domain(extent(data, d => { return d.paths; }));
         y.domain([0, max(data, d => { return d.quantity; })]);
 
