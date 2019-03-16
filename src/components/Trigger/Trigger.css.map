@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,oBAAc;EACZ,WAAW,EAAE,GAAG;EAChB,UAAU,EAAE,MAAM;EAClB,gBAAgB,EAAE,OAAO",
+"sources": ["Trigger.scss"],
+"names": [],
+"file": "Trigger.css"
+}

@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AACE,kBAAS;EACP,MAAM,EAAE,OAAO;EACf,YAAY,EAAE,GAAG",
+"mappings": "AACE,kBAAS;EACP,MAAM,EAAE,OAAO;EACf,YAAY,EAAE,GAAG;AASnB,uBAAc;EACZ,SAAS,EAAE,MAAM",
 "sources": ["SpaceGraph.scss"],
 "names": [],
 "file": "SpaceGraph.css"

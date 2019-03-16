@@ -1,0 +1,11 @@
+.Tabs__tab {
+  margin-left: 5px;
+  padding: 0.5rem;
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  color: white; }
+  .Tabs__tab_active {
+    border-bottom: 4px solid white; }
+
+/*# sourceMappingURL=Tabs.css.map */
