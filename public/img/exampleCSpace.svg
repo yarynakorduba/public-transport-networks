@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 50 250 150" xmlns="http://www.w3.org/2000/svg">
     <g class="links" stroke="#1F1A40">
-        <line x1="155.65" x2="94.352" y1="96.924" y2="153.08" strokeWidth="0.4504"/>
-        <line x1="94.352" x2="155.65" y1="153.08" y2="96.924" strokeWidth="0.4504"/>
+        <line x1="155.65" x2="94.352" y1="96.924" y2="153.08"     />
+        <line x1="94.352" x2="155.65" y1="153.08" y2="96.924"     />
     </g>
     <g class="nodes">
         <circle cx="155.65" cy="96.924" r="10" fill="#ff0"/>

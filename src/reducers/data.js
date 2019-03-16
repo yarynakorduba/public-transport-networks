@@ -1,23 +1,28 @@
-import { FETCH_DATA_ERROR, FETCH_DATA_START, FETCH_DATA_SUCCESS } from "../actions/actionTypes"
+import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS } from "../actions/actionTypes"
+import { arrayToObject, mapIndexed } from "../helpers"
+import { prop, compose, assoc, flip } from "ramda"
 import { combineReducers } from "redux"
 
-const routes = (state = null, action) => {
+const data = (state:object = null, action:object):object => {
   switch (action.type) {
-    case FETCH_DATA_SUCCESS:
-      return action.routes
-    case FETCH_DATA_ERROR:
-      return state
+    case FETCH_STOPS_SUCCESS:
+      return compose(
+        arrayToObject(prop("id")),
+        mapIndexed(flip(assoc("index"))),
+        prop("nodes")
+      )(action)
+    case FETCH_STOPS_ERROR:
     default:
       return state
   }
 }
 
-const areFetching = (state = false, action) => {
+const areFetching = (state:boolean = false, action:object):boolean => {
   switch (action.type) {
-    case FETCH_DATA_START:
+    case FETCH_STOPS_START:
       return true
-    case FETCH_DATA_SUCCESS:
-    case FETCH_DATA_ERROR:
+    case FETCH_STOPS_SUCCESS:
+    case FETCH_STOPS_ERROR:
       return false
     default:
       return state
@@ -25,9 +30,10 @@ const areFetching = (state = false, action) => {
 }
 
 export default combineReducers({
-  routes,
+  data,
   areFetching
 })
 
-export const areRoutesFetching = state => state.areFetching
-export const getRoutes = state => state.routes
+
+export const areDataFetching = state => state.areFetching
+export const getData = state => state.data

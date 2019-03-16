@@ -6,19 +6,19 @@ import {
   FETCH_DATA_ERROR,
   FETCH_DATA_START,
   FETCH_DATA_SUCCESS,
-  REMOVE_DEGREE_TWO_NODE,
-  REMOVE_TRIGGER
+  REMOVE_TRIGGER,
+  SET_SCROLL
 } from "./actionTypes"
 
-export const removeDegreeTwoNode = id => ({ type: REMOVE_DEGREE_TWO_NODE, id })
+export const setScroll = (scrolled:object):object => ({ scroll: SET_SCROLL, scrolled })
 
-export const addTrigger = trigger => dispatch => dispatch({ type: ADD_TRIGGER, trigger })
-export const removeTrigger = trigger => dispatch => dispatch({ type: REMOVE_TRIGGER, trigger })
+export const addTrigger = (trigger:object):object => (dispatch:function) => dispatch({ type: ADD_TRIGGER, trigger })
+export const removeTrigger = (trigger:object):object => (dispatch:function) => dispatch({ type: REMOVE_TRIGGER, trigger })
 
 export const fetchDataStart = () => ({ type: FETCH_DATA_START })
-export const fetchDataSuccess = routes => ({ type: FETCH_DATA_SUCCESS, routes })
-export const fetchDataError = error => ({ type: FETCH_DATA_ERROR, error })
+export const fetchDataSuccess = (routes:object):object => ({ type: FETCH_DATA_SUCCESS, routes })
+export const fetchDataError = (error:string):object => ({ type: FETCH_DATA_ERROR, error })
 
 export const fetchStopsStart = () => ({ type: FETCH_STOPS_START })
-export const fetchStopsSuccess = nodes => ({ type: FETCH_STOPS_SUCCESS, nodes })
-export const fetchStopsError = error => ({ type: FETCH_STOPS_ERROR, error })
+export const fetchStopsSuccess = (nodes:object):object => ({ type: FETCH_STOPS_SUCCESS, nodes })
+export const fetchStopsError = (error:string):object => ({ type: FETCH_STOPS_ERROR, error })

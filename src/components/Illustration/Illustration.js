@@ -1,19 +1,27 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import "./Illustration.scss"
-import { Route, Switch, withRouter } from "react-router-dom"
-import GraphTabsContainer from "../LPCGraph/GraphTabsContainer"
-import SpacesExampleGraph from "../SpaceGraphs/SpacesExampleGraph"
-import CSpaceGraph from "../SpaceGraphs/CSpaceGraph"
-import LSpaceGraph from "../SpaceGraphs/LSpaceGraph"
+import SpaceGraph from "../SpaceGraph/SpaceGraph"
+import DistributionViz from "../DistributionViz/DistributionViz"
+import BEM from "../../helpers/BEM"
 
-const Illustration = () => (
-  <div className={"Illustration"}>
-    <Switch>
-      {/*<SpacesExampleGraph />*/}
-      <CSpaceGraph />
-      {/*<Route exact path={"/"} component={LSpaceGraph} />*/}
-      {/*<Route exact path={"/cities/:cityill/spaces/:space"} component={GraphTabsContainer} />*/}
-    </Switch>
-  </div>
-)
-export default withRouter(Illustration)
+import { ScrolledContext } from "../Trigger/Trigger"
+import RadialForceGraph from "../SpaceGraph/RadialForceGraph"
+
+const b = BEM("Illustration")
+
+export const Illustration = () => {
+  const { scrolledProgress } = useContext(ScrolledContext)
+  const [illustrationToDisplay, setIllustrationToDisplay] = useState()
+  useEffect(() => {
+    if (scrolledProgress.representationOf && scrolledProgress.space && scrolledProgress.graphType === "radial") {
+      setIllustrationToDisplay(<RadialForceGraph {...scrolledProgress} />)
+    } else if (scrolledProgress.representationOf && scrolledProgress.space) {
+      setIllustrationToDisplay(<SpaceGraph {...scrolledProgress} />)
+    } else {
+      setIllustrationToDisplay("...Scroll through the article and watch the visualizations here...")
+    }
+  })
+  return <div className={b()}>{illustrationToDisplay}</div>
+}
+
+export default Illustration

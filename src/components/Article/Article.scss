@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i&subset=cyrillic");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css");
 @import "../../styles/variables";
 
 .Article {
@@ -10,7 +10,10 @@
     height: auto;
     margin: 0.75rem auto;
     &_small {
-      max-width: 25rem;
+      max-width: 50%;
+    }
+    &_inline {
+      display: inline-block;
     }
   }
 
@@ -31,19 +34,9 @@
     color: #2e2e2e;
   }
   &__paragraph {
-    font-family: "Roboto", sans-serif;
-    margin: 40px 0;
-    font-weight: 400;
+    margin: 1.5rem 0;
     color: #292929;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    line-height: 1.4rem;
 
-    &_first::first-letter {
-      font-weight: 500;
-      font-size: 1.8rem;
-      color: var(--blue);
-    }
 
     &_highlighted {
       font-weight: 700;
