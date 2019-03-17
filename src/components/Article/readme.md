@@ -1,3 +1,4 @@
+# <a href="https://docs.google.com/document/d/1h3fMUjFGbpsymAipA0KHZHrW5udPFUvKkGxf822IseM/edit?usp=sharing">Чорновик статті</a>
 # Зауваження до статті
 
 - Багато непотрібної інформації.
