@@ -1,14 +1,17 @@
 .ArticleLayout {
-  display: flex;
-  &__illustration,
-  &__article {
-    max-width: 50%;
-    width: 50%;
-    flex: 1 1 auto;
-  }
+  //&__article {
+  //  background: red;
+  //  width: 600px;
+  //  margin: auto;
+  //  transform: translateX(-50%);
+  //}
 
-  &__illustration {
-    position: fixed;
-    right: 0;
-  }
+  //&__illustration {
+  //  position: sticky;
+  //  float: right;
+  //  width: calc(100vw - 50% - 2px);
+  //  height: 100vh;
+  //
+  //  background: gold;
+  //}
 }

@@ -1,2 +1,1 @@
-import Illustration from "./Illustration"
-export default Illustration
+export { default } from "./Illustration"

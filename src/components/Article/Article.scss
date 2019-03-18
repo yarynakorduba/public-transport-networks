@@ -2,7 +2,24 @@
 @import "../../styles/variables";
 
 .Article {
-  padding: 0 10%;
+  padding: 1.5rem;
+
+  width: 600px;
+  margin: auto;
+  transform: translateX(-50%);
+
+  &__illustration {
+    position: sticky;
+    top: 0;
+    float: right;
+
+    width: calc(50vw);
+    margin-right: calc(-50vw - 1.5rem);
+
+    height: 50vh;
+
+    background: gold;
+  }
 
   &__image {
     display: block;
@@ -36,7 +53,6 @@
   &__paragraph {
     margin: 1.5rem 0;
     color: #292929;
-
 
     &_highlighted {
       font-weight: 700;

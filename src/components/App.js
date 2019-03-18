@@ -1,20 +1,11 @@
-import React, { Component } from "react"
-import "../styles/App.scss"
-import ArticleLayout from "./ArticleLayout"
-import Article from "./Article"
+import React from "react"
 import { BrowserRouter } from "react-router-dom"
-import Illustration from "./Illustration/Illustration"
+import ArticleLayout from "./ArticleLayout"
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <BrowserRouter>
-          <ArticleLayout article={<Article />} illustration={<Illustration />} />
-        </BrowserRouter>
-      </div>
-    )
-  }
-}
+const App = () => (
+  <BrowserRouter>
+    <ArticleLayout />
+  </BrowserRouter>
+)
 
 export default App
