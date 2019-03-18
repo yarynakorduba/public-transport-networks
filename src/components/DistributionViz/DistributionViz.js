@@ -1,3 +1,4 @@
+// @flow
 import React, { useEffect, useRef } from "react"
 import { withParentSize } from "@vx/responsive"
 import { extent, select, scaleLinear, svg, max, json, axisBottom, axisLeft } from "d3"

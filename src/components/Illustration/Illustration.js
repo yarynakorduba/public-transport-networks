@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import "./Illustration.scss"
 import SpaceGraph from "../SpaceGraph/SpaceGraph"
-import DistributionViz from "../DistributionViz/DistributionViz"
 import BEM from "../../helpers/BEM"
 
 import { ScrolledContext } from "../Trigger/Trigger"
@@ -12,6 +11,7 @@ const b = BEM("Illustration")
 export const Illustration = () => {
   const { scrolledProgress } = useContext(ScrolledContext)
   const [illustrationToDisplay, setIllustrationToDisplay] = useState()
+
   useEffect(() => {
     if (scrolledProgress.representationOf && scrolledProgress.space && scrolledProgress.graphType === "radial") {
       setIllustrationToDisplay(<RadialForceGraph {...scrolledProgress} />)
