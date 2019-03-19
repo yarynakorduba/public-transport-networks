@@ -8,16 +8,19 @@ import Chapter5 from "./Chapter_5"
 
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
+import { TriggerContext } from "../Trigger"
 
 const b = BEM("Article")
 
 const Article = () => (
-  <div className={b()}>
-    <Chapter1 />
-    <Chapter2 />
-    <Chapter3 />
-    <Chapter4 />
-    <Chapter5 />
-  </div>
+  <TriggerContext>
+    <div className={b()}>
+      <Chapter1 />
+      <Chapter2 />
+      <Chapter3 />
+      <Chapter4 />
+      <Chapter5 />
+    </div>
+  </TriggerContext>
 )
 export default Article
