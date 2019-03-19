@@ -1,11 +1,7 @@
 import React from "react"
-import { BrowserRouter } from "react-router-dom"
-import ArticleLayout from "./ArticleLayout"
 
-const App = () => (
-  <BrowserRouter>
-    <ArticleLayout />
-  </BrowserRouter>
-)
+import Article from "./Article"
+
+const App = () => <Article />
 
 export default App
