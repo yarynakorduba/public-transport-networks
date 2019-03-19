@@ -41,9 +41,10 @@ const Chapter_1 = () => (
         src={"img/chapter_1/michigan_theatre.png"}
         alt={"Michigan Theatre in Detroit"}
       />
-      <figcaption>
-        Michigan Theatre. (фото зі статті Matthew Lambros The Michigan Theatre © Matthew Lambros and After the Final
-        Curtain, 2013. )
+      <figcaption className={b("image-caption")}>
+        Michigan Theatre. (фото зі{" "}
+        <a href={"https://afterthefinalcurtain.net/2013/04/30/the-michigan-theatre/"}>статті</a> Matthew Lambros "The
+        Michigan Theatre" © Matthew Lambros and After the Final Curtain, 2013. )
       </figcaption>
     </figure>
     <p className={b("paragraph")}>
@@ -59,7 +60,10 @@ const Chapter_1 = () => (
       багато заводів закрили і відтік населення став ще більшим. Загалом за останні півстоліття кількість населення
       зменшилася в 2.5 рази. Сучасний Детройт - це{" "}
       <a href={"https://birdinflight.com/ru/vdohnovenie/20180417-ghost-town-detroit.html"}>місто порожніх вулиць</a>, у
-      якому страшно покидати власний автомобіль. <a>[Вікіпедія]</a>
+      якому страшно покидати власний автомобіль.{" "}
+      <a href="https://uk.wikipedia.org/wiki/%D0%94%D0%B5%D1%82%D1%80%D0%BE%D0%B9%D1%82#%D0%9F%D0%BE%D1%87%D0%B0%D1%82%D0%BE%D0%BA_%D0%B7%D0%B0%D0%BD%D0%B5%D0%BF%D0%B0%D0%B4%D1%83">
+        [Вікіпедія]
+      </a>
     </p>
     <figure>
       <img
@@ -67,7 +71,17 @@ const Chapter_1 = () => (
         src={"img/chapter_1/detroit_packard_plant.png"}
         alt={"Abandoned Packard Plant in Detroit"}
       />
-      <figcaption>(покинутий завод Packard. Фото з Вікіпедії)</figcaption>
+      <figcaption className={b("image-caption")}>
+        Покинутий завод Packard. (Фото з{" "}
+        <a
+          href={
+            "https://uk.wikipedia.org/wiki/%D0%A4%D0%B0%D0%B9%D0%BB:Abandoned_Packard_Automobile_Factory_Detroit_200.jpg"
+          }
+        >
+          Вікіпедії
+        </a>
+        )
+      </figcaption>
     </figure>
     <p className={b("paragraph")}>
       Та існує інший, “європейський” шлях розвитку. Один із його прикладів - Амстердам,{" "}
@@ -117,7 +131,10 @@ const Chapter_1 = () => (
         src={"img/chapter_1/haag_central_station.png"}
         alt={"Haag Central Station"}
       />
-      <figcaption>Гаазький багаторівневий вокзал (фото з блогу Олександра Шутюка)</figcaption>
+      <figcaption className={b("image-caption")}>
+        Гаазький багаторівневий вокзал (фото з <a href={"https://alex-shutyuk.livejournal.com/375362.html"}>блогу</a>{" "}
+        Олександра Шутюка)
+      </figcaption>
     </figure>
     <p className={b("paragraph")}>
       Про <a href={"https://alex-shutyuk.livejournal.com/375362.html"}>залізниці Нідерландів</a>
