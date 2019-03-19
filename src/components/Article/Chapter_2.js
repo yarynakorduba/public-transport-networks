@@ -4,8 +4,8 @@ import Latex from "react-latex"
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 
-import RadialForceGraph from "../SpaceGraph/RadialForceGraph"
-import SpaceGraph from "../SpaceGraph"
+import RadialForceGraph from "../ForceGraph/RadialForceGraph"
+import ForceGraph from "../ForceGraph"
 
 const b = BEM("Article")
 
@@ -13,7 +13,7 @@ const Chapter_2 = () => (
   <section>
     <h1 className={b("header")}>Науковий підхід</h1>
     <div className={b("illustration")}><RadialForceGraph/></div>
-    <div className={b("illustration" )}><SpaceGraph/></div>
+    <div className={b("illustration" )}><ForceGraph/></div>
     <p className={b("paragraph", ["first"])}>
       У науковому світі з'явилося багато підходів для визначення ефективності та стійкості різних систем. Дане
       дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах: \
