@@ -6,12 +6,7 @@ import { branch, defaultProps, renameProps, renderComponent, withProps } from "r
 import connect from "react-redux/es/connect/connect"
 import { areDataFetching, getData } from "../../reducers"
 import { fetchStops } from "../../actions"
-import {
-  getDefaultSpaceGraphScales,
-  getRadialForceSimulation,
-  getRadialSpaceGraphScales,
-  prepareDataForGraphSpaceVisualization
-} from "./helpers"
+import { getRadialForceSimulation, getRadialSpaceGraphScales, prepareDataForGraphSpaceVisualization } from "./helpers"
 import BEM from "../../helpers/BEM"
 import "./RadialForceGraph.scss"
 

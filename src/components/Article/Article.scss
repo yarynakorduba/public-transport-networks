@@ -27,12 +27,12 @@
 
   &__illustration {
     float: right;
+    clear: both;
 
     width: calc(50vw);
     margin-right: calc(-50vw - 1.5rem);
 
     height: 50vh;
-    background: gold;
 
     &_sticky {
       position: sticky;
