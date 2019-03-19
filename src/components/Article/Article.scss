@@ -2,7 +2,58 @@
 @import "../../styles/variables";
 
 .Article {
-  padding: 0 10%;
+  padding: 1.5rem;
+
+  width: 600px;
+  margin: auto;
+  transform: translateX(-50%);
+
+  @media (max-width: 1300px) and (min-width: 700px) {
+    transform: translateX(0);
+  }
+
+  @media (max-width: 700px) and (min-width: 0) {
+    width: auto;
+    transform: translateX(0);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    word-wrap: break-word;
+  }
+
+  &__illustration {
+    float: right;
+    clear: both;
+
+    width: calc(50vw);
+    margin-right: calc(-50vw - 1.5rem);
+
+    height: 50vh;
+
+    &_sticky {
+      position: sticky;
+      top: 0;
+    }
+
+    @media (max-width: 1300px) and (min-width: 700px) {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(50% - 50vw);
+      width: 100vw;
+    }
+
+    @media (max-width: 700px) and (min-width: 0) {
+      float: none;
+      width: calc(100% + 3rem);
+      margin-right: 0;
+      margin-left: -1.5rem;
+      transform: translateX(0);
+    }
+  }
 
   &__image {
     display: block;
@@ -27,16 +78,16 @@
   }
 
   &__header {
-    font-family: "Roboto", sans-serif;
+    font-family: Pt Serif Caption, serif;
     font-size: 2.65rem;
     font-weight: 700;
-    margin: 50px 0;
+    margin: 1em 0;
+    line-height: 1em;
     color: #2e2e2e;
   }
   &__paragraph {
     margin: 1.5rem 0;
     color: #292929;
-
 
     &_highlighted {
       font-weight: 700;

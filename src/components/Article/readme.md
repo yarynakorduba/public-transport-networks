@@ -1,3 +1,5 @@
+[Чорновик статті](https://docs.google.com/document/d/1h3fMUjFGbpsymAipA0KHZHrW5udPFUvKkGxf822IseM/edit?usp=sharing)
+
 # Зауваження до статті
 
 - Багато непотрібної інформації.
@@ -13,3 +15,8 @@
 - Загальні фрази замість конкретики
 - Занадто довгі речення
 - Роботизована мова. (Написано "хижаками" для "чужих")
+
+
+[Чорновик статті]: https://docs.google.com/document/d/1h3fMUjFGbpsymAipA0KHZHrW5udPFUvKkGxf822IseM/edit?usp=sharing
+
+[]: https://docs.google.com/document/d/1h3fMUjFGbpsymAipA0KHZHrW5udPFUvKkGxf822IseM/edit?usp=sharing
