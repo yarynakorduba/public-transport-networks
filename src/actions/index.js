@@ -1,13 +1,11 @@
-import { json } from "d3"
+// @flow
 import { getGraphSpaceData } from "../api"
-import {
-  fetchStopsError,
-  fetchStopsStart,
-  fetchStopsSuccess,
-  fetchDataError,
-  fetchDataStart,
-  fetchDataSuccess
-} from "./actionCreators"
+import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS } from "./actionTypes"
+
+export const fetchStopsStart = () => ({ type: FETCH_STOPS_START })
+export const fetchStopsSuccess = nodes => ({ type: FETCH_STOPS_SUCCESS, nodes })
+export const fetchStopsError = (error: string) => ({ type: FETCH_STOPS_ERROR, error })
+
 
 export const fetchStops = (city:string, space:string) => async (dispatch:function) => {
   dispatch(fetchStopsStart())
@@ -20,19 +18,5 @@ export const fetchStops = (city:string, space:string) => async (dispatch:functio
     }
   } catch (e) {
     dispatch(fetchStopsError(e))
-  }
-}
-
-export const fetchData = () => async (dispatch:function) => {
-  dispatch(fetchDataStart())
-  try {
-    const response = await json("data/bristol_BUS.json", data => data)
-    if (!response.error) {
-      dispatch(fetchDataSuccess(response))
-    } else {
-      dispatch(fetchDataError(response.error))
-    }
-  } catch (e) {
-    fetchDataError(e)
   }
 }

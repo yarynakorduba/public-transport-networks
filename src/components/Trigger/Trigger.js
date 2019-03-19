@@ -39,7 +39,6 @@ export const TriggerContext = ({ children, ...props }) => {
 
   return (
     <div ref={rootEl} style={{ height: "100%", width: "100%" }}>
-      <div style={{ position: "fixed", top: 20, left: 20 }}>{JSON.stringify(enhancedProps)}</div>
       <ScrolledContext.Provider value={{ registerTriggers, scrolledProgress: enhancedProps }}>
         {children}
       </ScrolledContext.Provider>
