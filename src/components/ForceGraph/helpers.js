@@ -92,12 +92,9 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
         .strength(1)
     )
 
+export const prepareDataForGraphSpaceVisualization = (data) => {
+  const graphData = data
 
-
-export const prepareDataForGraphSpaceVisualization = (data, showGraphWithoutExcessiveNodes) => {
-  const graphData = showGraphWithoutExcessiveNodes
-    ? removeNodeListFromGraph(values(filter(node => node.connections.length === 2, data)).map(node => node.id), data)
-    : data
   const nodeIds = Object.keys(graphData)
   return {
     nodes: map(d => ({ ...d, r: d.connections.length }), values(graphData)),
