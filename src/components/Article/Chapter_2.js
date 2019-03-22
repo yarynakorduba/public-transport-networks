@@ -12,8 +12,12 @@ const b = BEM("Article")
 const Chapter_2 = () => (
   <section>
     <h1 className={b("header")}>Науковий підхід</h1>
-    <div className={b("illustration")}><RadialForceGraph/></div>
-    <div className={b("illustration" )}><ForceGraph/></div>
+    <div className={b("illustration", ["wide"])}>
+      <RadialForceGraph />
+    </div>
+    <div className={b("illustration")}>
+      <ForceGraph />
+    </div>
     <p className={b("paragraph", ["first"])}>
       У науковому світі з'явилося багато підходів для визначення ефективності та стійкості різних систем. Дане
       дослідження базується на побудові ненапрямленого графа маршрутів у трьох різних просторах: \
@@ -37,7 +41,6 @@ const Chapter_2 = () => (
       маршруту.
       <img src="img/exampleCSpace.svg" alt="Example CSpace" className={b("image", ["small"])} />
     </p>
-
   </section>
 )
 
