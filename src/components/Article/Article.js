@@ -15,8 +15,7 @@ const b = BEM("Article")
 const Article = () => (
   <TriggerContext>
     <div className={b()}>
-      <h1>Науковий підхід в проектуванні громадського транспорту</h1>
-
+      <h1>Науковий підхід у проектуванні громадського транспорту</h1>
       <Chapter1 />
       <Chapter2 />
       <Chapter3 />
