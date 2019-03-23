@@ -39,6 +39,13 @@
       top: 0;
     }
 
+    &_wide {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(100% + 1.5em - 50vw);
+      width: 100vw;
+    }
+
     @media (max-width: 1300px) and (min-width: 700px) {
       float: none;
       margin-right: auto;
