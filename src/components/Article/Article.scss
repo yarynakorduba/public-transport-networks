@@ -25,6 +25,13 @@
     word-wrap: break-word;
   }
 
+  figure {
+    margin: 0;
+  }
+  figcaption {
+    font-size: 0.8em;
+  }
+
   &__illustration {
     float: right;
     clear: both;
