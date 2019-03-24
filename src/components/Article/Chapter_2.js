@@ -29,17 +29,16 @@ const Chapter_2 = () => (
       собою через спільні зупинки. (Оскільки зазвичай зупинки прямого та зворотного маршрутів знаходяться через дорогу
       одна від одної, останніми можна знехтувати. Для побудови графа у цьому дослідженні використовуються лише прямі
       маршрути)
-      <img src="img/exampleLSpace.svg" className={b("image", ["small"])} alt="example LSpace graph" />
+      <img src="img/exampleLSpace.svg" className={b("image")} alt="example LSpace graph" />
       <Latex children={"$P\\text-space$"} />
       відображає кількість пересадок, яку потрібно зробити, щоби здійснити поїздку між будь-якими двома зупинками. У
       цьому просторі всі зупинки-вузли, що належать до одного маршруту, з'єднані одна з одною прямим ребром, адже між
       кожними двома зупинками одного маршруту можна проїхати, не змінюючи транспорту.{" "}
-      <img src="img/examplePSpace.svg" className={b("image", ["small"])} alt="Example PSpace" />У{" "}
-      <Latex>$C\text-space$</Latex>
+      <img src="img/examplePSpace.svg" className={b("image")} alt="Example PSpace" />У <Latex>$C\text-space$</Latex>
       інформація більш узагальнена. Цей простір відображає зв'язки не між зупинками, а між маршрутами для того, щоби
       прослідкувати, скільки пересадок потрібно здійснити, щоби дістатися від зупинки одного маршруту до зупинки іншого
       маршруту.
-      <img src="img/exampleCSpace.svg" alt="Example CSpace" className={b("image", ["small"])} />
+      <img src="img/exampleCSpace.svg" alt="Example CSpace" className={b("image")} />
     </p>
   </section>
 )
