@@ -6,18 +6,26 @@ import "./HeatMap.scss"
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "earthquakes-source"
 
+const convertBusStopsDataToGeoJSON = (data) => ({
+  "type": "FeatureCollection",
+  "features": data.map( ({lat,lon, routes}) => ({
+    "type": "Feature",
+    "properties": { "connectedRoutes": routes.length, "mag": 2.3 },
+    "geometry": { "type": "Point", "coordinates": [lon, lat] } }))
+})
+
 const HeatMap = () => {
   const [viewport, setViewport] = useState({
-    latitude: 49.8397,
-    longitude: 24.0297,
-    zoom: 12,
+    latitude: 51.45523,
+    longitude: -2.59665,
+    zoom: 11,
     bearing: 0,
     pitch: 0
   })
 
   const mapRef = useRef()
 
-  const MAX_ZOOM_LEVEL = 9
+  const MAX_ZOOM_LEVEL = 13
 
   const getMap = () => (mapRef.current ? mapRef.current.getMap() : null)
 
@@ -63,10 +71,14 @@ const HeatMap = () => {
   const handleMapLoaded = async event => {
     const map = getMap()
 
+    const bristolStops = await (await fetch("/data/bristol_BUS_stops.json")).json()
+    const bristolStopsGeoJSON = convertBusStopsDataToGeoJSON(bristolStops)
+    console.log(bristolStopsGeoJSON)
+
     let response = await fetch("/data/earthquakes.geojson")
     const earthquakes = await response.json()
 
-    map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: earthquakes })
+    map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: bristolStopsGeoJSON })
     map.addLayer(mkHeatmapLayer("heatmap-layer", HEATMAP_SOURCE_ID))
   }
 
