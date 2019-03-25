@@ -1,10 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import "./styles/index.scss"
 import * as serviceWorker from "./serviceWorker"
 import configureStore from "./configureStore"
+import initRecompose from "./configRecomposeStream.js"
 import Root from "./Root"
 
+import "./styles/index.scss"
+
+initRecompose()
 const store = configureStore()
 
 ReactDOM.render(<Root store={store} />, document.getElementById("root"))

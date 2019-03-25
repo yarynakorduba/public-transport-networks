@@ -18,7 +18,10 @@
     "recompose": "^0",
     "redux": "^4",
     "redux-promise": "^0",
-    "redux-thunk": "^2"
+    "redux-thunk": "^2",
+    "rxjs": "^6.4.0",
+    "turf": "^3.0.14",
+    "viewport-mercator-project": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
