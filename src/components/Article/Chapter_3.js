@@ -4,6 +4,7 @@ import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 import HeatMap from "../HeatMap/index"
 import RadarViz from "../RadarViz/RadarViz"
+import DataTable from "../DataTable/DataTable"
 const b = BEM("Article")
 
 const Chapter_3 = () => (
@@ -14,6 +15,7 @@ const Chapter_3 = () => (
       {/*<HeatMap />*/}
     {/*</div>*/}
     <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
+      <DataTable />
       <RadarViz />
     </div>
     <p className={b("article")}>

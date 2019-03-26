@@ -1,0 +1,18 @@
+.data-table {
+  width: 500px;
+  height: 210px; }
+  .data-table th {
+    text-align: left; }
+  .data-table td {
+    padding: 0 15px 0 0; }
+  .data-table__row-title {
+    font-size: 16px; }
+  .data-table__row-property {
+    color: #636363;
+    font-size: 13px;
+    font-weight: 300; }
+  .data-table__row-value {
+    font-size: 13px;
+    font-weight: bold; }
+
+/*# sourceMappingURL=DataTable.css.map */

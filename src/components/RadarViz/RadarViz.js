@@ -2,7 +2,7 @@ import { Group } from "@vx/group"
 import { scaleLinear } from "@vx/scale"
 import { Point } from "@vx/point"
 import { Line, LineRadial } from "@vx/shape"
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { compose, defaultProps, withProps } from "recompose"
 
 import data from "../../radar_testik"
@@ -61,8 +61,8 @@ const RadarViz = ({ drawChart }) => {
 
 export default compose(
   defaultProps({
-    width: 260,
-    height: 260,
+    width: 250,
+    height: 250,
     levels: 3,
     margin: {
       top: 40,
@@ -86,7 +86,7 @@ export default compose(
 
         const radiusScale = scaleLinear({
           range: [0, Math.PI * 2],
-          domain: [360, 0]
+          domain: [0,360]
         })
 
         const yScale = scaleLinear({
@@ -100,21 +100,21 @@ export default compose(
         const zeroPoint = new Point({ x: 0, y: 0 })
 
         return (
-          <svg className={b()} width={width} height={height}>
+          <svg className={b()} width={width+50} height={height}>
             <rect fill={"none"} width={width} height={height}/>
             <Group top={height / 2} left={width / 2}>
-              {[...Array(levels)].map((_, i) => {
-                const r = (i + 1) * radius / levels
-                return (
-                  <LineRadial
-                    className={b("line-radial")}
-                    key={`web-${i}`}
-                    data={webs}
-                    angle={d => radiusScale(d.angle)}
-                    radius={r}
-                  />
-                )
-              })}
+              {/*{[...Array(levels)].map((_, i) => {*/}
+                {/*const r = (i + 1) * radius / levels*/}
+                {/*return (*/}
+                  {/*<LineRadial*/}
+                    {/*className={b("line-radial")}*/}
+                    {/*key={`web-${i}`}*/}
+                    {/*data={webs}*/}
+                    {/*angle={points}*/}
+                    {/*radius={r}*/}
+                  {/*/>*/}
+                {/*)*/}
+              {/*})}*/}
               {[...Array(data.length)].map((_, i) => {
                 var { x, y } = points[i]
                 return (
@@ -123,7 +123,7 @@ export default compose(
                           className={b("text")}
                           key={`radar-text-${i}`}
                           x={x * fontSize / textRangeCoeff / 1.1}
-                          y={y > 0 ? y * fontSize / textRangeCoeff : y * fontSize / textRangeCoeff / 1.1}>asds
+                          y={y > 0 ? y * fontSize / textRangeCoeff : y * fontSize / textRangeCoeff / 1.1}>{data[i].property}
                     </text>
                     <Line
                       key={`radar-line-${i}`}
