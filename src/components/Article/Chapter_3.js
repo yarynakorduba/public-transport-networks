@@ -3,14 +3,18 @@ import Latex from "react-latex"
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 import HeatMap from "../HeatMap/index"
+import RadarViz from "../RadarViz/RadarViz"
 const b = BEM("Article")
 
 const Chapter_3 = () => (
   <section>
     <h1 className={b("header")}>Історія трьох міст</h1>
     <h2>Лондон</h2>
+    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
+      {/*<HeatMap />*/}
+    {/*</div>*/}
     <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <HeatMap />
+      <RadarViz />
     </div>
     <p className={b("article")}>
       Лондон - своєрідний хаб транспортної системи Англії. Історія громадського транспорту міста почалася ще в 19
