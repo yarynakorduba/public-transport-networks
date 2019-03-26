@@ -11,7 +11,7 @@ import MapGL from "react-map-gl"
 import "./HeatMap.scss"
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
-const HEATMAP_SOURCE_ID = "earthquakes-source"
+const HEATMAP_SOURCE_ID = "bus-stops"
 
 const convertBusStopsDataToGeoJSON = data => ({
   type: "FeatureCollection",
