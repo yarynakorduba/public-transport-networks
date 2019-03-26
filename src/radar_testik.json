@@ -1,1 +1,1 @@
-[{"city":1,"frequency":0.5},{"city":2,"frequency":0.3},{"city":3,"frequency":0.8},{"city":4,"frequency":0.2}]
+[{"property":"Routes quantity","frequency":0.5},{"property":"Stops quantity","frequency":0.3},{"property":"Population","frequency":0.8},{"property":"Square","frequency":0.2},{"property":"Max stops","frequency":0.4},{"property":"Min stops","frequency":0.7},{"property":"Average stops","frequency":0.45}]
