@@ -102,7 +102,7 @@ export default compose(
         return (
           <svg className={b()} width={width+50} height={height}>
             <rect fill={"none"} width={width} height={height}/>
-            <Group top={height / 2} left={width / 2}>
+            <Group top={height / 2} left={width / 2 + 10}>
               {/*{[...Array(levels)].map((_, i) => {*/}
                 {/*const r = (i + 1) * radius / levels*/}
                 {/*return (*/}
