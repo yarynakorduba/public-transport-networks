@@ -1,9 +1,10 @@
+// @flow
 import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS } from "../actions/actionTypes"
 import { arrayToObject, mapIndexed } from "../helpers"
 import { prop, compose, assoc, flip } from "ramda"
 import { combineReducers } from "redux"
 
-const data = (state: object = null, action: object): object => {
+const data = (state = null, action) => {
   switch (action.type) {
     case FETCH_STOPS_SUCCESS:
       return compose(
