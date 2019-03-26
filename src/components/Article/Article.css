@@ -1,0 +1,90 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css");
+:root {
+  --light-grey-blue: #a5b5da;
+  --blue: #6775b6;
+  --pale-yellow: #f3dd6f;
+  --yellow: #f3cc06; }
+
+.Article {
+  padding: 1.5rem;
+  width: 600px;
+  margin: auto;
+  transform: translateX(-50%); }
+  @media (max-width: 1300px) and (min-width: 700px) {
+    .Article {
+      transform: translateX(0); } }
+  @media (max-width: 700px) and (min-width: 0) {
+    .Article {
+      width: auto;
+      transform: translateX(0); } }
+  .Article h1,
+  .Article h2,
+  .Article h3,
+  .Article h4,
+  .Article h5 {
+    word-wrap: break-word; }
+  .Article figure {
+    margin: 0; }
+  .Article figcaption {
+    font-size: 0.8em; }
+  .Article__illustration {
+    float: right;
+    clear: both;
+    width: calc(50vw);
+    margin-right: calc(-50vw - 1.5rem);
+    height: 50vh; }
+    .Article__illustration_sticky {
+      position: sticky;
+      top: 0; }
+    .Article__illustration_wide {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(100% + 1.5em - 50vw);
+      width: 100vw; }
+    @media (max-width: 1300px) and (min-width: 700px) {
+      .Article__illustration {
+        float: none;
+        margin-right: auto;
+        margin-left: calc(50% - 50vw);
+        width: 100vw; } }
+    @media (max-width: 700px) and (min-width: 0) {
+      .Article__illustration {
+        float: none;
+        width: calc(100% + 3rem);
+        margin-right: 0;
+        margin-left: -1.5rem;
+        transform: translateX(0); } }
+  .Article__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0.75rem auto; }
+    .Article__image_small {
+      max-width: 50%; }
+    .Article__image_inline {
+      display: inline-block; }
+  .Article__image-caption {
+    text-align: center; }
+  .Article__chapter {
+    font-family: "Roboto", sans-serif;
+    margin: 40px 0;
+    letter-spacing: 2px;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #292929; }
+  .Article__header {
+    font-family: Pt Serif Caption, serif;
+    font-size: 2.65rem;
+    font-weight: 700;
+    margin: 1em 0;
+    line-height: 1em;
+    color: #2e2e2e; }
+  .Article__paragraph {
+    margin: 1.5rem 0;
+    color: #292929; }
+    .Article__paragraph_highlighted {
+      font-weight: 700;
+      font-style: italic;
+      background-color: #e6e6e6; }
+
+/*# sourceMappingURL=Article.css.map */
