@@ -37,7 +37,7 @@ const Chapter_1 = () => (
     </p>
     <figure>
       <img
-        className={b("image", ["small"])}
+        className={b("image")}
         src={"img/chapter_1/michigan_theatre.png"}
         alt={"Michigan Theatre in Detroit"}
       />
@@ -67,7 +67,7 @@ const Chapter_1 = () => (
     </p>
     <figure>
       <img
-        className={b("image", ["small"])}
+        className={b("image")}
         src={"img/chapter_1/detroit_packard_plant.png"}
         alt={"Abandoned Packard Plant in Detroit"}
       />
@@ -127,7 +127,7 @@ const Chapter_1 = () => (
     </p>{" "}
     <figure>
       <img
-        className={b("image", ["small"])}
+        className={b("image")}
         src={"img/chapter_1/haag_central_station.png"}
         alt={"Haag Central Station"}
       />
