@@ -28,5 +28,3 @@ export const removeNodeListFromGraph: _removeNodeListFromGraph = (arrayOfNodes, 
   arrayOfNodes.forEach(node => DANGEROUSLY_removeNodeFromGraph(node, graphClone))
   return graphClone
 }
-
-

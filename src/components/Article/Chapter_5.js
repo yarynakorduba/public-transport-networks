@@ -52,12 +52,12 @@ const Chapter_5 = () => (
       пересортуванням є значно ефективнішим, ніж видалення за первинним порядком.
     </p>
     <img
-      className={b("image", ["small", "inline"])}
+      className={b("image")}
       alt={"Bristol L Space Targeted Attack By Betweenness Initial"}
       src="img/simulations/bristol_l_space_targeted_attack_by_betweenness_initial.png"
     />
     <img
-      className={b("image", ["small", "inline"])}
+      className={b("image")}
       alt={"Bristol L Space Targeted Attack By Betweenness Recalculated"}
       src="img/simulations/bristol_l_space_targeted_attack_by_betweenness_recalculated.png"
     />

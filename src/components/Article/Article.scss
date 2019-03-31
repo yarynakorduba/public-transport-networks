@@ -25,6 +25,13 @@
     word-wrap: break-word;
   }
 
+  figure {
+    margin: 0;
+  }
+  figcaption {
+    font-size: 0.8em;
+  }
+
   &__illustration {
     float: right;
     clear: both;
@@ -37,6 +44,13 @@
     &_sticky {
       position: sticky;
       top: 0;
+    }
+
+    &_wide {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(100% + 1.5em - 50vw);
+      width: 100vw;
     }
 
     @media (max-width: 1300px) and (min-width: 700px) {
