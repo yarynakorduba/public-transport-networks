@@ -43,7 +43,7 @@ const Chapter_3 = () => (
       L-простір. Давайте позначимо кожну зупинку громадського транспорту, як вузол. А ребра слугуватимуть, як позначення
       маршрутів. Ось це і називатиметься L-простором. Як приклад, розглянемо трамвайні маршрути №5 і №7:
     </p>
-    <img src={"img/lviv_example_routes.svg"} alt={"Lviv Routes Example"} className={b("image")} />
+    <img src={"img/chapter_3/lviv_example_routes.svg"} alt={"Lviv Routes Example"} className={b("image")} />
     <p className={b("paragraph")}>Їхній L-простір виглядатиме так: </p>
     <img src={"img/lviv_example_l_space.svg"} alt={"Lviv Routes Example"} className={b("image")} />
     <p className={b("paragraph")}>Карта київського метро - це насправді також L-простір.</p>
