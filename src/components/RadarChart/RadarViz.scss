@@ -1,21 +1,23 @@
-.radar-viz{
+.RadarViz {
   position: absolute;
   bottom: 100px;
+  background: #e6e6e6;
 
-  &__text{
+  &__text {
     font-family: "PT Sans", sans-serif;
+    font-size: 12px;
   }
-  &__line-radial{
+  &__line-radial {
     stroke: #828282;
     fill: none;
     stroke-width: 0.9;
     stroke-opacity: 0.8;
     stroke-linecap: round;
   }
-  &__circle{
+  &__circle {
     fill: #f5810c;
   }
-  &__polygon{
+  &__polygon {
     fill: #ff9933;
     stroke: #ff9933;
     fill-opacity: 0.3;

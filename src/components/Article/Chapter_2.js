@@ -3,7 +3,7 @@ import Latex from "react-latex"
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 import HeatMap from "../HeatMap/index"
-import RadarViz from "../RadarViz/RadarViz"
+import RadarViz from "../RadarChart/RadarViz"
 import DataTable from "../DataTable/DataTable"
 const b = BEM("Article")
 
@@ -114,14 +114,14 @@ const Chapter_2 = () => (
         із індексом 5.31 з 10
       </a>
       . Жителі називають декілька причин:
-      <ul>
-        <li>непунктуальність і повільність транспорту</li>
-        <li>транспортні засоби не витримують напливу пасажирів у години-пік</li>
-        <li>високі ціни попри низьку якість сервісу</li>
-        <li>зупинки часто не мають накриття</li>
-        <li>перевантаженість доріг</li>
-      </ul>
     </p>{" "}
+    <ul>
+      <li>непунктуальність і повільність транспорту</li>
+      <li>транспортні засоби не витримують напливу пасажирів у години-пік</li>
+      <li>високі ціни попри низьку якість сервісу</li>
+      <li>зупинки часто не мають накриття</li>
+      <li>перевантаженість доріг</li>
+    </ul>
     <p className={b("article")}>
       Ще однією проблемою є високий рівень викидів газу.{" "}
       <a
