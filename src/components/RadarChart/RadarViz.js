@@ -12,29 +12,23 @@ const b = BEM("RadarViz")
 
 const getStep = dataLength => (Math.PI * 2) / dataLength
 
-const genPoints = (length, radius) =>
-  [...Array(length)].map((_, i) => ({
-    x: radius * Math.sin(i * getStep(length)),
-    y: radius * Math.cos(i * getStep(length))
+const genPoints = (data, radius) =>
+  [...Array(data.length)].map((_, i) => ({
+    x: radius * Math.sin(i * getStep(data.length)),
+    y: radius * Math.cos(i * getStep(data.length))
   }))
 
-const genPolygonPoints = (length, scale, access) => {
-  const step = getStep(data.length)
-  const points = new Array(data.length + 1).fill({}).map((obj, i) =>
-    i === 0
-      ? {}
-      : {
-          x: scale(access(data[i - 1])) * Math.sin(i * step),
-          y: scale(access(data[i - 1])) * Math.cos(i * step)
-        }
-  )
-  return points
-}
+const genPolygonPoints = (data, scale, getValue) =>
+  [...Array(data.length)].map((obj, i) => ({
+    x: scale(getValue(data[i])) * Math.sin((i + 1) * getStep(data.length)),
+    y: scale(getValue(data[i])) * Math.cos((i + 1) * getStep(data.length))
+  }))
+
 
 const RadarViz = ({ drawChart, width, height, radarPoints, polygonPoints }) => (
-  <svg className={b()} width={width + 50} height={height}>
+  <svg className={b()} width={width} height={height}>
     {polygonPoints && (
-      <Group top={height / 2} left={width / 2 + 25}>
+      <Group top={height / 2} left={width / 2}>
         {radarPoints.map((point, i) => (
           <RadarRay rayLabel={data[i].property} targetPoint={point} key={i} />
         ))}
@@ -49,26 +43,24 @@ const RadarViz = ({ drawChart, width, height, radarPoints, polygonPoints }) => (
 
 export default compose(
   defaultProps({
-    width: 250,
-    height: 250,
+    width: 350,
+    height: 300,
     margin: {
       top: 40,
-      left: 80,
-      right: 80,
+      left: 100,
+      right: 100,
       bottom: 80
     }
   }),
   withProps(({ width, height, margin }) => ({
-    radius: Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom) / 1.3
-  })),
-  withProps(({ radius }) => ({
+    radius: (width - margin.left - margin.right) / 2,
     yScale: scaleLinear({
-      range: [0, radius],
+      range: [0, (width - margin.left - margin.right) / 2],
       domain: [0, max(data, d => d.frequency)]
     })
   })),
   withProps(({ radius, yScale }) => ({
-    radarPoints: genPoints(data.length, radius),
+    radarPoints: genPoints(data, radius),
     polygonPoints: genPolygonPoints(data, yScale, d => d.frequency)
   }))
 )(RadarViz)
