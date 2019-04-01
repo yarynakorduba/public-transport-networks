@@ -1,12 +1,14 @@
 import React from "react"
 import { Group, scaleLinear } from "@vx/vx"
-import { compose, defaultProps, withProps } from "recompose"
+import { branch, compose, defaultProps, mapPropsStream, renderComponent, withProps } from "recompose"
 import { max } from "d3"
-import data from "../../radar_testik"
 import RadarRay from "./RadarRay"
 import RadarPolygon from "./RadarPolygon"
 import "./RadarViz.scss"
 import BEM from "../../helpers/BEM"
+import { ajax } from "rxjs/ajax"
+import { map } from "rxjs/operators"
+import { combineLatest } from "rxjs"
 
 const b = BEM("RadarViz")
 
@@ -24,20 +26,17 @@ const genPolygonPoints = (data, scale, getValue) =>
     y: scale(getValue(data[i])) * Math.cos((i + 1) * getStep(data.length))
   }))
 
-
-const RadarViz = ({ drawChart, width, height, radarPoints, polygonPoints }) => (
+const RadarViz = ({ drawChart, width, height, radarPoints, polygonPoints, data }) => (
   <svg className={b()} width={width} height={height}>
-    {polygonPoints && (
-      <Group top={height / 2} left={width / 2}>
-        {radarPoints.map((point, i) => (
-          <RadarRay rayLabel={data[i].property} targetPoint={point} key={i} />
-        ))}
-        <RadarPolygon polygonPointsList={polygonPoints} />
-        {polygonPoints.map((point, i) => (
-          <circle key={i} cx={point.x} cy={point.y} r={4} className={b("circle")} />
-        ))}
-      </Group>
-    )}
+    <Group top={height / 2} left={width / 2}>
+      {radarPoints.map((point, i) => (
+        <RadarRay rayLabel={data[i].property} targetPoint={point} key={i} />
+      ))}
+      <RadarPolygon polygonPointsList={polygonPoints} />
+      {polygonPoints.map((point, i) => (
+        <circle key={i} cx={point.x} cy={point.y} r={4} className={b("circle")} />
+      ))}
+    </Group>
   </svg>
 )
 
@@ -52,14 +51,19 @@ export default compose(
       bottom: 80
     }
   }),
-  withProps(({ width, height, margin }) => ({
+  mapPropsStream(props$ => {
+    const data$ = ajax.getJSON("/data/test_radar_data.json")
+    return combineLatest(props$, data$).pipe(map(([props, data]) => ({ ...props, data })))
+  }),
+  branch(({ data }) => !data, renderComponent(() => "Loading the data...")),
+  withProps(({ width, height, margin, data }) => ({
     radius: (width - margin.left - margin.right) / 2,
     yScale: scaleLinear({
       range: [0, (width - margin.left - margin.right) / 2],
       domain: [0, max(data, d => d.frequency)]
     })
   })),
-  withProps(({ radius, yScale }) => ({
+  withProps(({ radius, yScale, data }) => ({
     radarPoints: genPoints(data, radius),
     polygonPoints: genPolygonPoints(data, yScale, d => d.frequency)
   }))
