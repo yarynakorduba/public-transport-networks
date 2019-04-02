@@ -17,11 +17,14 @@ const genPoints = (data, radius) =>
     y: radius * Math.cos(i * getStep(data.length))
   }))
 
-const genPolygonPoints = (data, scale, getValue) =>
-  [...Array(data.length)].map((obj, i) => ({
-    x: scale(getValue(data[i])) * Math.sin((i + 1) * getStep(data.length)),
-    y: scale(getValue(data[i])) * Math.cos((i + 1) * getStep(data.length))
-  }))
+const genPolygonPoints = (data, scale, getValue) =>{
+  return [...Array(data.length)].map((obj, i) => {
+    return {
+      x: scale(getValue(data[i])) * Math.sin((i + 0.01) * getStep(data.length)),
+      y: scale(getValue(data[i])) * Math.cos((i + 0.01) * getStep(data.length))
+    }
+  })
+}
 
 const RadarChart = ({ width, height, radarPoints, polygonPoints, data, color }) => (
   <svg className={b()} width={width} height={height}>
@@ -42,10 +45,10 @@ export default compose(
     width: 350,
     height: 300,
     margin: {
-      top: 40,
-      left: 100,
-      right: 100,
-      bottom: 80
+      top: 30,
+      left: 90,
+      right: 90,
+      bottom: 60
     }
   }),
   withProps(({ width, height, margin, data }) => ({
