@@ -2,7 +2,7 @@ import { Line } from "@vx/shape"
 import { Point } from "@vx/point"
 import React from "react"
 import BEM from "../../helpers/BEM"
-const b = BEM("RadarViz")
+const b = BEM("radar")
 
 const getAnchorDirection = x => {
   if (Math.abs(x) < 30) {

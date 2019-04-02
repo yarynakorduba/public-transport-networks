@@ -1,16 +1,13 @@
 import React from "react"
 import { Group, scaleLinear } from "@vx/vx"
-import { branch, compose, defaultProps, mapPropsStream, renderComponent, withProps } from "recompose"
+import { compose, defaultProps, withProps } from "recompose"
 import { max } from "d3"
 import RadarRay from "./RadarRay"
 import RadarPolygon from "./RadarPolygon"
-import "./RadarViz.scss"
+import "./RadarChart.scss"
 import BEM from "../../helpers/BEM"
-import { ajax } from "rxjs/ajax"
-import { map } from "rxjs/operators"
-import { combineLatest } from "rxjs"
 
-const b = BEM("RadarViz")
+const b = BEM("radar")
 
 const getStep = dataLength => (Math.PI * 2) / dataLength
 
@@ -26,15 +23,15 @@ const genPolygonPoints = (data, scale, getValue) =>
     y: scale(getValue(data[i])) * Math.cos((i + 1) * getStep(data.length))
   }))
 
-const RadarViz = ({ drawChart, width, height, radarPoints, polygonPoints, data }) => (
+const RadarChart = ({ width, height, radarPoints, polygonPoints, data, color }) => (
   <svg className={b()} width={width} height={height}>
     <Group top={height / 2} left={width / 2}>
       {radarPoints.map((point, i) => (
         <RadarRay rayLabel={data[i].property} targetPoint={point} key={i} />
       ))}
-      <RadarPolygon polygonPointsList={polygonPoints} />
+      <RadarPolygon color={color} polygonPointsList={polygonPoints} />
       {polygonPoints.map((point, i) => (
-        <circle key={i} cx={point.x} cy={point.y} r={4} className={b("circle")} />
+        <circle fill={color} key={i} cx={point.x} cy={point.y} r={4} className={b("circle")} />
       ))}
     </Group>
   </svg>
@@ -51,11 +48,6 @@ export default compose(
       bottom: 80
     }
   }),
-  mapPropsStream(props$ => {
-    const data$ = ajax.getJSON("/data/test_radar_data.json")
-    return combineLatest(props$, data$).pipe(map(([props, data]) => ({ ...props, data })))
-  }),
-  branch(({ data }) => !data, renderComponent(() => "Loading the data...")),
   withProps(({ width, height, margin, data }) => ({
     radius: (width - margin.left - margin.right) / 2,
     yScale: scaleLinear({
@@ -67,4 +59,4 @@ export default compose(
     radarPoints: genPoints(data, radius),
     polygonPoints: genPolygonPoints(data, yScale, d => d.frequency)
   }))
-)(RadarViz)
+)(RadarChart)

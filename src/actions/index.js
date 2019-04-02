@@ -1,6 +1,6 @@
 // @flow
 import { getGraphSpaceData } from "../api"
-import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS } from "./actionTypes"
+import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS, SWITCH_CITY } from "./actionTypes"
 
 export const fetchStopsStart = () => ({ type: FETCH_STOPS_START })
 export const fetchStopsSuccess = nodes => ({ type: FETCH_STOPS_SUCCESS, nodes })
@@ -18,5 +18,12 @@ export const fetchStops = (city:string, space:string) => async (dispatch:functio
     }
   } catch (e) {
     dispatch(fetchStopsError(e))
+  }
+}
+
+export const switchCity = (id:number) => {
+  return {
+    type: SWITCH_CITY,
+    city: id
   }
 }
