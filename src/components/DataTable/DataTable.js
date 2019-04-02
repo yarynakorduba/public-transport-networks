@@ -15,7 +15,6 @@ const DataTable = ({ data, cities, currentCity, cityColor }) => {
       <tr>
         <th className={b("row-title")}>City</th>
         {cities.map((item,i)=>{
-          console.log(i)
           return (
             <td className={b("row-title")} style={{color: currentCity==i?cityColor:"black"}}>{item}</td>
           )
