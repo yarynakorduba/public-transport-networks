@@ -1,41 +1,39 @@
 import React from "react"
 import { compose, withProps } from "recompose"
+import { connect } from "react-redux"
 
 import "./DataTable.scss"
 import BEM from "../../helpers/BEM"
 
-import data from "../../table_testik"
-
 const b = BEM("data-table")
 
 
-const DataTable = ({ drawChart }) => {
-  return drawChart()
+const DataTable = ({ data, cities, currentCity, cityColor }) => {
+  return (
+    <table className={b()}>
+      <tbody>
+      <tr>
+        <th className={b("row-title")}>City</th>
+        {cities.map((item,i)=>{
+          console.log(i)
+          return (
+            <td className={b("row-title")} style={{color: currentCity==i?cityColor:"black"}}>{item}</td>
+          )
+        })}
+      </tr>
+      {data.map((item,i)=>(
+        <tr key={i}>
+          <th className={b("row-property")}>{item.property}</th>
+          <td className={b("row-value")}>{item.lviv}</td>
+          <td className={b("row-value")}>{item.bristol}</td>
+          <td className={b("row-value")}>{item.london}</td>
+        </tr>
+      ))}
+      </tbody>
+    </table>
+  )
 }
 
 export default compose(
-  withProps(({
-      drawChart: () => {
-        return (
-          <table className={b()}>
-            <tbody>
-            <tr>
-              <th className={b("row-title")}>City</th>
-              <td className={b("row-title")}>Lviv</td>
-              <td className={b("row-title")}>Bristol</td>
-              <td className={b("row-title")}>London</td>
-            </tr>
-            {data.map((item,i)=>(
-              <tr key={i}>
-                <th className={b("row-property")}>{item.property}</th>
-                <td className={b("row-value")}>{item.lviv}</td>
-                <td className={b("row-value")}>{item.bristol}</td>
-                <td className={b("row-value")}>{item.london}</td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
-        )
-      }
-    })
-  ))(DataTable)
+  connect(state=>({currentCity:state.currentCity})),
+)(DataTable)

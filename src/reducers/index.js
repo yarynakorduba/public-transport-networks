@@ -1,9 +1,11 @@
 // @flow
 import { combineReducers } from "redux"
 import data, * as fromData from "./data"
+import currentCity from "./currentCity"
 
 const articleApp = combineReducers({
-  data
+  data,
+  currentCity
 })
 
 export default articleApp

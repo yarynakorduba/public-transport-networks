@@ -1,0 +1,26 @@
+.city-switcher{
+  position: absolute;
+  bottom: 200px;
+  right: 200px;
+  display: flex;
+  flex-direction: column;
+
+  &__button{
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 5px;
+    background: none;
+    width: 65px;
+    height: 25px;
+    border: #7c7c7c 2px solid;
+    font-family: "PT Sans",sans-serif;
+    line-height: 9px;
+    border-radius: 100px;
+  }
+  &__button:active{
+    border: none;
+  }
+  &__button:focus{
+    outline: none;
+  }
+}
