@@ -22,8 +22,8 @@ const CityInfoBlock = ({radarData, tableData, cityColor, cities}) => {
 export default compose(
   connect(state=>({currentCity:state.currentCity})),
   mapPropsStream(props$ => {
-    const data$ = ajax.getJSON("/data/radar_data.json")
-    const tableData$ = ajax.getJSON("/data/table_data.json")
+    const data$ = ajax.getJSON("/data/citiesMainCharacteristicsForRadarChart.json")
+    const tableData$ = ajax.getJSON("/data/citiesMainCharacteristics.json")
     return combineLatest(props$, data$, tableData$).pipe(map(([props, data, tableData]) => ({ ...props, data, tableData })))
   }),
   branch(({ data }) => !data, renderComponent(() => "Loading the data...")),

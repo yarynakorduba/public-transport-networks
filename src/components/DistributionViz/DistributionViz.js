@@ -51,7 +51,7 @@ export default compose(
           return y(d.quantity)
         })
 
-      json("/data/path_distribution_test_data.json").then(data => {
+      json("/data/examplePathDistributionData.json").then(data => {
         x.domain(
           extent(data, d => {
             return d.paths
