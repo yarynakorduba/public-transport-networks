@@ -1,5 +1,8 @@
 <h1>Important!</h1>
-<ol><li>There are large data files in the project. To work with these files you should download
+<ol>
+<li>Testable GH-pages link: <a href="http://yarynakorduba.github.io/public-transport-networks">
+http://yarynakorduba.github.io/public-transport-networks</a></li>
+<li>There are large data files in the project. To work with these files you should download
  Git Large File Storage (https://git-lfs.github.com/) and install it with
  
 ```
