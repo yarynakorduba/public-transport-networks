@@ -97,12 +97,12 @@ const enhancer = compose(
     const data$ = ajax.getJSON("/data/bristol/bristolBusStops.json").pipe(
       map(data => convertBusStopsDataToGeoJSON(data)),
 
-      map(data => clustersDbscan(data, 0.2)),
+      map(data => clustersDbscan(data, 0.1, { mutate: true, minPoints: 2 })),
       map(data =>
         compose(
           featureCollection,
           ({ unclustered, ...clusters }) => [
-            // ...unclustered,
+            ...unclustered,
             ...reduce(
               (accum, cluster) => [
                 ...accum,
