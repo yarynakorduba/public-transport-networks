@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://yarynakorduba.github.io/public-transport-networks",
   "dependencies": {
+    "@turf/turf": "^5.1.6",
     "@vx/group": "^0.0.183",
     "@vx/point": "^0.0.182",
     "@vx/scale": "^0.0.182",
@@ -24,7 +25,6 @@
     "redux-promise": "^0",
     "redux-thunk": "^2",
     "rxjs": "^6.4.0",
-    "turf": "^3.0.14",
     "viewport-mercator-project": "^6.1.1"
   },
   "scripts": {

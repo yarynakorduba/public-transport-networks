@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react"
 import WebMercatorViewport from "viewport-mercator-project"
 import { withParentSize } from "@vx/responsive"
-import { bbox } from "turf"
+import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/turf"
+import { groupBy, reduce } from "ramda"
 import { ajax } from "rxjs/ajax"
 import { combineLatest } from "rxjs"
-import { map, startWith } from "rxjs/operators"
+import { map, startWith, tap } from "rxjs/operators"
 
 import { compose, mapPropsStream, branch, renderComponent, withProps } from "recompose"
 import MapGL from "react-map-gl"
@@ -13,14 +14,14 @@ import "./HeatMap.scss"
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "bus-stops"
 
-const convertBusStopsDataToGeoJSON = data => ({
-  type: "FeatureCollection",
-  features: data.map(({ lat, lon, routes }) => ({
-    type: "Feature",
-    properties: { connectedRoutes: 1 }, //TODO: experiment with routes
-    geometry: { type: "Point", coordinates: [lon, lat] }
-  }))
-})
+const convertBusStopsDataToGeoJSON = data =>
+  featureCollection(
+    data.map(({ lat, lon, routes }) => ({
+      type: "Feature",
+      properties: { connectedRoutes: 1 }, //TODO: experiment with routes
+      geometry: { type: "Point", coordinates: [lon, lat] }
+    }))
+  )
 
 const HeatMap = ({ data, initialViewport }) => {
   const [viewport, setViewport] = useState(initialViewport)
@@ -95,13 +96,41 @@ const enhancer = compose(
   mapPropsStream(props$ => {
     const data$ = ajax.getJSON("/data/bristol/bristolBusStops.json").pipe(
       map(data => convertBusStopsDataToGeoJSON(data)),
+
+      map(data => clustersDbscan(data, 0.2)),
+      map(data =>
+        compose(
+          featureCollection,
+          ({ unclustered, ...clusters }) => [
+            // ...unclustered,
+            ...reduce(
+              (accum, cluster) => [
+                ...accum,
+                center(featureCollection(cluster.map(p => point(p.geometry.coordinates))))
+              ],
+              [],
+              Object.values(clusters)
+            ).map(point => {
+              point.properties = { connectedRoutes: 1 }
+              return point
+            })
+          ],
+          groupBy(point => {
+            if (point.properties.cluster !== undefined) {
+              return point.properties.cluster
+            } else {
+              return "unclustered"
+            }
+          })
+        )(data.features)
+      ),
       startWith(null)
     )
 
     return combineLatest(props$, data$).pipe(map(([props, data]) => ({ ...props, data })))
   }),
 
-  branch(({ data }) => !data, renderComponent(() => "Loading !!!!!!!!!!...")),
+  branch(({ data }) => !data, renderComponent(() => "Loading...")),
 
   withParentSize,
   withProps(({ data, parentHeight, parentWidth }) => {
