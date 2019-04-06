@@ -93,7 +93,7 @@ const HeatMap = ({ data, initialViewport }) => {
 
 const enhancer = compose(
   mapPropsStream(props$ => {
-    const data$ = ajax.getJSON("/data/bristolBusStops.json").pipe(
+    const data$ = ajax.getJSON("/data/bristol/bristolBusStops.json").pipe(
       map(data => convertBusStopsDataToGeoJSON(data)),
       startWith(null)
     )

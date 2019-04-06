@@ -43,17 +43,10 @@ const Chapter_3 = () => (
       L-простір. Давайте позначимо кожну зупинку громадського транспорту, як вузол. А ребра слугуватимуть, як позначення
       маршрутів. Ось це і називатиметься L-простором. Як приклад, розглянемо трамвайні маршрути №5 і №7:
     </p>
-    <img src={"img/chapter_3/lviv_example_routes.svg"} alt={"Lviv Routes Example"} className={b("image")} />
+    <img src={"img/chapter3/lvivExampleRoutes.svg"} alt={"Lviv Routes Example"} className={b("image")} />
     <p className={b("paragraph")}>Їхній L-простір виглядатиме так: </p>
-    <img src={"img/lviv_example_l_space.svg"} alt={"Lviv Routes Example"} className={b("image")} />
+    <img src={"img/chapter3/lvivExampleLSpace.svg"} alt={"Lviv Routes Example"} className={b("image")} />
     <p className={b("paragraph")}>Карта київського метро - це насправді також L-простір.</p>
-    <figure>
-      <img className={b("image")} src={"img/chapter_3/kyiv_metro.png"} alt={"Kyiv Metro"} />
-      <figcaption className={b("image-caption")}>
-        Схема київського метрополітену. (Фото з{" "}
-        <a href={"https://commons.wikimedia.org/wiki/File:London_General_Omnibus_Company_(c.1903).jpg"}>Вікіпедії</a>)
-      </figcaption>
-    </figure>
     <p className={b("paragraph")}>
       P-простір. Побудуємо граф, подібний до попереднього (графа в L-просторі). Однак зараз вузли (зупинки) будуть
       з’єднані, якщо вони належать до одного маршруту. Математичною мовою маршрути - це повні підграфи транспортної

@@ -36,11 +36,7 @@ const Chapter_1 = () => (
       парковку.
     </p>
     <figure>
-      <img
-        className={b("image")}
-        src={"img/chapter_1/michigan_theatre.png"}
-        alt={"Michigan Theatre in Detroit"}
-      />
+      <img className={b("image")} src={"img/chapter1/michiganTheatre.png"} alt={"Michigan Theatre in Detroit"} />
       <figcaption className={b("image-caption")}>
         Michigan Theatre. (фото зі{" "}
         <a href={"https://afterthefinalcurtain.net/2013/04/30/the-michigan-theatre/"}>статті</a> Matthew Lambros "The
@@ -68,7 +64,7 @@ const Chapter_1 = () => (
     <figure>
       <img
         className={b("image")}
-        src={"img/chapter_1/detroit_packard_plant.png"}
+        src={"img/chapter1/detroitPackardPlant.png"}
         alt={"Abandoned Packard Plant in Detroit"}
       />
       <figcaption className={b("image-caption")}>
@@ -126,11 +122,7 @@ const Chapter_1 = () => (
       Одна із таких розв’язок - Центральний вокзал Гааги.
     </p>{" "}
     <figure>
-      <img
-        className={b("image")}
-        src={"img/chapter_1/haag_central_station.png"}
-        alt={"Haag Central Station"}
-      />
+      <img className={b("image")} src={"img/chapter1/haagCentralStation.png"} alt={"Haag Central Station"} />
       <figcaption className={b("image-caption")}>
         Гаазький багаторівневий вокзал (фото з <a href={"https://alex-shutyuk.livejournal.com/375362.html"}>блогу</a>{" "}
         Олександра Шутюка)

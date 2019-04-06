@@ -11,7 +11,7 @@ const Chapter_2 = () => (
     <h1 className={b("header")}>Історія трьох міст</h1>
     <h2>Лондон</h2>
     <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <CityInfoBlock/>
+      <CityInfoBlock />
     </div>
     <p className={b("article")}>
       Лондон - своєрідний хаб транспортної системи Англії. Історія громадського транспорту міста почалася ще в 19
@@ -20,7 +20,7 @@ const Chapter_2 = () => (
       <a href={"http://knowledgeoflondon.com/buses.html"}>омнібуси на 22 людей</a>.
     </p>
     <figure>
-      <img className={b("image")} src={"img/chapter_3/london_omnibus.jpg"} alt={"London Omnibus"} />
+      <img className={b("image")} src={"img/chapter3/londonOmnibus.jpg"} alt={"London Omnibus"} />
       <figcaption className={b("image-caption")}>
         Лондонський омнібус. (Фото з{" "}
         <a href={"https://commons.wikimedia.org/wiki/File:London_General_Omnibus_Company_(c.1903).jpg"}>Вікіпедії</a>)
@@ -33,7 +33,7 @@ const Chapter_2 = () => (
       околицями і вміщав 40-50 людей.
     </p>
     <figure>
-      <img className={b("image")} src={"img/chapter_3/london_horse_tram.jpg"} alt={"London Horse Tram"} />
+      <img className={b("image")} src={"img/chapter3/londonHorseTram.jpg"} alt={"London Horse Tram"} />
       <figcaption className={b("image-caption")}>
         Лондонський кінний трамвай. (Фото з{" "}
         <a href={"https://commons.wikimedia.org/wiki/File:London_Tramways_Horse_tram.jpg"}>Вікіпедії</a>)
