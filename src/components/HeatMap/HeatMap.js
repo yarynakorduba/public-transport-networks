@@ -5,7 +5,7 @@ import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/tu
 import { groupBy, reduce } from "ramda"
 import { ajax } from "rxjs/ajax"
 import { combineLatest } from "rxjs"
-import { map, startWith, tap } from "rxjs/operators"
+import { map, startWith, flatMap } from "rxjs/operators"
 
 import { compose, mapPropsStream, branch, renderComponent, withProps } from "recompose"
 import MapGL from "react-map-gl"
@@ -36,9 +36,9 @@ const HeatMap = ({ data, initialViewport }) => {
 
   const handleMapLoaded = async event => {
     const map = getMap()
-    const bristolStopsGeoJSON = data
+    const geoJSON = data
 
-    map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: bristolStopsGeoJSON })
+    map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: geoJSON })
     map.addLayer({
       id: "heatmap-layer",
       source: HEATMAP_SOURCE_ID,
@@ -94,7 +94,8 @@ const HeatMap = ({ data, initialViewport }) => {
 
 const enhancer = compose(
   mapPropsStream(props$ => {
-    const data$ = ajax.getJSON("/data/bristol/bristolBusStops.json").pipe(
+    const data$ = props$.pipe(
+      flatMap(({ city = "lviv" }) => ajax.getJSON(`/data/${city}/${city}Stops.json`)),
       map(data => convertBusStopsDataToGeoJSON(data)),
 
       map(data => clustersDbscan(data, 0.1, { mutate: true, minPoints: 2 })),
