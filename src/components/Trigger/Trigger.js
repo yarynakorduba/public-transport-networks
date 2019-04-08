@@ -12,6 +12,8 @@ const registerTriggers = (position:number, action:function) => {
   scrolledData.push([position, action])
 }
 
+//TODO: Idea! We can provide context with stream which will emit some actions with data when we will scroll to trigger.
+
 export const TriggerContext = ({ children, ...props }) => {
   const rootEl = useRef()
   const [enhancedProps, enhanceProps] = useState({})
