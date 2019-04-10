@@ -1,5 +1,5 @@
 import React from "react"
-import { compose, withProps } from "recompose"
+import { compose } from "recompose"
 import { connect } from "react-redux"
 
 import "./DataTable.scss"
@@ -8,17 +8,15 @@ import BEM from "../../helpers/BEM"
 const b = BEM("data-table")
 
 
-const DataTable = ({ data, cities, currentCity, cityColor }) => {
-  return (
+const DataTable = ({ data, cities, currentCity, cityColor }) => (
     <table className={b()}>
       <tbody>
       <tr>
         <th className={b("row-title")}>City</th>
-        {cities.map((item,i)=>{
-          return (
-            <td className={b("row-title")} style={{color: currentCity==i?cityColor:"black"}}>{item}</td>
+        {cities.map((item,i)=>(
+            <td className={b("row-title")} style={{color: currentCity[i].active?cityColor[i]:"black"}}>{item}</td>
           )
-        })}
+        )}
       </tr>
       {data.map((item,i)=>(
         <tr key={i}>
@@ -30,8 +28,7 @@ const DataTable = ({ data, cities, currentCity, cityColor }) => {
       ))}
       </tbody>
     </table>
-  )
-}
+)
 
 export default compose(
   connect(state=>({currentCity:state.currentCity})),

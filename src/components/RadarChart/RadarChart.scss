@@ -1,6 +1,6 @@
 .radar {
   position: absolute;
-  bottom: 100px;
+  bottom: 80px;
 
   &__text {
     font-family: "PT Sans", sans-serif;
@@ -16,5 +16,8 @@
   &__polygon {
     fill-opacity: 0.3;
     stroke-width: 2;
+  }
+  &__circle{
+    fill-opacity: 0.8;
   }
 }
