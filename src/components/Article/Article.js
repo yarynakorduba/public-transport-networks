@@ -1,7 +1,7 @@
 import React from "react"
 
 import Chapter1 from "./Chapter_1"
-import Chapter2 from "./Chapter_2"
+import Chapter2 from "./Chapter_2/Chapter_2"
 import Chapter3 from "./Chapter_3"
 import Chapter4 from "./Chapter_4"
 import Chapter5 from "./Chapter_5"

@@ -3,20 +3,38 @@ import WebMercatorViewport from "viewport-mercator-project"
 import { withParentSize } from "@vx/responsive"
 import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/turf"
 import { groupBy, reduce } from "ramda"
-import { ajax } from "rxjs/ajax"
 import { combineLatest } from "rxjs"
-import { map, startWith, flatMap } from "rxjs/operators"
+import { map, startWith } from "rxjs/operators"
+import { gql } from "apollo-boost"
+import { graphql } from "react-apollo"
+import { compose, mapPropsStream, branch, renderComponent, withProps, mapProps } from "recompose"
 
-import { compose, mapPropsStream, branch, renderComponent, withProps } from "recompose"
 import MapGL from "react-map-gl"
 import "./HeatMap.scss"
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "bus-stops"
 
+const getStopsQuery = graphql(
+  gql`
+    query Stops($city: String!) {
+      stops(city: $city) {
+        lat
+        lon
+        routes
+      }
+    }
+  `,
+  {
+    options: props => ({
+      variables: { city: props.city }
+    })
+  }
+)
+
 const convertBusStopsDataToGeoJSON = data =>
   featureCollection(
-    data.map(({ lat, lon, routes }) => ({
+    data.map(({ lat, lon }) => ({
       type: "Feature",
       properties: { connectedRoutes: 1 }, //TODO: experiment with routes
       geometry: { type: "Point", coordinates: [lon, lat] }
@@ -93,10 +111,12 @@ const HeatMap = ({ data, initialViewport }) => {
 }
 
 const enhancer = compose(
+  getStopsQuery,
+  branch(({ data }) => data.loading, renderComponent(() => <h1>Loading...</h1>)),
+  mapProps(({ data }) => ({ stops: data.stops })),
   mapPropsStream(props$ => {
     const data$ = props$.pipe(
-      flatMap(({ city = "lviv" }) => ajax.getJSON(`/data/${city}/${city}Stops.json`)),
-      map(data => convertBusStopsDataToGeoJSON(data)),
+      map(data => convertBusStopsDataToGeoJSON(data.stops)),
 
       map(data => clustersDbscan(data, 0.1, { mutate: true, minPoints: 2 })),
       map(data =>
@@ -132,7 +152,6 @@ const enhancer = compose(
   }),
 
   branch(({ data }) => !data, renderComponent(() => "Loading...")),
-
   withParentSize,
   withProps(({ data, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(data)

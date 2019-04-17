@@ -4,3 +4,8 @@ export const getGraphSpaceData = (city: string, space: string): Promise<Array> =
   )
     .then(response => response.json())
     .catch(e => console.error(e))
+
+// ajax.getJSON("/data/mainCitiesIndicatorsRadarData.json")
+// ajax.getJSON("/data/mainCitiesIndicators.json")
+// json("/data/examplePathDistributionData.json")
+// ajax.getJSON(`/data/${city}/${city}Stops.json`)

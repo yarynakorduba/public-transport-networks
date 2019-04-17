@@ -20,6 +20,7 @@ const CityInfoBlock = ({ radarData, tableData, cityColor, cities }) => {
 }
 
 export default compose(
+  // TODO: change to selector
   connect(state => ({ currentCity: state.currentCity })),
   mapPropsStream(props$ => {
     const data$ = ajax.getJSON("/data/mainCitiesIndicatorsRadarData.json")
