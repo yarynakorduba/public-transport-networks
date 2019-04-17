@@ -9,15 +9,13 @@ import { combineLatest } from "rxjs/index"
 import { map } from "rxjs/operators/index"
 import { connect } from "react-redux"
 
-const CityInfoBlock = ({ radarData, tableData, cityColor, cities }) => {
-  return (
-    <>
-      <DataTable data={tableData} cities={cities} cityColor={cityColor} />
-      <RadarChart color={cityColor} data={radarData} />
-      <CitySwitcher data={cities} />
-    </>
-  )
-}
+const CityInfoBlock = ({ radarData, tableData, cityColor, cities }) => (
+  <>
+    <DataTable data={tableData} cities={cities} cityColor={cityColor} />
+    <RadarChart color={cityColor} data={radarData} />
+    <CitySwitcher data={cities} />
+  </>
+)
 
 export default compose(
   // TODO: change to selector
@@ -30,25 +28,25 @@ export default compose(
     )
   }),
   branch(({ data }) => !data, renderComponent(() => "Loading the data...")),
-  withProps(({ data, currentCity, tableData }) => {
+  withProps(({ data, tableData }) => {
     let cities = []
-    let radarData
+    let radarData = []
+    let cityColor = []
 
     let counter = 0
     for (var key in data) {
       if (data.hasOwnProperty(key)) {
-        if (counter == currentCity) {
-          radarData = data[key]
-        }
+          radarData.push(data[key].data)
+          cityColor.push(data[key].color)
         cities.push(key)
       }
       counter++
     }
 
     return {
-      radarData: radarData.data,
+      radarData: radarData,
       tableData: tableData,
-      cityColor: radarData.color,
+      cityColor: cityColor,
       cities: cities
     }
   })

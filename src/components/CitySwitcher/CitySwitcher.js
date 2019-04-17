@@ -7,18 +7,17 @@ import BEM from "../../helpers/BEM"
 
 const b = BEM("city-switcher")
 
-const CitySwitcher = ({data, switchCity}) => {
-    return (
-      <div className={b()}>
-        {data.map((item,i)=>{
-            return (
-              <button className={b("button")} key={i} onClick={()=>{switchCity(i)}}>{item}</button>
-            )
-        })}
-      </div>
-    )
-}
+const CitySwitcher = ({data, switchCity, currentCity}) => (
+  <form className={b()}>
+    {data.map((item,i)=>(
+          <div className={b("city-checkbox")}>
+          <input type={'checkbox'} key={i} onClick={node=>{switchCity(i,node.target.checked)}} checked={currentCity[i].active?true:false}/><label className={b('city-label')}>{item}</label>
+          </div>
+        )
+    )}
+  </form>
+)
 
 export default compose(
-  connect(null, {switchCity:switchCity}),
+  connect(state => ({ currentCity: state.currentCity }), {switchCity:switchCity}),
 )(CitySwitcher)
