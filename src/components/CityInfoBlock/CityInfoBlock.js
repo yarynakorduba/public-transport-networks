@@ -10,7 +10,7 @@ import { map } from "rxjs/operators/index"
 
 const CityInfoBlock = ({ radarData, tableData, cityColor, cities, changeDisplayedCities, currentCity }) => (
   <>
-    <DataTable data={tableData} cities={cities} cityColor={cityColor} />
+    <DataTable data={tableData} cities={cities} cityColor={cityColor} currentCity={currentCity} />
     <RadarChart color={cityColor} data={radarData} currentCity={currentCity} />
     <CitySwitcher data={cities} currentCity={currentCity} changeDisplayedCities={changeDisplayedCities} />
   </>
@@ -35,8 +35,7 @@ export default compose(
     )
   }),
   branch(({ data }) => !data, renderComponent(() => "Loading the data...")),
-  withProps(({ data, tableData, ...props }) => {
-    console.log(props)
+  withProps(({ data, tableData }) => {
     let cities = []
     let radarData = []
     let cityColor = []

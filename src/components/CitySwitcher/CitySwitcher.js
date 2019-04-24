@@ -1,7 +1,4 @@
 import React from "react"
-import compose from "ramda/es/compose"
-import { connect } from "react-redux"
-import { switchCity } from "../../actions"
 import "./CitySwitcher.scss"
 import BEM from "../../helpers/BEM"
 
@@ -14,10 +11,8 @@ const CitySwitcher = ({ data, switchCity, currentCity, changeDisplayedCities }) 
         <input
           type={"checkbox"}
           key={i}
-          onClick={node => {
-            changeDisplayedCities(i, node.target.checked)
-          }}
           checked={currentCity[i].active ? true : false}
+          onChange={node => changeDisplayedCities(i, node.target.checked)}
         />
         <label className={b("city-label")}>{item}</label>
       </div>
@@ -26,9 +21,3 @@ const CitySwitcher = ({ data, switchCity, currentCity, changeDisplayedCities }) 
 )
 
 export default CitySwitcher
-// compose(
-//   connect(
-//     state => ({ currentCity: state.currentCity }),
-//     { switchCity: switchCity }
-//   )
-// )(CitySwitcher)

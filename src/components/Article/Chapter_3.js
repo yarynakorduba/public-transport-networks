@@ -1,23 +1,14 @@
 import React from "react"
-import Latex from "react-latex"
 
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 
-import RadialForceGraph from "../ForceGraph/RadialForceGraph"
-import ForceGraph from "../ForceGraph"
 
 const b = BEM("Article")
 
 const Chapter_3 = () => (
   <section>
     <h1 className={b("header")}>Науковий підхід</h1>
-    {/*<div className={b("illustration", ["wide"])}>*/}
-    {/*<RadialForceGraph />*/}
-    {/*</div>*/}
-    {/*<div className={b("illustration")}>*/}
-    {/*<ForceGraph />*/}
-    {/*</div>*/}
     <p className={b("paragraph", ["first"])}>
       Один із методів дослідження транспортних систем - теорія комплексних мереж. Уявімо систему громадського
       транспорту. Це система зв’язків. На зупинці вул. Шухевича зупиняються трамвай №8 і автобус №53. Ці два маршрути

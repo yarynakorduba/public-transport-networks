@@ -2,18 +2,18 @@ import React from "react"
 import Latex from "react-latex"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
-import Subchapter_2_3 from "./Subchapter_2_3"
-import Subchapter_2_1 from "./Subchapter_2_1"
-import Subchapter_2_2 from "./Subchapter_2_2"
+import Subchapter3 from "./Subchapter_2_3"
+import Subchapter1 from "./Subchapter_2_1"
+import Subchapter2 from "./Subchapter_2_2"
 
 const b = BEM("Article")
 
 const Chapter_2 = () => (
   <section>
     <h1 className={b("header")}>Історія трьох міст</h1>
-    <Subchapter_2_1 />
-    <Subchapter_2_2 />
-    <Subchapter_2_3 />
+    <Subchapter1 />
+    <Subchapter2 />
+    <Subchapter3 />
     <p className={b("article")} /> <p className={b("article")} /> <p className={b("article")} />{" "}
     <p className={b("article")} /> <p className={b("article")} /> <h2>Львів</h2>
     <p>Короткий історичний ракурс і проблематики Львова. </p>

@@ -1,4 +1,4 @@
-import { filter, flatten, indexOf, map, prop, values } from "ramda"
+import { flatten, indexOf, map, prop, values } from "ramda"
 import {
   forceCenter,
   forceCollide,
@@ -15,7 +15,7 @@ import {
   forceRadial,
   scaleThreshold
 } from "d3"
-import { mapIndexed, removeNodeListFromGraph } from "../../helpers"
+import { mapIndexed } from "../../helpers"
 import { compose } from "recompose"
 
 const STRENGTH = 0.5

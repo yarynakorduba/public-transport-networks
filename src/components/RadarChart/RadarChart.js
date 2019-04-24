@@ -1,12 +1,10 @@
 import React, { Fragment } from "react"
 import { Group, scaleLinear } from "@vx/vx"
 import { compose, defaultProps, withProps } from "recompose"
-import { max } from "d3"
 import RadarRay from "./RadarRay"
 import RadarPolygon from "./RadarPolygon"
 import "./RadarChart.scss"
 import BEM from "../../helpers/BEM"
-import { connect } from "react-redux"
 
 const b = BEM("radar")
 
@@ -30,9 +28,9 @@ const RadarChart = ({ width, height, radarPoints, polygonData, data, color }) =>
       {radarPoints.map((point, i) => (
         <RadarRay rayLabel={data[0][i].property} targetPoint={point} key={i} />
       ))}
-      {polygonData.map((item, i) => {
-        if (item) {
-          return (
+      {polygonData.map(
+        (item, i) =>
+          item && (
             <Fragment key={i}>
               <RadarPolygon color={color[i]} polygonPointsList={item} />
               {item.map((point, k) => (
@@ -40,14 +38,12 @@ const RadarChart = ({ width, height, radarPoints, polygonData, data, color }) =>
               ))}
             </Fragment>
           )
-        }
-      })}
+      )}
     </Group>
   </svg>
 )
 
 export default compose(
-  // connect(state => ({ currentCity: state.currentCity })),
   defaultProps({
     width: 350,
     height: 300,
@@ -69,10 +65,6 @@ export default compose(
     radarPoints: genPoints(data[0], radius)
   })),
   withProps(({ yScale, data, currentCity }) => ({
-    polygonData: data.map((item, i) => {
-      if (currentCity[i].active) {
-        return genPolygonPoints(item, yScale, d => d.frequency)
-      }
-    })
+    polygonData: data.map((item, i) => currentCity[i].active && genPolygonPoints(item, yScale, d => d.frequency))
   }))
 )(RadarChart)
