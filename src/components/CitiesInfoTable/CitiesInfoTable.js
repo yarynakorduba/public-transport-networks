@@ -1,28 +1,29 @@
 import React from "react"
-import "./DataTable.scss"
-import BEM from "../../helpers/BEM"
 import { compose, mapProps } from "recompose"
 import { keys, values } from "ramda"
 
-const b = BEM("data-table")
+import BEM from "../../helpers/BEM"
+import "./CitiesInfoTable.scss"
 
-const DataTable = ({ data, cityNames }) => (
+const b = BEM("CitiesInfoTable")
+
+const CitiesInfoTable = ({ data, cityNames, cityProperties }) => (
   <table className={b()}>
     <tbody>
       <tr>
         <th className={b("row-title")}>City</th>
-        {cityNames.map((item, i) => (
-          <td className={b("row-title")} key={i} style={{ color: data[item].color }}>
-            {item}
+        {cityNames.map((cityName, i) => (
+          <td className={b("row-title", ["align-right"])} key={i} style={{ color: data[cityName].color }}>
+            {cityName}
           </td>
         ))}
       </tr>
-      {Object.values(data)[0].data.map((item, i) => (
+      {cityProperties.map((property, i) => (
         <tr key={i}>
-          <th className={b("row-property")}>{item.property}</th>
-          {Object.values(data).map((city, i) => (
-            <td key={i} className={b("row-value")}>
-              {city.data[i].value}
+          <th className={b("row-property")}>{property}</th>
+          {cityNames.map((city, cityInd) => (
+            <td key={cityInd} className={b("row-value")}>
+              {data[city].data[i].value}
             </td>
           ))}
         </tr>
@@ -35,8 +36,8 @@ const enhancer = compose(
   mapProps(({ data }) => ({
     data,
     cityNames: keys(data),
-    cityProperties: values(data)[0].data
+    cityProperties: values(data)[0].data.map(propertyInfo => propertyInfo.property)
   }))
 )
 
-export default enhancer(DataTable)
+export default enhancer(CitiesInfoTable)

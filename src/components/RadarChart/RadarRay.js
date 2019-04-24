@@ -1,18 +1,9 @@
-import { Line } from "@vx/shape"
-import { Point } from "@vx/point"
 import React from "react"
+import { Line, Point } from "@vx/vx"
 import BEM from "../../helpers/BEM"
-const b = BEM("radar")
+const b = BEM("RadarChart")
 
-const getAnchorDirection = x => {
-  if (Math.abs(x) < 30) {
-    return "middle"
-  } else if (x < 0) {
-    return "end"
-  } else {
-    return "start"
-  }
-}
+const getAnchorDirection = x => (Math.abs(x) < 30 ? "middle" : x < 0 ? "end" : "start")
 
 const RadarRay = ({ rayLabel, textRangeCoeff, targetPoint }) => (
   <g>
