@@ -2,24 +2,31 @@ import React from "react"
 import DataTable from "../DataTable/DataTable"
 import RadarChart from "../RadarChart/RadarChart"
 import CitySwitcher from "../CitySwitcher/CitySwitcher"
-import { compose } from "recompose"
+import { compose, withStateHandlers } from "recompose"
 import { ajax } from "rxjs/ajax/index"
 import { branch, mapPropsStream, renderComponent, withProps } from "recompose"
 import { combineLatest } from "rxjs/index"
 import { map } from "rxjs/operators/index"
-import { connect } from "react-redux"
 
-const CityInfoBlock = ({ radarData, tableData, cityColor, cities }) => (
+const CityInfoBlock = ({ radarData, tableData, cityColor, cities, changeDisplayedCities, currentCity }) => (
   <>
     <DataTable data={tableData} cities={cities} cityColor={cityColor} />
-    <RadarChart color={cityColor} data={radarData} />
-    <CitySwitcher data={cities} />
+    <RadarChart color={cityColor} data={radarData} currentCity={currentCity} />
+    <CitySwitcher data={cities} currentCity={currentCity} changeDisplayedCities={changeDisplayedCities} />
   </>
 )
 
 export default compose(
-  // TODO: change to selector
-  connect(state => ({ currentCity: state.currentCity })),
+  withStateHandlers(
+    () => ({
+      currentCity: [{ index: 0, active: 1 }, { index: 1, active: 0 }, { index: 2, active: 0 }]
+    }),
+    {
+      changeDisplayedCities: ({ currentCity }) => (cityIndex, isChecked) => ({
+        currentCity: currentCity.map(city => (city.index === cityIndex ? { ...city, active: isChecked } : city))
+      })
+    }
+  ),
   mapPropsStream(props$ => {
     const data$ = ajax.getJSON("/data/mainCitiesIndicatorsRadarData.json")
     const tableData$ = ajax.getJSON("/data/mainCitiesIndicators.json")
@@ -28,16 +35,17 @@ export default compose(
     )
   }),
   branch(({ data }) => !data, renderComponent(() => "Loading the data...")),
-  withProps(({ data, tableData }) => {
+  withProps(({ data, tableData, ...props }) => {
+    console.log(props)
     let cities = []
     let radarData = []
     let cityColor = []
 
     let counter = 0
-    for (var key in data) {
+    for (const key in data) {
       if (data.hasOwnProperty(key)) {
-          radarData.push(data[key].data)
-          cityColor.push(data[key].color)
+        radarData.push(data[key].data)
+        cityColor.push(data[key].color)
         cities.push(key)
       }
       counter++
