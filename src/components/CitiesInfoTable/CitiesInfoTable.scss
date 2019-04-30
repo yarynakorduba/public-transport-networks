@@ -1,24 +1,28 @@
-.data-table{
+.CitiesInfoTable {
   width: 500px;
   height: 210px;
   margin-left: 20px;
-  th{
-    text-align: left;
-  }
-  td{
+
+  td {
     padding: 0 15px 0 0;
   }
-  &__row-title{
+  &__row-title {
+    text-align: left;
     font-size: 16px;
     font-weight: bold;
+    &_align-right {
+      text-align: right;
+    }
   }
-  &__row-property{
+  &__row-property {
     color: #636363;
     font-size: 13px;
     font-weight: 300;
+    text-align: left;
   }
-  &__row-value{
+  &__row-value {
     font-size: 13px;
     font-weight: bold;
+    text-align: right;
   }
 }
