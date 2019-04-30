@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import * as serviceWorker from "./serviceWorker"
 import configureStore from "./configureStore"
 import initRecompose from "./configRecomposeStream.js"
-import Root from "./Root"
+import Root from "./components/Root"
 
 import "./styles/index.scss"
 
