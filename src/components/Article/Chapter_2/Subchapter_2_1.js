@@ -1,5 +1,5 @@
-import HeatMap from "../../HeatMap"
 import React from "react"
+import HeatMap from "../../HeatMap"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
 
