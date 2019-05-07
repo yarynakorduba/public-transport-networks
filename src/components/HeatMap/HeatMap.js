@@ -8,8 +8,9 @@ import { map, startWith } from "rxjs/operators"
 import { gql } from "apollo-boost"
 import { graphql } from "react-apollo"
 import { compose, mapPropsStream, branch, renderComponent, withProps, mapProps } from "recompose"
+import Pin from "./Pin"
 
-import MapGL from "react-map-gl"
+import MapGL, { Marker } from "react-map-gl"
 import "./HeatMap.scss"
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
@@ -32,6 +33,14 @@ const getStopsQuery = graphql(
   }
 )
 
+const renderMarker = ([longitude, latitude]) => {
+  return (
+    <Marker longitude={longitude} latitude={latitude}>
+      <Pin />
+    </Marker>
+  )
+}
+
 const convertBusStopsDataToGeoJSON = data =>
   featureCollection(
     data.map(({ lat, lon }) => ({
@@ -41,7 +50,7 @@ const convertBusStopsDataToGeoJSON = data =>
     }))
   )
 
-const HeatMap = ({ data, initialViewport }) => {
+const HeatMap = ({ data, initialViewport, center }) => {
   const [viewport, setViewport] = useState(initialViewport)
 
   const mapRef = useRef()
@@ -52,7 +61,7 @@ const HeatMap = ({ data, initialViewport }) => {
 
   const onViewportChange = viewport => setViewport(viewport)
 
-  const handleMapLoaded = async event => {
+  const handleMapLoaded = async () => {
     const map = getMap()
     const geoJSON = data
 
@@ -106,7 +115,9 @@ const HeatMap = ({ data, initialViewport }) => {
       onViewportChange={onViewportChange}
       mapboxApiAccessToken={MAPBOX_TOKEN}
       onLoad={handleMapLoaded}
-    />
+    >
+      {renderMarker(center)}
+    </MapGL>
   )
 }
 
@@ -118,7 +129,7 @@ const enhancer = compose(
     const data$ = props$.pipe(
       map(data => convertBusStopsDataToGeoJSON(data.stops)),
 
-      map(data => clustersDbscan(data, 0.1, { mutate: true, minPoints: 2 })),
+      map(data => clustersDbscan(data, 0.03, { mutate: true, minPoints: 2 })),
       map(data =>
         compose(
           featureCollection,
@@ -160,7 +171,10 @@ const enhancer = compose(
       height: parentHeight
     }).fitBounds([[minX, minY], [maxX, maxY]], { padding: 20 })
 
-    return { initialViewport: { longitude, latitude, zoom } }
+    return {
+      initialViewport: { longitude, latitude, zoom },
+      center: center(featureCollection(data.features.map(p => point(p.geometry.coordinates)))).geometry.coordinates
+    }
   })
 )
 

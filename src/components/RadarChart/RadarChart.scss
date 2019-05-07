@@ -1,6 +1,10 @@
 .RadarChart {
-  position: absolute;
   bottom: 80px;
+  height: 350px;
+  width: 400px;
+  &__container {
+    transform: translate(60%, 50%);
+  }
 
   &__text {
     font-family: "PT Sans", sans-serif;
@@ -19,5 +23,6 @@
   }
   &__circle {
     fill-opacity: 0.8;
+    r: 4;
   }
 }

@@ -1,33 +1,42 @@
 import React from "react"
 import { compose, mapProps } from "recompose"
-import { keys, prop, values } from "ramda"
+import { head, keys, map, mapObjIndexed, prop, values } from "ramda"
 
 import BEM from "../../helpers/BEM"
 import "./CitiesInfoTable.scss"
 
 const b = BEM("CitiesInfoTable")
 
-const CitiesInfoTable = ({ data, cityNames, cityProperties }) => (
+const CitiesInfoTable = ({ data, cityNames, cityPropertiesKeys, cityPropertiesLabels }) => (
   <table className={b()}>
     <tbody>
       <tr>
         <th className={b("row-title")}>City</th>
-        {cityNames.map((cityName, i) => (
-          <td className={b("row-title", ["align-right"])} key={i} style={{ color: data[cityName].color }}>
-            {cityName}
-          </td>
-        ))}
-      </tr>
-      {cityProperties.map((property, i) => (
-        <tr key={i}>
-          <th className={b("row-property")}>{property}</th>
-          {cityNames.map((city, cityInd) => (
-            <td key={cityInd} className={b("row-value")}>
-              {data[city].data[i].propertyValue}
+        {map(
+          city => (
+            <td className={b("row-title", ["align-right"])} key={city} style={{ color: data[city].color }}>
+              {city}
             </td>
-          ))}
-        </tr>
-      ))}
+          ),
+          cityNames
+        )}
+      </tr>
+      {map(
+        property => (
+          <tr key={property}>
+            <th className={b("row-property")}>{cityPropertiesLabels[property]}</th>
+            {map(
+              city => (
+                <td key={city} className={b("row-value")}>
+                  {data[city].data[property].propertyValue}
+                </td>
+              ),
+              cityNames
+            )}
+          </tr>
+        ),
+        cityPropertiesKeys
+      )}
     </tbody>
   </table>
 )
@@ -36,7 +45,18 @@ const enhancer = compose(
   mapProps(({ data }) => ({
     data,
     cityNames: keys(data),
-    cityProperties: values(data)[0].data.map(prop("propertyName"))
+    cityPropertiesLabels: compose(
+      mapObjIndexed(prop("propertyLabel")),
+      prop("data"),
+      head,
+      values
+    )(data),
+    cityPropertiesKeys: compose(
+      keys,
+      prop("data"),
+      head,
+      values
+    )(data)
   }))
 )
 
