@@ -15,8 +15,8 @@ const b = BEM("CitiesInfoBlock")
 const CitiesInfoBlock = ({ data, changeDisplayedCities }) => (
   <div className={b()}>
     <DataTable data={data} />
-    <RadarChart data={data} />
     <CitySwitcher data={data} changeDisplayedCities={changeDisplayedCities} />
+    <RadarChart data={data} />
   </div>
 )
 

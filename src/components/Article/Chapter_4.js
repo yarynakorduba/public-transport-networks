@@ -37,7 +37,7 @@ const Chapter_4 = () => (
       Попередні дослідження Брістоля в <Latex>$\mathbb L$-space</Latex>{" "}
       <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>
     </p>
-    <div className={b("illustration", ["wide"])} style={{ height: "100vh", width: "50vw"}}>
+    <div className={b("illustration", ["wide"])} style={{ height: "100vh"}}>
       <CitiesInfoBlock />
     </div>
   </section>

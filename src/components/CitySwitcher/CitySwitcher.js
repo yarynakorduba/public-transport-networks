@@ -10,12 +10,10 @@ const CitySwitcher = ({ cityKeys, handleChange, data }) => (
   <form className={b()}>
     {map(
       city => (
-        <div key={city} className={b("city-checkbox")}>
+        <label key={city} className={b("city-checkbox")} style={{ color: data[city].color }}>
           <input type={"checkbox"} checked={data[city].active} onChange={ev => handleChange(ev, city)} />
-          <label className={b("city-label")} style={{ color: data[city].color }}>
-            {data[city]["cityLabel"]}
-          </label>
-        </div>
+          {data[city]["cityLabel"]}
+        </label>
       ),
       cityKeys
     )}
