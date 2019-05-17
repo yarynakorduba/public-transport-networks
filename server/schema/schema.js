@@ -8,6 +8,16 @@ const stopsData = {
   lviv: JSON.parse(fs.readFileSync(`../public/data/lviv/lvivStops.json`))
 }
 
+const getCityStops = city => {
+  return new Promise((resolve, reject) =>
+    fs.readFile(`../public/data/${city}/${city}Stops.json`, (err, data) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(JSON.parse(data))
+    })
+  )
+}
 const StopType = new GraphQLObjectType({
   name: "Stop",
   fields: () => ({
@@ -33,8 +43,7 @@ const RootQuery = new GraphQLObjectType({
       type: StopType,
       args: { city: { type: GraphQLString }, id: { type: GraphQLID } },
       resolve(parent, { id, city }) {
-        console.log(city, parent)
-        return Promise.resolve(find(propEq("id", id))(stopsData[city])).then(v =>
+        return Promise.resolve(find(propEq("id", id), stopsData[city])).then(v =>
           Object.assign({}, v, {
             city
           })
@@ -44,16 +53,17 @@ const RootQuery = new GraphQLObjectType({
     stops: {
       type: GraphQLList(StopType),
       args: { city: { type: GraphQLString } },
-      resolve(parent, { city }) {
-        return JSON.parse(fs.readFileSync(`../public/data/${city}/${city}Stops.json`)).stops
+      async resolve(parent, { city }) {
+        const cityStopsData = await getCityStops(city)
+        return cityStopsData.stops
       }
     },
     stationTypes: {
       type: GraphQLList(GraphQLString),
       args: { city: { type: GraphQLString } },
-      resolve(parent, { city }) {
-        console.log(777)
-        return JSON.parse(fs.readFileSync(`../public/data/${city}/${city}Stops.json`)).stationTypes
+      async resolve(parent, { city }) {
+        const cityStopsData = await getCityStops(city)
+        return cityStopsData.stationTypes
       }
     }
   }
