@@ -1,5 +1,4 @@
 import React from "react"
-import HeatMap from "../../HeatMap"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
 
@@ -8,9 +7,6 @@ const b = BEM("Article")
 const Subchapter_2_1 = () => (
   <section>
     <h2>Брістоль</h2>
-    <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <HeatMap city={"bristol"} />
-    </div>
     <p className={b("article")}>Подорожувати у Брістолі можна автобусами, трамваями і поромами.</p>
     <img className={b("image")} src={"img/chapter2/bristolTransport.png"} alt={"Bristol Transport"} />
     <p className={b("article")}>

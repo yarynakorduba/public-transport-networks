@@ -13,7 +13,7 @@ const StopType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     label: { type: GraphQLString },
-    stationType: { type: GraphQLString },
+    stationType: { type: new GraphQLList(GraphQLString) },
     lat: { type: GraphQLFloat },
     lon: { type: GraphQLFloat },
     connections: {
@@ -45,7 +45,15 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(StopType),
       args: { city: { type: GraphQLString } },
       resolve(parent, { city }) {
-        return JSON.parse(fs.readFileSync(`../public/data/${city}/${city}Stops.json`))
+        return JSON.parse(fs.readFileSync(`../public/data/${city}/${city}Stops.json`)).stops
+      }
+    },
+    stationTypes: {
+      type: GraphQLList(GraphQLString),
+      args: { city: { type: GraphQLString } },
+      resolve(parent, { city }) {
+        console.log(777)
+        return JSON.parse(fs.readFileSync(`../public/data/${city}/${city}Stops.json`)).stationTypes
       }
     }
   }

@@ -1,16 +1,12 @@
 import React from "react"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
-import HeatMap from "../../HeatMap"
 
 const b = BEM("Article")
 
 const Subchapter_2_2 = () => (
   <section>
     <h2>Львів</h2>
-    <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <HeatMap city={"lviv"} />
-    </div>
     <p className={b("article")}>
       Історію громадського транспорту Львова розпочав{" "}
       <a href={"https://uk.wikipedia.org/wiki/%D0%9E%D0%BC%D0%BD%D1%96%D0%B1%D1%83%D1%81"}>омнібус</a>. Багатомісний
