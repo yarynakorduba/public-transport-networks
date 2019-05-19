@@ -3,11 +3,6 @@ const fs = require("fs")
 const { find, propEq } = require("ramda")
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLFloat } = graphql
 
-const stopsData = {
-  bristol: JSON.parse(fs.readFileSync(`../public/data/bristol/bristolStops.json`)),
-  lviv: JSON.parse(fs.readFileSync(`../public/data/lviv/lvivStops.json`))
-}
-
 const getCityStops = city => {
   return new Promise((resolve, reject) =>
     fs.readFile(`../public/data/${city}/${city}Stops.json`, (err, data) => {
@@ -18,6 +13,12 @@ const getCityStops = city => {
     })
   )
 }
+
+const stopsData = {
+  bristol: getCityStops("bristol"),
+  lviv: getCityStops("lviv")
+}
+
 const StopType = new GraphQLObjectType({
   name: "Stop",
   fields: () => ({
@@ -26,12 +27,7 @@ const StopType = new GraphQLObjectType({
     stationType: { type: new GraphQLList(GraphQLString) },
     lat: { type: GraphQLFloat },
     lon: { type: GraphQLFloat },
-    connections: {
-      type: new GraphQLList(StopType),
-      resolve(parent) {
-        return parent.connections.map(connection => find(propEq("id", connection))(stopsData[parent.city]))
-      }
-    },
+    connections: { type: new GraphQLList(GraphQLString) },
     routes: { type: GraphQLList(GraphQLString) }
   })
 })
@@ -43,11 +39,8 @@ const RootQuery = new GraphQLObjectType({
       type: StopType,
       args: { city: { type: GraphQLString }, id: { type: GraphQLID } },
       resolve(parent, { id, city }) {
-        return Promise.resolve(find(propEq("id", id), stopsData[city])).then(v =>
-          Object.assign({}, v, {
-            city
-          })
-        )
+        const result = find(propEq("id", id), stopsData[city])
+        return result
       }
     },
     stops: {

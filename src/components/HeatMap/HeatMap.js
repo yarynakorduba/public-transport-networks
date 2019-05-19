@@ -5,27 +5,23 @@ import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/tu
 import { groupBy, reduce, filter, isEmpty, intersection, equals, append } from "ramda"
 import { combineLatest } from "rxjs"
 import { map, startWith } from "rxjs/operators"
-import { gql } from "apollo-boost"
-import { graphql } from "react-apollo"
 import { compose, mapPropsStream, branch, renderComponent, withProps, withStateHandlers } from "recompose"
 
 import MapGL from "react-map-gl"
 import TransportTypeSwitcher from "./TransportTypeSwitcher"
-import { convertBusStopsDataToGeoJSON, getHeatMapColorConfig } from "./helpers"
+import { getHeatMapColorConfig } from "./helpers"
 
 import BEM from "./../../helpers/BEM"
 import "./HeatMap.scss"
-
-const b = BEM("HeatMap")
-
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
-const HEATMAP_SOURCE_ID = "bus-stops"
-const MAX_MAP_ZOOM_LEVEL = 15
+import { gql } from "apollo-boost"
+import { graphql } from "react-apollo"
+import { convertBusStopsDataToGeoJSON } from "../../helpers"
 
 const getStopsQuery = graphql(
   gql`
     query Stops($city: String!) {
       stops(city: $city) {
+        id
         lat
         lon
         routes
@@ -40,6 +36,12 @@ const getStopsQuery = graphql(
     })
   }
 )
+
+const b = BEM("HeatMap")
+
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
+const HEATMAP_SOURCE_ID = "bus-stops"
+const MAX_MAP_ZOOM_LEVEL = 15
 
 const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, stationTypes }) => {
   const [viewport, setViewport] = useState(initialViewport)

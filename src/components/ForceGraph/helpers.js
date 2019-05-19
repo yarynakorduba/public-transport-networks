@@ -1,4 +1,5 @@
-import { flatten, indexOf, map, prop, values } from "ramda"
+import { flatten, indexOf, map, mapObjIndexed, prop, values } from "ramda"
+import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/turf"
 import {
   forceCenter,
   forceCollide,
@@ -18,10 +19,10 @@ import {
 import { mapIndexed } from "../../helpers"
 import { compose } from "recompose"
 
-const STRENGTH = 0.5
+const STRENGTH = 0.2
 
-const MIN_NODE_SPACE = 4
-const MAX_NODE_SPACE = 50
+const MIN_NODE_SPACE = 2
+const MAX_NODE_SPACE = 40
 const MIN_NODE_RADIUS = 2
 const MAX_NODE_RADIUS = 12
 const MIN_FONT_SIZE = 0.5
@@ -92,9 +93,9 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
         .strength(1)
     )
 
+
 export const prepareDataForGraphSpaceVisualization = (data) => {
   const graphData = data
-
   const nodeIds = Object.keys(graphData)
   return {
     nodes: map(d => ({ ...d, r: d.connections.length }), values(graphData)),
@@ -124,3 +125,5 @@ export const getDragHandler = (simulation:object):function =>
       d.fx = null
       d.fy = null
     })
+
+

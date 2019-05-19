@@ -4,27 +4,23 @@ import { arrayToObject, mapIndexed } from "../helpers"
 import { prop, compose, assoc, flip } from "ramda"
 import { combineReducers } from "redux"
 
-const data = (state = null, action) => {
+const data = (state = {}, action) => {
   switch (action.type) {
     case FETCH_STOPS_SUCCESS:
-      return compose(
-        arrayToObject(prop("id")),
-        mapIndexed(flip(assoc("index"))),
-        prop("nodes")
-      )(action)
+      return { ...state, [action.city]: compose(prop("nodes"))(action) }
     case FETCH_STOPS_ERROR:
     default:
       return state
   }
 }
 
-const areFetching = (state: boolean = false, action: object): boolean => {
+const areFetching = (state: boolean = {}, action: object): boolean => {
   switch (action.type) {
     case FETCH_STOPS_START:
-      return true
+      return { ...state, [action.city]: true }
     case FETCH_STOPS_SUCCESS:
     case FETCH_STOPS_ERROR:
-      return false
+      return { ...state, [action.city]: false }
     default:
       return state
   }
@@ -35,5 +31,5 @@ export default combineReducers({
   areFetching
 })
 
-export const areDataFetching = state => state.areFetching
-export const getData = state => state.data
+export const areDataFetching = (state, city) => state.areFetching[city]
+export const getData = (state, city) => state.data[city]

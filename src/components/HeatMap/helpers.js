@@ -1,14 +1,3 @@
-import { featureCollection } from "@turf/turf"
-
-export const convertBusStopsDataToGeoJSON = data =>
-  featureCollection(
-    data.map(({ lat, lon }) => ({
-      type: "Feature",
-      properties: { connectedRoutes: 1 }, //TODO: experiment with routes
-      geometry: { type: "Point", coordinates: [lon, lat] }
-    }))
-  )
-
 export const getHeatMapColorConfig = maxZoomLevel => ({
   // Increase the heatmap weight based on frequency and property magnitude
   "heatmap-weight": ["interpolate", ["linear"], ["get", "connectedRoutes"], 0, 0, maxZoomLevel, 1],

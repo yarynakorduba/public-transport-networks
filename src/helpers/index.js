@@ -1,5 +1,6 @@
 // @flow
-import { reduce, curry, addIndex, map, clone, without, assoc, append } from "ramda"
+import { addIndex, append, assoc, clone, curry, map, reduce, without } from "ramda"
+import { featureCollection } from "@turf/helpers"
 
 export const mapIndexed = addIndex(map)
 
@@ -19,6 +20,7 @@ const DANGEROUSLY_removeNodeFromGraph = (nodeId: string, graph: {}) => {
   const [first, second] = graph[nodeId].connections
   graph[first] = replaceConnectionsInNode(nodeId, second, graph[first])
   graph[second] = replaceConnectionsInNode(nodeId, first, graph[second])
+
   delete graph[nodeId]
 }
 
@@ -28,3 +30,13 @@ export const removeNodeListFromGraph: _removeNodeListFromGraph = (arrayOfNodes, 
   arrayOfNodes.forEach(node => DANGEROUSLY_removeNodeFromGraph(node, graphClone))
   return graphClone
 }
+export const convertBusStopsDataToGeoJSON = data =>
+  featureCollection(
+    data.map(({ ...rest }) => ({
+      type: "Feature",
+      properties: { ...rest }, //TODO: experiment with routes
+      geometry: { type: "Point", coordinates: [rest.lon, rest.lat] }
+    }))
+  )
+
+export const convertBusStopsGeoJSONToJson = geoJSONStops => geoJSONStops.features.map(stop => stop.properties)

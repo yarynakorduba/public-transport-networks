@@ -9,12 +9,12 @@ const b = BEM("Article")
 
 const Chapter_4 = () => (
   <section>
-    <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <HeatMap city={"lviv"} />
-    </div>
-    <div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>
-      <HeatMap city={"bristol"} />
-    </div>
+    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
+      {/*<HeatMap city={"lviv"} />*/}
+    {/*</div>*/}
+    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
+      {/*<HeatMap city={"bristol"} />*/}
+    {/*</div>*/}
     <h1 className={b("header")}>Вихідні дані</h1>
     <p className={b("paragraph")}>
       Для дослідження ми обрали дві системи громадського транспорту: львівську і брістольську. Датасети для Брістоля та

@@ -8,5 +8,5 @@ const articleApp = combineReducers({
 
 export default articleApp
 
-export const getData = state => fromData.getData(state.data)
-export const areDataFetching = state => fromData.areDataFetching(state.data)
+export const getData = (state, city) => fromData.getData(state.data, city)
+export const areDataFetching = (state, city) => fromData.areDataFetching(state.data, city)
