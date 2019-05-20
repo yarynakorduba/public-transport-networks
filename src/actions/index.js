@@ -1,5 +1,5 @@
 // @flow
-import { getGraphSpaceData, getStopsQuery } from "../api"
+import { getStopsQuery } from "../api"
 import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS} from "./actionTypes"
 import {client} from '../components/Root'
 export const fetchStopsStart = (city) => ({ type: FETCH_STOPS_START, city })

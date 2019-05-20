@@ -5,7 +5,7 @@ import { areDataFetching, getData } from "../reducers"
 import { fetchStops } from "../actions"
 import { arrayToObject, mapIndexed, removeNodeListFromGraph } from "../helpers"
 import { assoc, filter, flip, map, prop, values } from "ramda"
-import { prepareDataForGraphSpaceVisualization } from "./ForceGraph/helpers"
+import { prepareDataForGraphSpaceVisualization } from "./GraphVisualization/helpers"
 
 export const withCalculatedChartSize = compose(
   withParentSize,
@@ -31,7 +31,7 @@ export const withStopsData = compose(
           data
         }
   ),
-  branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Preparing the visualization...")),
+  branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Loading the data...")),
   branch(
     ({ data, areDataFetching }) => !data && !areDataFetching,
     renderComponent(() => "Something went wrong. We didn`t manage to load the data...")

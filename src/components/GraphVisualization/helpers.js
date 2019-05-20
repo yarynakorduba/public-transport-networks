@@ -1,5 +1,5 @@
-import { flatten, indexOf, map, mapObjIndexed, prop, values } from "ramda"
-import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/turf"
+import { flatten, indexOf, map, prop, values } from "ramda"
+
 import {
   forceCenter,
   forceCollide,
@@ -19,17 +19,17 @@ import {
 import { mapIndexed } from "../../helpers"
 import { compose } from "recompose"
 
-const STRENGTH = 0.2
+const STRENGTH = 0.1
 
 const MIN_NODE_SPACE = 2
-const MAX_NODE_SPACE = 40
+const MAX_NODE_SPACE = 35
 const MIN_NODE_RADIUS = 2
 const MAX_NODE_RADIUS = 12
 const MIN_FONT_SIZE = 0.5
 const MAX_FONT_SIZE = 1
 
 const MIN_RADIAL_NODE_SPACE = 3
-const MAX_RADIAL_NODE_SPACE = 13
+const MAX_RADIAL_NODE_SPACE = 12
 const MIN_RADIAL_NODE_RADIUS = 2
 const MAX_RADIAL_NODE_RADIUS = 10
 
@@ -42,7 +42,7 @@ const colorScale = scaleSequential(interpolatePlasma)
 const radialNodeSpaceRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_SPACE, MAX_RADIAL_NODE_SPACE])
 const radialNodeRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_RADIUS, MAX_RADIAL_NODE_RADIUS])
 const radialColorScale = scaleSequential(interpolatePlasma)
-const radialPositionScale = scaleThreshold().range([280, 180, 120, 70, 10])
+const radialPositionScale = scaleThreshold().range([250, 180, 120, 70, 10])
 
 
 export const getDefaultSpaceGraphScales = connectionsDomain => ({
@@ -67,13 +67,13 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(0.5)
+        .strength(STRENGTH*2)
     )
     .force("collide", forceCollide(({ r }) => nodeSpaceRadiusScale(r)).strength(STRENGTH))
     .force("charge", forceManyBody())
     .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
-    .force("y", forceY(chartHeight / 2).strength(STRENGTH))
-    .force("x", forceX(chartWidth / 2).strength(STRENGTH))
+    .force("y", forceY(chartHeight / 2).strength(STRENGTH*2))
+    .force("x", forceX(chartWidth / 2).strength(STRENGTH*2))
 
 
 export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function, positionScale:function):object =>
@@ -82,7 +82,7 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(0.01)
+        .strength(STRENGTH/2)
     )
     .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)).strength(0.6))
     .force(

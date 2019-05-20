@@ -1,7 +1,6 @@
 // @flow
 import { FETCH_STOPS_ERROR, FETCH_STOPS_START, FETCH_STOPS_SUCCESS } from "../actions/actionTypes"
-import { arrayToObject, mapIndexed } from "../helpers"
-import { prop, compose, assoc, flip } from "ramda"
+import { prop, compose } from "ramda"
 import { combineReducers } from "redux"
 
 const data = (state = {}, action) => {

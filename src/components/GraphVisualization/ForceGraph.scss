@@ -1,0 +1,23 @@
+.ForceGraph {
+  &__links {
+    stroke: #0018fe;
+    stroke-width: 0.3;
+  }
+
+  &__header {
+    display: block;
+    margin: 1rem auto 0rem auto;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  &__city {
+    font-weight: bold;
+  }
+  &__is-radial-label {
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    background: rgba(139, 0, 139, 0.04);
+  }
+  &__is-radial-input {
+    margin-left: 0;
+  }
+}
