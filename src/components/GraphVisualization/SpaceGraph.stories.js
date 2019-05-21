@@ -90,7 +90,7 @@ storiesOf("SpaceGraph", module)
           chartHeight={200}
           data={mockData}
           space={"c"}
-          representationOf={"bristol"}
+          city={"bristol"}
         />
       </Provider>
     )
@@ -104,7 +104,7 @@ storiesOf("SpaceGraph", module)
           data={mockData}
           showLabels={true}
           space={"c"}
-          representationOf={"bristol"}
+          city={"bristol"}
         />
       </Provider>
     )

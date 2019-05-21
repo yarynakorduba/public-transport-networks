@@ -7,14 +7,16 @@ import CitiesInfoBlock from "../CitiesInfoBlock/CitiesInfoBlock"
 
 const b = BEM("Article")
 
-const Chapter_4 = () => (
+const Subchapter_4_1 = () => (
   <section id={"chapter4"}>
-    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
-      {/*<HeatMap city={"lviv"} />*/}
-    {/*</div>*/}
-    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
-      {/*<HeatMap city={"bristol"} />*/}
-    {/*</div>*/}
+    <div className={b("illustration", ["sticky"])} style={{ height: "180vh" }}>
+      <div style={{ height: "90vh" }}>
+        <HeatMap city={"lviv"} />
+      </div>
+      <div style={{ height: "90vh" }}>
+        <HeatMap city={"bristol"} />
+      </div>
+    </div>
     <h1 className={b("header")}>Вихідні дані</h1>
     <p className={b("paragraph")}>
       Для дослідження ми обрали дві системи громадського транспорту: львівську і брістольську. Датасети для Брістоля та

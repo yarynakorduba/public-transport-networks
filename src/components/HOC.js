@@ -1,11 +1,10 @@
 import { renameProps, withProps, compose, branch, renderComponent } from "recompose"
 import { withParentSize } from "@vx/responsive"
-import connect from "react-redux/es/connect/connect"
-import { areDataFetching, getData } from "../reducers"
-import { fetchStops } from "../actions"
-import { arrayToObject, mapIndexed, removeNodeListFromGraph } from "../helpers"
-import { assoc, filter, flip, map, prop, values } from "ramda"
-import { prepareDataForGraphSpaceVisualization } from "./GraphVisualization/helpers"
+import { connect } from "react-redux"
+import { areStationTypesFetching, areStopsFetching, getStationTypes, getStops } from "../reducers"
+import { fetchStationTypes, fetchStops } from "../actions"
+import { arrayToObject, mapIndexed } from "../helpers"
+import { assoc, flip, prop } from "ramda"
 
 export const withCalculatedChartSize = compose(
   withParentSize,
@@ -16,40 +15,43 @@ export const withCalculatedChartSize = compose(
   }))
 )
 
-export const withStopsData = compose(
+export const withStationTypes = compose(
   connect(
-    (state, { representationOf }) => ({
-      data: getData(state, representationOf),
-      areDataFetching: areDataFetching(state, representationOf)
+    (state, { city }) => ({
+      stationTypes: getStationTypes(state, city),
+      areStationTypesFetching: areStationTypesFetching(state, city)
     }),
-    { fetchNodes: fetchStops }
+    { fetchStationTypes }
   ),
-  withProps(({ data, setData, fetchNodes, representationOf }) =>
-    !data
-      ? fetchNodes(representationOf)
-      : {
-          data
-        }
+  withProps(
+    ({ stationTypes, areStationTypesFetching, fetchStationTypes, city }) =>
+      !stationTypes && !areStationTypesFetching && fetchStationTypes(city)
   ),
-  branch(({ areDataFetching }) => areDataFetching, renderComponent(() => "Loading the data...")),
+  branch(({ areStationTypesFetching }) => areStationTypesFetching, renderComponent(() => "Loading the data...")),
   branch(
-    ({ data, areDataFetching }) => !data && !areDataFetching,
+    ({ stationTypes, areStationTypesFetching }) => !stationTypes && !areStationTypesFetching,
+    renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
+  )
+)
+export const withStops = compose(
+  connect(
+    (state, { city }) => ({
+      stops: getStops(state, city),
+      areStopsFetching: areStopsFetching(state, city)
+    }),
+    { fetchStops }
+  ),
+  withProps(({ stops, areDataFetching, fetchStops, city }) => !stops && !areDataFetching && fetchStops(city)),
+  branch(({ areStopsFetching }) => areStopsFetching, renderComponent(() => "Loading the data...")),
+  branch(
+    ({ stops, areStopsFetching }) => !stops && !areStopsFetching,
     renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
   )
 )
 
-export const withIndexedStopsData = withProps(({ data }) => ({
-  data: compose(
+export const withIndexedStops = withProps(({ stops }) => ({
+  stops: compose(
     arrayToObject(prop("id")),
     mapIndexed(flip(assoc("index")))
-  )(data)
+  )(stops)
 }))
-
-export const withCleanedFromIntermediateStopsData = withProps(({ data }) => {
-  const nodesForRemove = compose(
-    map(node => node.id),
-    values,
-    filter(node => node.connections.length === 2)
-  )(data)
-  return { data: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, data)) }
-})

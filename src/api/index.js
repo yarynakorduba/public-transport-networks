@@ -13,3 +13,9 @@ export const getStopsQuery = gql`
     stationTypes(city: $city)
   }
 `
+
+export const getStationTypesQuery = gql`
+  query StationTypes($city: String!) {
+    stationTypes(city: $city)
+  }
+`

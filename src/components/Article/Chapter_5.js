@@ -102,10 +102,10 @@ const Chapter_5 = () => (
     </p>
     <div className={b("illustration", ["wide", "flex"])} style={{ height: "100vh" }}>
       <div className={b("illustration-half")}>
-        <ForceGraph space={"l"} representationOf={"lviv"} />
+        <ForceGraph space={"l"} city={"lviv"} />
       </div>
       <div className={b("illustration-half")}>
-        <ForceGraph space={"l"} representationOf={"bristol"} />
+        <ForceGraph space={"l"} city={"bristol"} />
       </div>
     </div>
   </section>

@@ -5,37 +5,15 @@ import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/tu
 import { groupBy, reduce, filter, isEmpty, intersection, equals, append } from "ramda"
 import { combineLatest } from "rxjs"
 import { map, startWith } from "rxjs/operators"
-import { compose, mapPropsStream, branch, renderComponent, withProps, withStateHandlers } from "recompose"
-
+import { compose, mapPropsStream, withProps, withStateHandlers } from "recompose"
 import MapGL from "react-map-gl"
 import TransportTypeSwitcher from "./TransportTypeSwitcher"
 import { getHeatMapColorConfig } from "./helpers"
-
-import BEM from "./../../helpers/BEM"
-import "./HeatMap.scss"
-import { gql } from "apollo-boost"
-import { graphql } from "react-apollo"
+import BEM from "../../helpers/BEM"
 import { convertBusStopsDataToGeoJSON } from "../../helpers"
+import { withStationTypes, withStops } from "../HOC"
 
-const getStopsQuery = graphql(
-  gql`
-    query Stops($city: String!) {
-      stops(city: $city) {
-        id
-        lat
-        lon
-        routes
-        stationType
-      }
-      stationTypes(city: $city)
-    }
-  `,
-  {
-    options: props => ({
-      variables: { city: props.city }
-    })
-  }
-)
+import "./HeatMap.scss"
 
 const b = BEM("HeatMap")
 
@@ -61,7 +39,6 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
   const handleMapLoaded = async () => {
     const map = getMap()
     const geoJSON = data
-
     map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: geoJSON })
     map.addLayer({
       id: "heatmap-layer",
@@ -94,11 +71,11 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
 }
 
 const enhancer = compose(
-  getStopsQuery,
-  branch(({ data }) => data.loading, renderComponent(() => <h1>Loading...</h1>)),
+  withStops,
+  withStationTypes,
   withParentSize,
-  withProps(({ data, parentHeight, parentWidth }) => {
-    const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(data.stops))
+  withProps(({ stops, parentHeight, parentWidth }) => {
+    const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))
     const { longitude, latitude, zoom } = new WebMercatorViewport({
       width: parentWidth,
       height: parentHeight
@@ -108,7 +85,7 @@ const enhancer = compose(
     }
   }),
   withStateHandlers(
-    ({ data: { stationTypes } }) => ({
+    ({ stationTypes }) => ({
       selectedStationTypes: stationTypes ? stationTypes : []
     }),
     {
@@ -119,11 +96,10 @@ const enhancer = compose(
       })
     }
   ),
-  withProps(({ data: { stops, stationTypes }, selectedStationTypes }) => ({
+  withProps(({ stops, stationTypes, selectedStationTypes }) => ({
     stops: !isEmpty(selectedStationTypes)
       ? filter(n => !isEmpty(intersection(n.stationType, selectedStationTypes)), stops)
-      : [],
-    stationTypes
+      : []
   })),
   mapPropsStream(props$ => {
     const data$ = props$.pipe(
