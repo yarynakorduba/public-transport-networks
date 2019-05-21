@@ -1,20 +1,21 @@
 import React from "react"
 import Latex from "react-latex"
-import BEM from "../../helpers/BEM.js"
-import "./Article.scss"
-import HeatMap from "../HeatMap/HeatMap"
-import CitiesInfoBlock from "../CitiesInfoBlock/CitiesInfoBlock"
+import HeatMap from "../../HeatMap"
+
+import BEM from "../../../helpers/BEM"
 
 const b = BEM("Article")
 
-const Chapter_4 = () => (
+const Subchapter_4_1 = () => (
   <section>
-    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
-      {/*<HeatMap city={"lviv"} />*/}
-    {/*</div>*/}
-    {/*<div className={b("illustration", ["sticky"])} style={{ height: "100vh" }}>*/}
-      {/*<HeatMap city={"bristol"} />*/}
-    {/*</div>*/}
+    <div className={b("illustration", ["sticky"])} style={{ height: "180vh" }}>
+      <div style={{ height: "90vh" }}>
+        <HeatMap city={"lviv"} />
+      </div>
+      <div style={{ height: "90vh" }}>
+        <HeatMap city={"bristol"} />
+      </div>
+    </div>
     <h1 className={b("header")}>Вихідні дані</h1>
     <p className={b("paragraph")}>
       Для дослідження ми обрали дві системи громадського транспорту: львівську і брістольську. Датасети для Брістоля та
@@ -37,10 +38,7 @@ const Chapter_4 = () => (
       Попередні дослідження Брістоля в <Latex>$\mathbb L$-space</Latex>{" "}
       <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>
     </p>
-    <div className={b("illustration", ["wide"])} style={{ height: "100vh"}}>
-      <CitiesInfoBlock />
-    </div>
   </section>
 )
 
-export default Chapter_4
+export default Subchapter_4_1

@@ -1,9 +1,8 @@
 import React from "react"
 import BEM from "../../../helpers/BEM.js"
-import "../Article.scss"
 import Subchapter1 from "./Subchapter_2_1"
 import Subchapter2 from "./Subchapter_2_2"
-import CitiesInfoBlock from "../../CitiesInfoBlock"
+import "../Article.scss"
 
 const b = BEM("Article")
 
