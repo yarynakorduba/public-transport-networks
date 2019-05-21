@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "react-scroll"
+import Latex from "react-latex"
 
 import Chapter1 from "./Chapter_1"
 import Chapter2 from "./Chapter_2/Chapter_2"
@@ -20,6 +22,117 @@ const b = BEM("Article")
 const Article = () => (
   <TriggerContext>
     <div className={b()}>
+      <h2>Зміст</h2>
+      <ul className={b("content")}>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter1"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Опис проблеми та Історичний прецедент
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter2"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Історія двох міст
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter3"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Громадський транспорт як складна мережа
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter4"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Вихідні дані
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter5"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Топологічні характеристики в <Latex>$\mathbb L$-space</Latex>
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter6"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Топологічні характеристики в <Latex>$\mathbb P$</Latex>-space
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter7"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Топологічні характеристики в <Latex>$\mathbb C$</Latex>-space
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter8"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Стійкість мереж до атак
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter9"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >
+          Топологічні характеристики в P space
+        </Link>
+        <Link
+          className={b("content__link")}
+          activeClass="active"
+          to="chapter10"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration= {500}
+        >Що далі?</Link>
+      </ul>
       <h1>Науковий підхід у проектуванні громадського транспорту</h1>
       <em>
         Ця стаття описує дослідження систем громадського транспорту Брістоля і Львова. У рамках дослідження ми

@@ -87,6 +87,16 @@
     }
   }
 
+  &__content{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    &__link{
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+  }
+
   &__image-caption {
     text-align: center;
   }

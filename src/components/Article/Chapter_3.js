@@ -6,7 +6,7 @@ import Latex from "react-latex"
 const b = BEM("Article")
 
 const Chapter_3 = () => (
-  <section>
+  <section id={"chapter3"}>
     <h1 className={b("header")}>Громадський транспорт як складна мережа</h1>
     <p className={b("paragraph")}>
       Один із методів дослідження транспортних систем -{" "}

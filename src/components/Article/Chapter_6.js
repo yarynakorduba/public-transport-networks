@@ -7,7 +7,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_6 = () => (
-  <section>
+  <section id={"chapter6"}>
     <h1 className={b("header")}>
       Топологічні характеристики в <Latex>$\mathbb P$</Latex>-space
     </h1>

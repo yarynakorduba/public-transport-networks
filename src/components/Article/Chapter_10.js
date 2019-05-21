@@ -5,7 +5,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_10 = () => (
-  <section>
+  <section id={"chapter10"}>
     <h1 className={b("header")}>Що далі?</h1>
     <p className={b("paragraph")}>
       У цьому дослідженні ми вивчаємо “скелети” мереж, базуючись на статичних даних. Наступний крок - дослідити мережі

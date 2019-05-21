@@ -5,7 +5,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_1 = () => (
-  <section>
+  <section id={"chapter1"}>
     <h1 className={b("header")}>Опис проблеми & Історичний прецедент</h1>
     <p className={b("paragraph", ["first"])}>
       Однією з ключових характеристик сучасного світу є зростання ролі міста. В 1800 році лише{" "}

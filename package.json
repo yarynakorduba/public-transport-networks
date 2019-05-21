@@ -25,6 +25,7 @@
     "react-map-gl": "^4.1.1",
     "react-redux": "^6.0.1",
     "react-router-dom": "5",
+    "react-scroll": "^1.7.11",
     "recompose": "^0",
     "redux": "^4",
     "redux-promise": "^0",

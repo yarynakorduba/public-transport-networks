@@ -8,7 +8,7 @@ import CitiesInfoBlock from "../../CitiesInfoBlock"
 const b = BEM("Article")
 
 const Chapter_2 = () => (
-  <section>
+  <section id={"chapter2"}>
     <h1 className={b("header")}>Історія двох міст</h1>
     <em>
       Нашою метою було дослідити транспортну мережу Львова. Коректність результатів важливо перевірити на вже готових

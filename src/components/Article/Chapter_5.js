@@ -7,7 +7,7 @@ import ForceGraph from "../GraphVisualization"
 const b = BEM("Article")
 
 const Chapter_5 = () => (
-  <section>
+  <section id={"chapter5"}>
     <h1 className={b("header")}>
       Топологічні характеристики в <Latex>$\mathbb L$-space</Latex>
     </h1>

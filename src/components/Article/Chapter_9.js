@@ -7,7 +7,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_9 = () => (
-  <section>
+  <section id={"chapter9"}>
     <h1 className={b("header")}>Топологічні характеристики в P space</h1>
     <p className={b("paragraph")}>
       Брістоль і Львів - схожі за розміром міста. Однак у транспортних системах міст є багато відмінностей. Кількість
