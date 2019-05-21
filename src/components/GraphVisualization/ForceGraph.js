@@ -1,6 +1,6 @@
 // @flow
 import React, { useEffect, useRef } from "react"
-import { prop, path } from "ramda"
+import { prop, path, map, values, filter } from "ramda"
 import { extent, select } from "d3"
 import { compose, defaultProps, withProps, withStateHandlers } from "recompose"
 import {
@@ -8,19 +8,16 @@ import {
   getDefaultSpaceGraphScales,
   getDragHandler,
   getRadialSpaceGraphScales,
-  getRadialForceSimulation
+  getRadialForceSimulation,
+  prepareDataForGraphSpaceVisualization
 } from "./helpers"
 import BEM from "../../helpers/BEM"
-import {
-  withCalculatedChartSize,
-  withCleanedFromIntermediateStopsData,
-  withIndexedStopsData,
-  withStopsData
-} from "../HOC"
+import { withCalculatedChartSize, withIndexedStops, withStops } from "../HOC"
 import "./ForceGraph.scss"
+import { removeNodeListFromGraph } from "../../helpers"
 const b = BEM("ForceGraph")
 
-const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial, representationOf, space }) => {
+const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial, city, space }) => {
   const rootEl = useRef(null)
   useEffect(() => drawChart(rootEl.current), [isRadial])
 
@@ -28,7 +25,7 @@ const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial,
     <>
       <header className={b("header")}>
         <label className={b("city")}>
-          {representationOf}, {space}-space
+          {city}, {space}-space
         </label>
         <label className={b("is-radial-label")}>
           <input className={b("is-radial-input")} type={"checkbox"} value={isRadial} onChange={setIsRadial} />
@@ -50,9 +47,19 @@ const enhancer = compose(
   // chart size definition
   withCalculatedChartSize,
   // data processing
-  withStopsData,
-  withIndexedStopsData,
-  withCleanedFromIntermediateStopsData,
+  withStops,
+  withIndexedStops,
+  withProps(({ stops }) => {
+    const nodesForRemove = compose(
+      map(node => node.id),
+      values,
+      filter(node => node.connections.length === 2)
+    )(stops)
+    return {
+      graphData: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, stops))
+    }
+  }),
+
   withStateHandlers(
     () => ({
       isRadial: false
@@ -63,29 +70,27 @@ const enhancer = compose(
       })
     }
   ),
-  withProps(
-    ({ chartWidth, chartHeight, getVisualizationScales, getSimulationType, data, isRadial }) => {
-      const connectionsDomain = extent(data.nodes, path(["connections", "length"]))
-      const { nodeRadiusScale, nodeSpaceRadiusScale, positionScale, colorScale, fontSizeScale } = isRadial
-        ? getRadialSpaceGraphScales(connectionsDomain)
-        : getDefaultSpaceGraphScales(connectionsDomain)
-      return {
-        nodeRadiusScale,
-        nodeSpaceRadiusScale,
-        positionScale,
-        colorScale,
-        fontSizeScale,
-        simulation: isRadial
-          ? getRadialForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale, positionScale)
-          : getForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale, positionScale)
-      }
+  withProps(({ chartWidth, chartHeight, getVisualizationScales, getSimulationType, graphData, isRadial }) => {
+    const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
+    const { nodeRadiusScale, nodeSpaceRadiusScale, positionScale, colorScale, fontSizeScale } = isRadial
+      ? getRadialSpaceGraphScales(connectionsDomain)
+      : getDefaultSpaceGraphScales(connectionsDomain)
+    return {
+      nodeRadiusScale,
+      nodeSpaceRadiusScale,
+      positionScale,
+      colorScale,
+      fontSizeScale,
+      simulation: isRadial
+        ? getRadialForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale, positionScale)
+        : getForceSimulation(chartWidth, chartHeight, nodeSpaceRadiusScale, positionScale)
     }
-  ),
+  }),
   withProps(
     ({
       chartWidth,
       chartHeight,
-      data,
+      graphData,
       showLabels,
       simulation,
       nodeSpaceRadiusScale,
@@ -102,7 +107,7 @@ const enhancer = compose(
           .append("g")
           .attr("class", b("links"))
           .selectAll(b("line"))
-          .data(data.links)
+          .data(graphData.links)
           .enter()
           .append("line")
           .attr("class", b("line"))
@@ -110,7 +115,7 @@ const enhancer = compose(
         const nodes = svg
           .append("g")
           .selectAll(b("node"))
-          .data(data.nodes)
+          .data(graphData.nodes)
           .enter()
           .append("g")
           .attr("class", b("node"))
@@ -118,7 +123,7 @@ const enhancer = compose(
           .call(dragHandler)
           .append("circle")
           .attr("fill", d => colorScale(d.connections.length))
-          .attr("r", ({ r }) => nodeRadiusScale(r))
+          .attr("r", d => nodeRadiusScale(d.r))
 
         if (showLabels) {
           nodes
@@ -131,7 +136,7 @@ const enhancer = compose(
         }
 
         simulation
-          .nodes(data.nodes)
+          .nodes(graphData.nodes)
           .on("tick", () => {
             links
               .attr("x1", d => d.source.x)
@@ -142,7 +147,7 @@ const enhancer = compose(
             nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
           })
           .force("link")
-          .links(data.links)
+          .links(graphData.links)
       }
     })
   )

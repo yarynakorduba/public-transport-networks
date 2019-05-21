@@ -32,10 +32,10 @@ export const removeNodeListFromGraph: _removeNodeListFromGraph = (arrayOfNodes, 
 }
 export const convertBusStopsDataToGeoJSON = data =>
   featureCollection(
-    data.map(({ ...rest }) => ({
+    data.map(({ lat, lon, ...rest }) => ({
       type: "Feature",
-      properties: { ...rest }, //TODO: experiment with routes
-      geometry: { type: "Point", coordinates: [rest.lon, rest.lat] }
+      properties: { lat, lon, ...rest, connectedRoutes: 1 }, //TODO: experiment with routes
+      geometry: { type: "Point", coordinates: [lon, lat] }
     }))
   )
 
