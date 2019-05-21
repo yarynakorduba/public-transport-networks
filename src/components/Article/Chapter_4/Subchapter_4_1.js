@@ -8,7 +8,7 @@ import CitiesInfoBlock from "../CitiesInfoBlock/CitiesInfoBlock"
 const b = BEM("Article")
 
 const Subchapter_4_1 = () => (
-  <section id={"chapter4"}>
+  <section>
     <div className={b("illustration", ["sticky"])} style={{ height: "180vh" }}>
       <div style={{ height: "90vh" }}>
         <HeatMap city={"lviv"} />
