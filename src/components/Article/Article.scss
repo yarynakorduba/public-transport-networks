@@ -2,11 +2,11 @@
 @import "../../styles/variables";
 
 .Article {
-  padding: 1.5rem;
+  padding: 2rem;
 
   width: 600px;
   margin: auto;
-  transform: translateX(-50%);
+  //transform: translateX(-50%);
 
   @media (max-width: 1300px) and (min-width: 700px) {
     transform: translateX(0);
@@ -26,7 +26,7 @@
   }
 
   figure {
-    margin: 0;
+    margin: 50px 0 50px 0;
   }
   figcaption {
     font-size: 0.8em;
@@ -87,13 +87,15 @@
     }
   }
 
-  &__content{
+  &__contents{
     padding: 0;
     display: flex;
     flex-direction: column;
+    margin-bottom: 80px;
     &__link{
-      cursor: pointer;
       margin-bottom: 10px;
+      font-size: 13px;
+      background: none;
     }
   }
 
@@ -114,13 +116,17 @@
     font-family: Pt Serif Caption, serif;
     font-size: 2.65rem;
     font-weight: 700;
-    margin: 1em 0;
+    margin: 3em 0 0.75em 0;
     line-height: 1em;
     color: #2e2e2e;
   }
+
+  &__description-block{
+    margin-bottom: 100px;
+  }
+
   &__paragraph {
     margin: 1.5rem 0;
-    color: #292929;
 
     &_highlighted {
       font-weight: 700;

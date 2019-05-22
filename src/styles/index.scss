@@ -7,3 +7,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+a {
+  cursor: pointer;
+  text-decoration: underline #b0b0b0;
+  color: rgba(0,0,0,0.8);
+  background-color: rgba(181, 191, 255, 0.2);
+}
+a:hover {
+  text-decoration: underline #005cd3;
+  color: #005cd3;
+}
+
+p {
+  color: rgba(0,0,0,0.65);
+}

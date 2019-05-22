@@ -23,9 +23,9 @@ const Article = () => (
   <TriggerContext>
     <div className={b()}>
       <h2>Зміст</h2>
-      <ul className={b("content")}>
+      <ul className={b("contents")}>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter1"
           spy={true}
@@ -36,7 +36,7 @@ const Article = () => (
           Опис проблеми та Історичний прецедент
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter2"
           spy={true}
@@ -47,7 +47,7 @@ const Article = () => (
           Історія двох міст
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter3"
           spy={true}
@@ -58,7 +58,7 @@ const Article = () => (
           Громадський транспорт як складна мережа
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter4"
           spy={true}
@@ -69,7 +69,7 @@ const Article = () => (
           Вихідні дані
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter5"
           spy={true}
@@ -80,7 +80,7 @@ const Article = () => (
           Топологічні характеристики в <Latex>$\mathbb L$-space</Latex>
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter6"
           spy={true}
@@ -91,7 +91,7 @@ const Article = () => (
           Топологічні характеристики в <Latex>$\mathbb P$</Latex>-space
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter7"
           spy={true}
@@ -102,7 +102,7 @@ const Article = () => (
           Топологічні характеристики в <Latex>$\mathbb C$</Latex>-space
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter8"
           spy={true}
@@ -113,7 +113,7 @@ const Article = () => (
           Стійкість мереж до атак
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter9"
           spy={true}
@@ -124,7 +124,7 @@ const Article = () => (
           Топологічні характеристики в P space
         </Link>
         <Link
-          className={b("content__link")}
+          className={b("contents__link")}
           activeClass="active"
           to="chapter10"
           spy={true}
@@ -134,11 +134,11 @@ const Article = () => (
         >Що далі?</Link>
       </ul>
       <h1>Науковий підхід у проектуванні громадського транспорту</h1>
-      <em>
+      <p className={b("description-block")}>
         Ця стаття описує дослідження систем громадського транспорту Брістоля і Львова. У рамках дослідження ми
         визначаємо основні характеристики транспортних систем і перевіряємо їх стійкість до атак. Для цього розглядаємо
         громадський транспорт як мережу зв’язків. Ці зв’язки ми вивчаємо за допомогою теорії складних мереж.
-      </em>
+      </p>
       <Chapter1 />
       <Chapter2 />
       <Chapter3 />

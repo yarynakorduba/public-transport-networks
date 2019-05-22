@@ -1,8 +1,8 @@
 import React from "react"
 import Latex from "react-latex"
-import BEM from "../../helpers/BEM.js"
-import "./Article.scss"
-import HeatMap from "../HeatMap/HeatMap"
+import BEM from "../../../helpers/BEM.js"
+import "../Article.scss"
+import HeatMap from "../../HeatMap/HeatMap"
 
 const b = BEM("Article")
 
