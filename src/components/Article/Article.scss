@@ -3,10 +3,10 @@
 
 .Article {
   padding: 2rem;
-
+  line-height: 1.75;
   width: 600px;
   margin: auto;
-  //transform: translateX(-50%);
+  transform: translateX(-50%);
 
   @media (max-width: 1300px) and (min-width: 700px) {
     transform: translateX(0);
@@ -31,6 +31,10 @@
   figcaption {
     font-size: 0.8em;
   }
+  .katex {
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
 
   &__illustration {
     float: right;
@@ -54,8 +58,9 @@
     &_wide {
       float: none;
       margin-right: auto;
-      margin-left: calc(100% + 1.5em - 50vw);
+      margin-left: calc(100% - 50vw);
       width: 100vw;
+      overflow: hidden;
     }
 
     @media (max-width: 1300px) and (min-width: 700px) {
