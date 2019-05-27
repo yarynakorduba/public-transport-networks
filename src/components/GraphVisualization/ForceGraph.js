@@ -17,64 +17,13 @@ import "./ForceGraph.scss"
 import { removeNodeListFromGraph } from "../../helpers"
 const b = BEM("ForceGraph")
 
-const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial, city, space }) => {
-  const rootEl = useRef(null)
-  useEffect(() => drawChart(rootEl.current), [isRadial])
-
-  return (
-    <>
-      <header className={b("header")}>
-        <label className={b("city")}>
-          {city}, {space}-space
-        </label>
-        <label className={b("is-radial-label")}>
-          <input className={b("is-radial-input")} type={"checkbox"} value={isRadial} onChange={setIsRadial} />
-          Radial
-        </label>
-      </header>
-      <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
-    </>
-  )
-}
-
-const enhancer = compose(
-  defaultProps({
-    width: 600,
-    height: 400,
-    margin: { top: 0, left: 0, bottom: 100, right: 0 },
-    showLabels: false
-  }),
-  // chart size definition
-  withCalculatedChartSize,
-  // data processing
-  withStops,
-  withIndexedStops,
-  withProps(({ stops }) => {
-    const nodesForRemove = compose(
-      map(node => node.id),
-      values,
-      filter(node => node.connections.length === 2)
-    )(stops)
-    return {
-      graphData: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, stops))
-    }
-  }),
-
-  withStateHandlers(
-    () => ({
-      isRadial: false
-    }),
-    {
-      setIsRadial: () => ev => ({
-        isRadial: ev.target.checked
-      })
-    }
-  ),
-  withProps(({ chartWidth, chartHeight, getVisualizationScales, getSimulationType, graphData, isRadial }) => {
+const drawChart = compose(
+  withProps(({ chartWidth, chartHeight, graphData, isRadial }) => {
     const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
     const { nodeRadiusScale, nodeSpaceRadiusScale, positionScale, colorScale, fontSizeScale } = isRadial
       ? getRadialSpaceGraphScales(connectionsDomain)
       : getDefaultSpaceGraphScales(connectionsDomain)
+
     return {
       nodeRadiusScale,
       nodeSpaceRadiusScale,
@@ -150,6 +99,61 @@ const enhancer = compose(
           .links(graphData.links)
       }
     })
+  )
+)
+
+export const ForceGraph = drawChart(({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial, city, space }) => {
+  const rootEl = useRef(null)
+  useEffect(() => drawChart(rootEl.current), [isRadial])
+
+  return (
+    <>
+      <header className={b("header")}>
+        <label className={b("city")}>
+          {city}, {space}-space
+        </label>
+        <label className={b("is-radial-label")}>
+          <input className={b("is-radial-input")} type={"checkbox"} value={isRadial} onChange={setIsRadial} />
+          Radial
+        </label>
+      </header>
+      <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
+    </>
+  )
+})
+
+const enhancer = compose(
+  defaultProps({
+    width: 600,
+    height: 400,
+    margin: { top: 0, left: 0, bottom: 100, right: 0 },
+    showLabels: false
+  }),
+  // chart size definition
+  withCalculatedChartSize,
+  // data processing
+  withStops,
+  withIndexedStops,
+  withProps(({ stops }) => {
+    const nodesForRemove = compose(
+      map(node => node.id),
+      values,
+      filter(node => node.connections.length === 2)
+    )(stops)
+    return {
+      graphData: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, stops))
+    }
+  }),
+
+  withStateHandlers(
+    () => ({
+      isRadial: false
+    }),
+    {
+      setIsRadial: () => ev => ({
+        isRadial: ev.target.checked
+      })
+    }
   )
 )
 
