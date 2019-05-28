@@ -1,6 +1,6 @@
 // @flow
 import React, { useEffect, useRef } from "react"
-import { prop, path, map, values, filter } from "ramda"
+import { path, map, values, filter } from "ramda"
 import { extent, select } from "d3"
 import { compose, defaultProps, withProps, withStateHandlers } from "recompose"
 import {
@@ -11,10 +11,10 @@ import {
   getRadialForceSimulation,
   prepareDataForGraphSpaceVisualization
 } from "./helpers"
-import BEM from "../../helpers/BEM"
-import { withCalculatedChartSize, withIndexedStops, withStops } from "../HOC"
-import "./ForceGraph.scss"
 import { removeNodeListFromGraph } from "../../helpers"
+import { withCalculatedChartSize, withIndexedStops, withStops } from "../HOC"
+import BEM from "../../helpers/BEM"
+import "./ForceGraph.scss"
 const b = BEM("ForceGraph")
 
 //TODO: decide whether to add clusterization

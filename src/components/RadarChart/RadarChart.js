@@ -24,8 +24,11 @@ const genRadarPolygonPoints = (data, scale) =>
     y: scale(propertyValue) * Math.cos((i + 0.01) * getStepAlongCircle(data.length))
   }))
 
-const RadarChart = ({ width, height, raysPoints, polygonData, cityPropertiesLabels }) => (
+export const RadarChart = ({ width, height, raysPoints, polygonData, cityPropertiesLabels }) => (
   <svg className={b()}>
+    {console.log("polygonData ==> ", polygonData)}
+    {console.log("raysPoints ==> ", raysPoints)}
+    {console.log("cityPropertiesLabels ==> ", cityPropertiesLabels)}
     <Group className={b("container")} width={width} height={height}>
       {raysPoints.map((point, i) => (
         <RadarRay rayLabel={cityPropertiesLabels[i]} targetPoint={point} key={i} />
