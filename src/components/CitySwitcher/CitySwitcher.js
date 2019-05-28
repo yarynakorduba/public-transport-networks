@@ -1,8 +1,8 @@
 import React from "react"
 import "./CitySwitcher.scss"
 import BEM from "../../helpers/BEM"
-import { withHandlers, withProps } from "recompose"
-import { keys, map, compose, mapObjIndexed } from "ramda"
+import { withHandlers } from "recompose"
+import { keys, map, compose } from "ramda"
 
 const b = BEM("CitySwitcher")
 
