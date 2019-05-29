@@ -4,7 +4,8 @@
 .Article {
   padding: 5rem 0.5rem;
   line-height: 1.75;
-  width: 600px;
+  width: 48%;
+  max-width: 600px;
   margin: auto;
   transform: translateX(-50%);
 
@@ -36,13 +37,11 @@
     line-height: 1.45;
   }
 
-  &
-
   &__illustration {
     float: right;
     clear: both;
-    width: calc(48vw);
-    margin-right: calc(-49vw - 1.5rem);
+    width: 100%;
+    margin-right: calc(-100% - 1.5rem);
 
     &_flex {
       display: flex;
@@ -61,7 +60,7 @@
       margin-right: auto;
       margin-left: calc(100% - 50vw);
       text-align: center;
-      width: 100vw;
+      width: 99vw;
       overflow: hidden;
     }
 
