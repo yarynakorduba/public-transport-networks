@@ -17,18 +17,26 @@
     font-size: 13px;
     margin-top: 0.05rem;
     background: none;
+    text-decoration: none;
   }
 
   &__chapter {
-    margin: 1.2rem 0 0 0;
+    margin: 1rem 0 0 0;
+  }
+  &__chapter:before{
+    float: left;
+    margin-right: 3px;
+    content: "— ";
+    text-decoration: none;
   }
 
   &__subchapter {
-    margin-left: 1rem;
+    margin: 0 0 0 0.9rem;
+    color: #acacac;
   }
 
   &__header {
-    margin: 5px 0 0;
-    font-size: 30px;
+    font-size: 22px;
+    margin-left: 12px;
   }
 }
