@@ -1,0 +1,28 @@
+{
+  "Lviv": {
+    "data": {
+      "population": { "propertyLabel": "Населення", "propertyValue": 721301 },
+      "square": { "propertyLabel": "Площа", "propertyValue": 182 },
+      "routes": { "propertyLabel": "Шляхів", "propertyValue": 77 },
+      "stops": { "propertyLabel": "Зупинок", "propertyValue": 768 },
+      "maxStopsOnRoute": { "propertyLabel": "Макс. зупинок у маршруті", "propertyValue": 49 },
+      "minStopsOnRoute": { "propertyLabel": "Мін. зупинок у маршруті", "propertyValue": 4 },
+      "averageStopsOnRoute": { "propertyLabel": "Сер. зупинок у маршруті", "propertyValue": 23 }
+    },
+    "cityLabel": "Львів",
+    "color": "#035B82"
+  },
+  "Bristol": {
+    "data": {
+      "population": { "propertyLabel": "Населення", "propertyValue": 535907 },
+      "square": { "propertyLabel": "Площа", "propertyValue": 110 },
+      "routes": { "propertyLabel": "Шляхів", "propertyValue": 143 },
+      "stops": { "propertyLabel": "Зупинок", "propertyValue": 1474 },
+      "maxStopsOnRoute": { "propertyLabel": "Макс. зупинок у маршруті", "propertyValue": 72 },
+      "minStopsOnRoute": { "propertyLabel": "Мін. зупинок у маршруті", "propertyValue": 1 },
+      "averageStopsOnRoute": { "propertyLabel": "Сер. зупинок у маршруті", "propertyValue": 19 }
+    },
+    "cityLabel": "Брістоль",
+    "color": "#E62139"
+  }
+}
