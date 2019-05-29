@@ -10,7 +10,7 @@ const b = BEM("Article")
 const Chapter_4 = () => (
   <section id={"chapter4"}>
     <Subchapter1 />
-    <div className={b("illustration", ["wide"])} style={{ height: "90vh" }}>
+    <div className={b("illustration", ["wide"])} style={{ height: "100vh" }}>
       <CitiesInfoBlock />
     </div>
     <Subchapter2 />

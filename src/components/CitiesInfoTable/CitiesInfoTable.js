@@ -1,7 +1,7 @@
 import React from "react"
 import { compose, mapProps } from "recompose"
 import { head, keys, map, mapObjIndexed, prop, values } from "ramda"
-
+import { format } from "d3"
 import BEM from "../../helpers/BEM"
 import "./CitiesInfoTable.scss"
 
@@ -28,7 +28,7 @@ const CitiesInfoTable = ({ data, cityNames, cityPropertiesKeys, cityPropertiesLa
             {map(
               city => (
                 <td key={city} className={b("row-value")}>
-                  {data[city].data[property].propertyValue}
+                  {format(",")(data[city].data[property].propertyValue)}
                 </td>
               ),
               cityNames

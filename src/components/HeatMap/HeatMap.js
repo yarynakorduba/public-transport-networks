@@ -21,7 +21,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "bus-stops"
 const MAX_MAP_ZOOM_LEVEL = 15
 
-const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, stationTypes }) => {
+const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, stationTypes, city }) => {
   const [viewport, setViewport] = useState(initialViewport)
 
   const mapRef = useRef()
@@ -61,7 +61,7 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
         onLoad={handleMapLoaded}
       />
       <TransportTypeSwitcher
-        city={"lviv"}
+        city={city}
         handleSelect={handleSelect}
         stationTypes={stationTypes}
         selectedTransportTypes={selectedStationTypes}

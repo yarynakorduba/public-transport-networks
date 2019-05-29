@@ -51,7 +51,7 @@ const Chapter_3 = () => (
       ребром. Трамваї №3 та №8 мають спільні зупинки. Однак трамвай №6 повністю ізольований від них, а отже наш
       <Latex>$\mathbb C$-space</Latex> виглядатиме так:
     </p>
-    <img className={b("image", ["small"])} alt={"C-space"} src={"./img/chapter3/exampleCSpace.svg"} />
+    <img className={b("image", ["original-size"])} alt={"C-space"} src={"./img/chapter3/exampleCSpace.svg"} />
   </section>
 )
 

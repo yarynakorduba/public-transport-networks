@@ -6,23 +6,26 @@ import "./TransportTypeSwitcher.scss"
 
 const b = BEM("TransportTypeSwitcher")
 
-const TransportTypeSwitcher = ({ handleChange, selectedTransportTypes, stationTypes }) => (
-  <form className={b()}>
-    {map(
-      label => (
-        <label key={label} className={b("transportType")}>
-          <input
-            type={"checkbox"}
-            name={label}
-            onChange={ev => handleChange(ev)}
-            checked={includes(label, selectedTransportTypes)}
-          />
-          {label}
-        </label>
-      ),
-      stationTypes
-    )}
-  </form>
+const TransportTypeSwitcher = ({ handleChange, selectedTransportTypes, stationTypes, city }) => (
+  <div className={b()}>
+    <span className={b("city")}>{city}</span>
+    <form className={b("transportTypes")}>
+      {map(
+        label => (
+          <label key={label} className={b("transportType")}>
+            <input
+              type={"checkbox"}
+              name={label}
+              onChange={ev => handleChange(ev)}
+              checked={includes(label, selectedTransportTypes)}
+            />
+            {label}
+          </label>
+        ),
+        stationTypes
+      )}
+    </form>
+  </div>
 )
 
 const enhancer = compose(

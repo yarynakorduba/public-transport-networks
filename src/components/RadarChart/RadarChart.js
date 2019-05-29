@@ -26,9 +26,6 @@ const genRadarPolygonPoints = (data, scale) =>
 
 export const RadarChart = ({ width, height, raysPoints, polygonData, cityPropertiesLabels }) => (
   <svg className={b()}>
-    {console.log("polygonData ==> ", polygonData)}
-    {console.log("raysPoints ==> ", raysPoints)}
-    {console.log("cityPropertiesLabels ==> ", cityPropertiesLabels)}
     <Group className={b("container")} width={width} height={height}>
       {raysPoints.map((point, i) => (
         <RadarRay rayLabel={cityPropertiesLabels[i]} targetPoint={point} key={i} />
