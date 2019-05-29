@@ -26,7 +26,7 @@ const Subchapter_4_2 = () => (
     </ol>
     <div className={b("illustration", ["wide"])} style={{ height: "100vh" }}>
       <figure>
-        <img alt={"Network simplification steps"} src={"./img/chapter3/networkSimplificationSteps.png"} />
+        <img alt={"Network simplification steps"} src={"./img/chapter3/networkSimplificationSteps.svg"} />
         <figcaption className={b("image-caption")}>Кроки для спрощення транспортної системи</figcaption>
       </figure>
     </div>

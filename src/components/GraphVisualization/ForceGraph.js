@@ -1,6 +1,6 @@
 // @flow
 import React, { useEffect, useRef } from "react"
-import { prop, path, map, values, filter } from "ramda"
+import { path, map, values, filter } from "ramda"
 import { extent, select } from "d3"
 import { compose, defaultProps, withProps, withStateHandlers } from "recompose"
 import {
@@ -11,13 +11,29 @@ import {
   getRadialForceSimulation,
   prepareDataForGraphSpaceVisualization
 } from "./helpers"
-import BEM from "../../helpers/BEM"
-import { withCalculatedChartSize, withIndexedStops, withStops } from "../HOC"
-import "./ForceGraph.scss"
 import { removeNodeListFromGraph } from "../../helpers"
+import { withCalculatedChartSize, withIndexedStops, withStops } from "../HOC"
+import BEM from "../../helpers/BEM"
+import "./ForceGraph.scss"
 const b = BEM("ForceGraph")
 
+//TODO: decide whether to add clusterization
 const drawChart = compose(
+  defaultProps({
+    margin: { top: 0, left: 0, bottom: 100, right: 0 }
+  }),
+  // chart size definition
+  withCalculatedChartSize,
+  withStateHandlers(
+    ({ isRadial }) => ({
+      isRadial: isRadial
+    }),
+    {
+      setIsRadial: () => ev => ({
+        isRadial: ev.target.checked
+      })
+    }
+  ),
   withProps(({ chartWidth, chartHeight, graphData, isRadial }) => {
     const connectionsDomain = extent(graphData.nodes, path(["connections", "length"]))
     const { nodeRadiusScale, nodeSpaceRadiusScale, positionScale, colorScale, fontSizeScale } = isRadial
@@ -45,8 +61,7 @@ const drawChart = compose(
       nodeSpaceRadiusScale,
       nodeRadiusScale,
       positionScale,
-      colorScale,
-      fontSizeScale
+      colorScale
     }) => ({
       drawChart: rootEl => {
         const dragHandler = getDragHandler(simulation)
@@ -72,28 +87,27 @@ const drawChart = compose(
           .call(dragHandler)
           .append("circle")
           .attr("fill", d => colorScale(d.connections.length))
-          .attr("r", d => nodeRadiusScale(d.r))
+          .attr("r", d => nodeRadiusScale(d.connections.length))
 
-        if (showLabels) {
-          nodes
-            .append("g")
-            .attr("class", b("labels"))
-            .append("text")
-            .attr("class", b("text-label"))
-            .text(prop("label"))
-            .attr("font-size", ({ r }) => fontSizeScale(r) + "rem")
+        const constrainPositionToBoundingBox = (element, coordinate) => {
+          const boundary = coordinate === "x" ? chartWidth : chartHeight
+          return Math.max(
+            nodeRadiusScale(element.connections.length),
+            Math.min(boundary - nodeRadiusScale(element.connections.length), element[coordinate])
+          )
         }
 
         simulation
           .nodes(graphData.nodes)
           .on("tick", () => {
+            nodes
+              .attr("cx", d => constrainPositionToBoundingBox(d, "x"))
+              .attr("cy", d => constrainPositionToBoundingBox(d, "y"))
             links
-              .attr("x1", d => d.source.x)
-              .attr("y1", d => d.source.y)
-              .attr("x2", d => d.target.x)
-              .attr("y2", d => d.target.y)
-
-            nodes.attr("transform", ({ x, y }) => `translate(${x}, ${y})`)
+              .attr("x1", d => constrainPositionToBoundingBox(d.source, "x"))
+              .attr("y1", d => constrainPositionToBoundingBox(d.source, "y"))
+              .attr("x2", d => constrainPositionToBoundingBox(d.target, "x"))
+              .attr("y2", d => constrainPositionToBoundingBox(d.target, "y"))
           })
           .force("link")
           .links(graphData.links)
@@ -105,7 +119,6 @@ const drawChart = compose(
 export const ForceGraph = drawChart(({ chartHeight, chartWidth, drawChart, isRadial, setIsRadial, city, space }) => {
   const rootEl = useRef(null)
   useEffect(() => drawChart(rootEl.current), [isRadial])
-
   return (
     <>
       <header className={b("header")}>
@@ -113,7 +126,7 @@ export const ForceGraph = drawChart(({ chartHeight, chartWidth, drawChart, isRad
           {city}, {space}-space
         </label>
         <label className={b("is-radial-label")}>
-          <input className={b("is-radial-input")} type={"checkbox"} value={isRadial} onChange={setIsRadial} />
+          <input className={b("is-radial-input")} type={"checkbox"} checked={isRadial} onChange={setIsRadial} />
           Radial
         </label>
       </header>
@@ -123,14 +136,6 @@ export const ForceGraph = drawChart(({ chartHeight, chartWidth, drawChart, isRad
 })
 
 const enhancer = compose(
-  defaultProps({
-    width: 600,
-    height: 400,
-    margin: { top: 0, left: 0, bottom: 100, right: 0 },
-    showLabels: false
-  }),
-  // chart size definition
-  withCalculatedChartSize,
   // data processing
   withStops,
   withIndexedStops,
@@ -143,18 +148,7 @@ const enhancer = compose(
     return {
       graphData: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, stops))
     }
-  }),
-
-  withStateHandlers(
-    () => ({
-      isRadial: false
-    }),
-    {
-      setIsRadial: () => ev => ({
-        isRadial: ev.target.checked
-      })
-    }
-  )
+  })
 )
 
 export default enhancer(ForceGraph)

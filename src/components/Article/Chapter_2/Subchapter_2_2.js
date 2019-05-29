@@ -78,7 +78,7 @@ const Subchapter_2_2 = () => (
       Гайдамацька. Останній тунель мав з’єднати північні райони із Новим Львовом і Сиховом.
     </p>
     <figure>
-      <img src="/img/chapter2/lvivMetro.png" alt={"Lviv Metro"} className={b("image")} />
+      <img src="/img/chapter2/lvivMetro.svg" alt={"Lviv Metro"} className={b("image")} />
       <figcaption className={b("image-caption")}>Схема львівського підземного трамваю</figcaption>
     </figure>
     <p className={b("paragraph")}>

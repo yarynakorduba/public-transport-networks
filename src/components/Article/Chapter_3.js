@@ -26,11 +26,11 @@ const Chapter_3 = () => (
       і називатиметься <Latex>$\mathbb L$-space</Latex>. Як приклад, розглянемо частини львівських трамвайних маршрутів
       №3 і №6 і №8:
     </p>
-    <img className={b("image")} alt={"Transport schema"} src={"./img/chapter3/exampleTransportSchema.png"} />
+    <img className={b("image")} alt={"Transport schema"} src={"./img/chapter3/exampleTransportSchema.svg"} />
     <p className={b("paragraph")}>
       Їх зображення в <Latex>$\mathbb L$</Latex>-space виглядатиме так:
     </p>
-    <img className={b("image")} alt={"L-space"} src={"./img/chapter3/exampleLSpace.png"} />
+    <img className={b("image")} alt={"L-space"} src={"./img/chapter3/exampleLSpace.svg"} />
     <p className={b("paragraph")}>
       <b>
         <Latex>$\mathbb P$-space</Latex> ("простір пересадок")
@@ -42,7 +42,7 @@ const Chapter_3 = () => (
       </a>{" "}
       транспортної системи
     </p>
-    <img className={b("image")} alt={"P-space"} src={"./img/chapter3/examplePSpace.png"} />
+    <img className={b("image")} alt={"P-space"} src={"./img/chapter3/examplepSpace.svg"} />
     <p className={b("paragraph")}>
       <b>
         <Latex>$\mathbb C$-space</Latex> ("простір маршрутів")
@@ -51,7 +51,7 @@ const Chapter_3 = () => (
       ребром. Трамваї №3 та №8 мають спільні зупинки. Однак трамвай №6 повністю ізольований від них, а отже наш
       <Latex>$\mathbb C$-space</Latex> виглядатиме так:
     </p>
-    <img className={b("image")} alt={"C-space"} src={"./img/chapter3/exampleCSpace.png"} />
+    <img className={b("image", ["small"])} alt={"C-space"} src={"./img/chapter3/exampleCSpace.svg"} />
   </section>
 )
 
