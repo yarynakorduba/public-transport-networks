@@ -5,7 +5,7 @@ import configureStore from "./configureStore"
 import initRecompose from "./configRecomposeStream.js"
 import Root from "./components/Root"
 
-it("renders without crashing",  => {
+it("renders without crashing", () => {
 
   initRecompose()
   const store = configureStore()
