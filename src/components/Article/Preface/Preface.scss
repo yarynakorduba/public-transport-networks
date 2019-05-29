@@ -1,6 +1,7 @@
 .Preface {
-  height: 600px;
+  height: 650px;
   position: relative;
+  background: #f7f7e1;
 
   &__preface-title{
     font-size: 35px;
@@ -22,7 +23,7 @@
 
     &_aligned-left-bottom {
       position: absolute;
-      bottom: 40px;
+      bottom: 90px;
       left: 80px;
     }
   }
