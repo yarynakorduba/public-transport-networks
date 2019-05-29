@@ -6,7 +6,7 @@ import "./Contents.scss"
 const b = BEM("Contents")
 
 const Contents = () => (
-  <div className={b()}>
+  <div className={b(["aligned-right-top"])}>
     <h2 className={b("header")}>Зміст</h2>
     <ul className={b("list")}>
       <a className={b("chapter")} href="#chapter1">

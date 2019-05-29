@@ -2,7 +2,7 @@
 @import "../../styles/variables";
 
 .Article {
-  padding: 2rem;
+  padding: 5rem 0.5rem;
   line-height: 1.75;
   width: 600px;
   margin: auto;
@@ -35,6 +35,8 @@
     font-size: 1.2em;
     line-height: 1.45;
   }
+
+  &
 
   &__illustration {
     float: right;
@@ -112,10 +114,6 @@
     margin: 3em 0 0.75em 0;
     line-height: 1em;
     color: #2e2e2e;
-  }
-
-  &__description-block {
-    margin-bottom: 100px;
   }
 
   &__paragraph {
