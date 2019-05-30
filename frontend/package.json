@@ -1,0 +1,59 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "http://yarynakorduba.github.io/public-transport-networks",
+  "proxy": "http://localhost:4000/",
+  "scripts": {
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "@vx/group": "^0.0.183",
+    "@vx/point": "^0.0.182",
+    "@vx/scale": "^0.0.182",
+    "@vx/shape": "^0.0.184",
+    "@vx/vx": "0",
+    "apollo-boost": "^0.3.1",
+    "apollo-client": "^2.5.1",
+    "d3": "^5",
+    "d3-shape": "^1",
+    "flow-bin": "^0",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.4",
+    "react-dom": "^16",
+    "react-latex": "^1",
+    "react-map-gl": "^4.1.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "5",
+    "react-scroll": "^1.7.11",
+    "recompose": "^0",
+    "redux": "^4",
+    "redux-promise": "^0",
+    "redux-thunk": "^2",
+    "rxjs": "^6.4.0",
+    "viewport-mercator-project": "^6.1.1"
+  },
+  "devDependencies": {
+    "@storybook/react": "^5.0.0",
+    "gh-pages": "^2.0.1",
+    "node-sass": "^4.11.0",
+    "prettier": "^1.16.4",
+    "react-scripts": "^2.1.8"
+  }
+}

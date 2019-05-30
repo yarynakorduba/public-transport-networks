@@ -2,45 +2,13 @@
   "name": "public_transport_networks",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://yarynakorduba.github.io/public-transport-networks",
-  "dependencies": {
-    "@turf/turf": "^5.1.6",
-    "@vx/group": "^0.0.183",
-    "@vx/point": "^0.0.182",
-    "@vx/scale": "^0.0.182",
-    "@vx/shape": "^0.0.184",
-    "@vx/vx": "0",
-    "apollo-boost": "^0.3.1",
-    "apollo-client": "^2.5.1",
-    "cors": "^2.8.5",
-    "d3": "^5",
-    "d3-shape": "^1",
-    "flow-bin": "^0",
-    "graphql": "^14.2.1",
-    "ramda": "^0",
-    "react": "^16.8.6",
-    "react-apollo": "^2.5.4",
-    "react-dom": "^16",
-    "react-latex": "^1",
-    "react-map-gl": "^4.1.1",
-    "react-redux": "^6.0.1",
-    "react-router-dom": "5",
-    "react-scroll": "^1.7.11",
-    "recompose": "^0",
-    "redux": "^4",
-    "redux-promise": "^0",
-    "redux-thunk": "^2",
-    "rxjs": "^6.4.0",
-    "viewport-mercator-project": "^6.1.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "frontend": "cd frontend && yarn start",
+    "backend": "cd backend && yarn start",
+    "start": "concurrently - kill-others \"yarn backend\" \"yarn frontend\"",
+    "installBackend": "cd \"backend\" && yarn",
+    "installFrontend": "cd \"frontend\" && yarn",
+    "installAll": "yarn && yarn installBackend && yarn installFrontend"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,11 +19,12 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "graphql": "^14.2.1"},
   "devDependencies": {
-    "@storybook/react": "^5.0.0",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
-    "prettier": "^1.16.4",
-    "react-scripts": "^2.1.8"
+    "prettier": "^1.16.4"
   }
 }

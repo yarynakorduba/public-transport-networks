@@ -1,0 +1,10 @@
+.CitySwitcher {
+  margin-top: 2.5rem;
+  &__city-label {
+    display: inline;
+  }
+
+  &__city-checkbox {
+    padding: 3px;
+  }
+}

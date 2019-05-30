@@ -1,0 +1,36 @@
+.DistributionViz{
+
+  text{
+    fill:white;
+    font: 300 12px Roboto;
+  }
+
+  &__bristol_c_space {
+    stroke: #F3D32D;
+    stroke-width: 9px;
+    fill: none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  &__london_c_space {
+    stroke: #ff6a00;
+    stroke-width: 9px;
+    fill: none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  &__axis line{
+    stroke: #fff;
+    stroke-opacity: .2;
+    shape-rendering: crispEdges;
+    stroke-width: 1;
+  }
+
+  &__axis path{
+    fill: none;
+    stroke: #1B1733;
+    stroke-width: 2;
+    shape-rendering: crispEdges;
+  }
+}

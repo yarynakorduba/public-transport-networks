@@ -1,0 +1,130 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css");
+@import "../../styles/variables";
+
+.Article {
+  padding: 5rem 0.5rem;
+  line-height: 1.75;
+  width: 48%;
+  max-width: 600px;
+  margin: auto;
+  transform: translateX(-50%);
+
+  @media (max-width: 1300px) and (min-width: 700px) {
+    transform: translateX(0);
+  }
+
+  @media (max-width: 700px) and (min-width: 0) {
+    width: auto;
+    transform: translateX(0);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    word-wrap: break-word;
+  }
+
+  figure {
+    margin: 50px 0 50px 0;
+  }
+  figcaption {
+    font-size: 0.8em;
+  }
+  .katex {
+    font-size: 1.2em;
+    line-height: 1.45;
+  }
+
+  &__illustration {
+    float: right;
+    clear: both;
+    width: 100%;
+    margin-right: calc(-100% - 1.5rem);
+
+    &_flex {
+      display: flex;
+    }
+    &-half {
+      flex: 1 1 0;
+    }
+
+    &_sticky {
+      position: sticky;
+      top: 0;
+    }
+
+    &_wide {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(100% - 50vw);
+      text-align: center;
+      width: 99vw;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1300px) and (min-width: 700px) {
+      float: none;
+      margin-right: auto;
+      margin-left: calc(50% - 50vw);
+      width: 100vw;
+    }
+
+    @media (max-width: 700px) and (min-width: 0) {
+      float: none;
+      width: calc(100% + 3rem);
+      margin-right: 0;
+      margin-left: -1.5rem;
+      transform: translateX(0);
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0.75rem auto;
+    &_small {
+      max-width: 50%;
+    }
+    &_inline {
+      display: inline-block;
+    }
+    &_original-size {
+      width: initial;
+    }
+  }
+
+  &__image-caption {
+    text-align: center;
+  }
+
+  &__chapter {
+    font-family: "Roboto", sans-serif;
+    margin: 40px 0;
+    letter-spacing: 2px;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #292929;
+  }
+
+  &__header {
+    font-family: Pt Serif Caption, serif;
+    font-size: 2.65rem;
+    font-weight: 700;
+    margin: 3em 0 0.75em 0;
+    line-height: 1em;
+    color: #2e2e2e;
+  }
+
+  &__paragraph {
+    margin: 1.5rem 0;
+
+    &_highlighted {
+      font-weight: 700;
+      font-style: italic;
+      background-color: #e6e6e6;
+    }
+  }
+}

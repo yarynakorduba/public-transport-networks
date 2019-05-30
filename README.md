@@ -1,27 +1,47 @@
-To store large data use Git Large File Storage (https://git-lfs.github.com/):
-
-1. <a href="https://git-lfs.github.com/">Download</a> from the site
-
-2. Install command line extension 
+This is the interactive article about public transport networks analysis. 
+To use the project clone it with 
+```
+git clone https://github.com/yarynakorduba/public-transport-networks.git
+```  
+then install all dependencies with 
+```yarn installAll``` and run the app with ```yarn start```.
+<h1>Important!</h1>
+<ol><li>There are large data files in the project. To work with these files you should download
+ Git Large File Storage (https://git-lfs.github.com/) and install it with
+ 
 ```
 git lfs install
 ```
 
-3. Add the file extensions you would like to track, e.g. 
-```
-git lfs track "*.json"
-```
+To load the files locally, use
 
-4. Add `.gitattributes` 
-```
-git add .gitattributes
-```
-
-5. Commit and push as you normally would
-
-6. When pulling the project, use 
 ```
 git lfs pull
 ```
-to fetch all the lfs tracked files
 
+You can see all the files that are tracked by Git LFS in `.gitattributes` file. If you need to start tracking another files, use
+
+```
+git lfs track <fileName pattern>
+```
+
+In case you have accidentally committed untracked large file and receive errors while pushing, use
+
+```
+git filter-branch --index-filter "git rm --cached --ignore-unmatch PATH_TO_YOUR_FILE" --tag-name-filter cat -- --all
+```
+
+to remove the file from commit.
+
+</li>
+<li>To name the CSS classes, we use BEM methodology with <code>__</code> separator for element and <code>_</code> separator for modifier:
+ <code>.Block__element_modifier</code>
+</li>
+<li>
+We use <a href="https://storybook.js.org/">Storybook</a> for developing the UI components. If you want to see our storybook, run 
+```
+npm run storybook 
+```
+in the terminal.
+</li>
+</ol>
