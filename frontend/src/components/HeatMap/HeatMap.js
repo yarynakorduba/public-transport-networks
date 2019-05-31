@@ -13,6 +13,7 @@ import BEM from "../../helpers/BEM"
 import { convertBusStopsDataToGeoJSON } from "../../helpers/index"
 import { withStationTypes, withStops } from "../HOC"
 
+import "mapbox-gl/dist/mapbox-gl.css"
 import "./HeatMap.scss"
 
 const b = BEM("HeatMap")

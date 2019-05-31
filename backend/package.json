@@ -2,17 +2,19 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon src/index.js",
+    "build": "babel src -d build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "nodemon": "^1.18.11",
-    "cors": "^2.8.5"
+    "ramda": "^0.26.1"
   }
 }

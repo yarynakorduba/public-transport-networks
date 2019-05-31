@@ -2,6 +2,7 @@ const express = require("express")
 const graphqlHTTP = require("express-graphql")
 const schema = require("./schema/schema")
 const cors = require("cors")
+const path = require("path")
 
 const app = express()
 const PORT = 4000
@@ -15,7 +16,12 @@ app.use(
     graphiql: true
   })
 )
-app.use(express.static("public"))
+app.use(express.static(path.join(__dirname, "..", "public")))
+
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "index.html"))
+})
+
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}...`)
 })

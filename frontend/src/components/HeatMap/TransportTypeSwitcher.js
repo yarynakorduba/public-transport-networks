@@ -1,4 +1,4 @@
-import { compose, includes, map } from "ramda"
+import { compose, map } from "ramda"
 import { withHandlers, withProps } from "recompose"
 import React from "react"
 import BEM from "../../helpers/BEM"
@@ -17,7 +17,7 @@ const TransportTypeSwitcher = ({ handleChange, selectedTransportTypes, stationTy
               type={"checkbox"}
               name={label}
               onChange={ev => handleChange(ev)}
-              checked={includes(label, selectedTransportTypes)}
+              checked={selectedTransportTypes.includes(label)}
             />
             {label}
           </label>
