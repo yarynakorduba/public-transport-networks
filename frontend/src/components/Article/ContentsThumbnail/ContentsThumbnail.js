@@ -14,7 +14,7 @@ const ContentsThumbnail = ({ hidden, onClick, addListener, incrementListener }) 
       console.log("asdasd")
       incrementListener()
       document.addEventListener("click" , function(event) {
-        if(!event.target.closest(".ContentsThumbnail")){
+        if(!event.target.closest(".Contents") && !event.target.closest(".ContentsThumbnail__button")){
           onClick()
         }
       })
