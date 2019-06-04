@@ -8,13 +8,17 @@ import "./ContentsThumbnail.scss"
 
 const b = BEM("ContentsThumbnail")
 
-const ContentsThumbnail = ({ hidden, onClick }) => {
+const ContentsThumbnail = ({ hidden, onClick, addListener, incrementListener }) => {
   useEffect(()=>{
-    document.addEventListener("click" , function(event) {
-      if(!event.target.closest(".ContentsThumbnail")){
-        onClick()
-      }
-    })
+    if(addListener == 0){
+      console.log("asdasd")
+      incrementListener()
+      document.addEventListener("click" , function(event) {
+        if(!event.target.closest(".ContentsThumbnail")){
+          onClick()
+        }
+      })
+    }
   })
 
   return (
@@ -29,8 +33,9 @@ const ContentsThumbnail = ({ hidden, onClick }) => {
 
 export default compose(
   withStateHandlers(
-    () => ({hidden: true}), {
+    () => ({hidden: true, addListener:0}), {
       onClick: ({hidden}) => () => ({hidden: !hidden}),
+      incrementListener: ({addListener}) => () => ({addListener: addListener + 1})
     }
   ),
   lifecycle({
