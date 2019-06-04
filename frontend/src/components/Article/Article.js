@@ -8,6 +8,7 @@ import Chapter8 from "./Chapter_8/index"
 import Chapter9 from "./Chapter_9"
 import Chapter10 from "./Chapter_10"
 import Preface from "./Preface/index"
+import ContentsThumbnail from "./ContentsThumbnail/index"
 
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
@@ -17,6 +18,7 @@ const b = BEM("Article")
 
 const Article = () => (
   <>
+    <ContentsThumbnail />
     <Preface />
     <TriggerContext>
       <div className={b()}>

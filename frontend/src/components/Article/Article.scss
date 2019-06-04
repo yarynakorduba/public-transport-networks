@@ -2,7 +2,9 @@
 @import "../../styles/variables";
 
 .Article {
-  padding: 5rem 0.5rem;
+  position: relative;
+  z-index: 0;
+  padding: 5rem 0.2rem;
   line-height: 1.75;
   width: 48%;
   max-width: 600px;
@@ -14,6 +16,7 @@
   }
 
   @media (max-width: 700px) and (min-width: 0) {
+    padding: 0 2rem;
     width: auto;
     transform: translateX(0);
   }
@@ -101,7 +104,7 @@
   }
 
   &__chapter {
-    font-family: "Roboto", sans-serif;
+    font-family: "Pt Sans", sans-serif;
     margin: 40px 0;
     letter-spacing: 2px;
     font-size: 1.25rem;
@@ -110,7 +113,7 @@
   }
 
   &__header {
-    font-family: Pt Serif Caption, serif;
+    font-family: "Pt Sans", sans-serif;
     font-size: 2.65rem;
     font-weight: 700;
     margin: 3em 0 0.75em 0;
@@ -120,6 +123,7 @@
 
   &__paragraph {
     margin: 1.5rem 0;
+    line-height: 26px;
 
     &_highlighted {
       font-weight: 700;

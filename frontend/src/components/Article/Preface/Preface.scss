@@ -1,36 +1,40 @@
 .Preface {
-  height: 650px;
+  height: auto;
   position: relative;
   background: #f7f7e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
 
-  &__preface-title{
-    font-size: 35px;
-    width: 500px;
-    margin: 25px 0;
-    line-height: 40px;
-
-    &_aligned-left-top {
-      position: absolute;
-      top: 40px;
-      left: 80px;
-    }
+  &__container{
+    position: relative;
+    padding: 5rem;
+    min-height: 400px;
+    min-width: 100px;
+    display: inline-block;
   }
 
-  &__preface-content {
-    width: 500px;
+  &__title{
+    font-size: 2.3rem;
+    width: auto;
+    max-width: 500px;
+    margin: 0;
+    line-height: 40px;
+  }
+
+  &__content {
+    width: auto;
+    max-width: 500px;
     font-size: 14px;
     line-height: 21px;
-
-    &_aligned-left-bottom {
-      position: absolute;
-      bottom: 90px;
-      left: 80px;
-    }
+    margin-top: 250px;
   }
 
-  &_aligned-right-top{
-    position: absolute;
-    top: 40px;
-    right: 80px;
+
+  @media (max-width: 700px) and (min-width: 0) {
+    &__container {
+      padding: 5rem 2rem;
+    }
   }
 }
