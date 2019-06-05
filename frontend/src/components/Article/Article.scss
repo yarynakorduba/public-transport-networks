@@ -121,6 +121,15 @@
     color: #2e2e2e;
   }
 
+  &__subheader {
+    font-family: "Pt Sans", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 3em 0 0.75em 0;
+    line-height: 0.5em;
+    color: #5b5b5b;
+  }
+
   &__paragraph {
     margin: 1.5rem 0;
     line-height: 26px;

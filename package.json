@@ -6,11 +6,9 @@
     "build:frontend": "cd frontend && yarn build",
     "build:backend": "cd backend && yarn build",
     "build": "yarn build:backend && yarn build:frontend",
-
     "start:frontend": "cd frontend && yarn start",
     "start:backend": "cd backend && yarn start",
     "start": "concurrently - kill-others \"yarn start:backend\" \"yarn start:frontend\"",
-
     "install:backend": "cd \"backend\" && yarn",
     "install:frontend": "cd \"frontend\" && yarn",
     "postinstall": "yarn install:backend && yarn install:frontend"
@@ -26,7 +24,8 @@
   ],
   "dependencies": {
     "concurrently": "^4.1.0",
-    "graphql": "^14.2.1"
+    "graphql": "^14.2.1",
+    "mapbox-gl": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
