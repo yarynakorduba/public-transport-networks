@@ -1,4 +1,4 @@
-import { compose, equals, mapObjIndexed } from "ramda"
+import { compose } from "ramda"
 import { lifecycle, withStateHandlers } from "recompose"
 import React, { useEffect } from "react"
 import Contents from "../Contents/Contents"
@@ -8,14 +8,13 @@ import "./ContentsThumbnail.scss"
 
 const b = BEM("ContentsThumbnail")
 
-const ContentsThumbnail = ({ hidden, onClick, addListener, incrementListener }) => {
+const ContentsThumbnail = ({ hidden, onClickHideThumbnail, hideThumbnail, addListener, incrementListener }) => {
   useEffect(()=>{
     if(addListener == 0){
-      console.log("asdasd")
       incrementListener()
-      document.addEventListener("click" , function(event) {
+      document.addEventListener("click" , function(event, hidden) {
         if(!event.target.closest(".Contents") && !event.target.closest(".ContentsThumbnail__button")){
-          onClick()
+          hideThumbnail()
         }
       })
     }
@@ -23,7 +22,7 @@ const ContentsThumbnail = ({ hidden, onClick, addListener, incrementListener }) 
 
   return (
     <div className={ hidden ? b(["hidden"]) : b(["unhidden"])}>
-      <button onClick={onClick} className={b("button")}>
+      <button onClick={onClickHideThumbnail} className={b("button")}>
         <img className={b("icon")} src={"img/management/contents.svg"}/>
       </button>
       <Contents contentsModifier={"hide-right"}/>
@@ -34,7 +33,8 @@ const ContentsThumbnail = ({ hidden, onClick, addListener, incrementListener }) 
 export default compose(
   withStateHandlers(
     () => ({hidden: true, addListener:0}), {
-      onClick: ({hidden}) => () => ({hidden: !hidden}),
+      onClickHideThumbnail: ({hidden}) => () => ({hidden: !hidden}),
+      hideThumbnail: () => () => ({hidden: true}),
       incrementListener: ({addListener}) => () => ({addListener: addListener + 1})
     }
   ),
