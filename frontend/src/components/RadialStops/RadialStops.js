@@ -9,7 +9,7 @@ const b = BEM("RadialStops")
 const MAPBOX_TOKEN = "pk.eyJ1IjoiZmFtZHJ1bSIsImEiOiJjanRndm0zcHEwb2loNDRwZGE1enByYjM5In0.afWOyr4JpxpO3CnPVbccTg"
 
 const RadialStops = () => {
-  var initialViewport = {longitude: 24.031607, latitude: 49.841289, zoom: 15, bearing: 19.20, pitch: 45.50}
+  var initialViewport = {longitude: 24.031807, latitude: 49.841289, zoom: 15, bearing: 19.20, pitch: 45.50}
   const [viewport, setViewport] = useState(initialViewport)
 
   const onViewportChange = viewport => setViewport(viewport)
@@ -30,7 +30,7 @@ const RadialStops = () => {
       'type': 'fill-extrusion',
       'minzoom': 15,
       'paint': {
-        'fill-extrusion-color': '#aaa',
+        'fill-extrusion-color': '#fff2e7',
         'fill-extrusion-height': [
           "interpolate", ["linear"], ["zoom"],
           14, 0,
@@ -45,9 +45,7 @@ const RadialStops = () => {
       }
     }, labelLayerId);
   }
-
-  const markerCoords = [[49.845770, 24.027878], [49.842879, 24.035439], [49.839797, 24.032723], [49.840309, 24.028347]]
-
+  const data = [{name: "Добробут", coordinates: [49.846470, 24.027578]},{name: "вул. Підвальна", coordinates: [49.842979, 24.035539]},{name: "пл. Галицька", coordinates: [49.839797, 24.032723]}, {name: "пр. Свободи", coordinates: [49.840309, 24.028347]}]
   return (
     <span className={b()}>
       <MapGL
@@ -60,11 +58,15 @@ const RadialStops = () => {
         onViewportChange={onViewportChange}
         onLoad={handleMapLoaded}>
 
-        {markerCoords.map((coords, i)=>(
-          <Marker key={i} latitude={coords[0]} longitude={coords[1]}>
-            <img className={b("marker-icon")} src={"img/management/pin.svg"}/>
-          </Marker>
-        ))}
+        {data.map((stop, i)=>{
+          console.log(stop.coordinates[0])
+          return (
+            <Marker className={b("marker")} key={i} latitude={stop.coordinates[0]} longitude={stop.coordinates[1]}>
+              <img className={b("marker-icon")} src={"img/management/pin.svg"}/>
+              <span className={b("marker-title")}>{stop.name}</span>
+            </Marker>
+          )
+        })}
 
       </MapGL>
     </span>

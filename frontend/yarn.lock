@@ -11319,7 +11319,7 @@ postcss-page-break@^2.0.0:
 
 postcss-place@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-place/-/postcss-place-4.0.1.tgz#e9f39d33d2dc584e46ee1db45adb77ca9d1dcc62"
+  resolved "https://registry.yarnpkg.com/postcss-stop/-/postcss-stop-4.0.1.tgz#e9f39d33d2dc584e46ee1db45adb77ca9d1dcc62"
   integrity sha512-Zb6byCSLkgRKLODj/5mQugyuj9bvAAw9LqJJjgwz5cYryGeXfFZfSXoP1UfveccFmeq0b/2xxwcTEVScnqGxBg==
   dependencies:
     postcss "^7.0.2"
@@ -11362,7 +11362,7 @@ postcss-preset-env@6.5.0:
     postcss-nesting "^7.0.0"
     postcss-overflow-shorthand "^2.0.0"
     postcss-page-break "^2.0.0"
-    postcss-place "^4.0.1"
+    postcss-stop "^4.0.1"
     postcss-pseudo-class-any-link "^6.0.0"
     postcss-replace-overflow-wrap "^3.0.0"
     postcss-selector-matches "^4.0.0"
