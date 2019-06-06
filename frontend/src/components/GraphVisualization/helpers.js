@@ -1,4 +1,5 @@
-import { flatten, indexOf, map, prop, values } from "ramda"
+// @flow
+import { flatten, isEmpty, map, mapObjIndexed, prop, filter, values, groupBy, uniq } from "ramda"
 
 import {
   forceCenter,
@@ -24,14 +25,14 @@ const STRENGTH = 0.1
 const MIN_NODE_SPACE = 2
 const MAX_NODE_SPACE = 35
 const MIN_NODE_RADIUS = 2
-const MAX_NODE_RADIUS = 12
+const MAX_NODE_RADIUS = 15
 const MIN_FONT_SIZE = 0.5
 const MAX_FONT_SIZE = 1
 
 const MIN_RADIAL_NODE_SPACE = 3
-const MAX_RADIAL_NODE_SPACE = 12
-const MIN_RADIAL_NODE_RADIUS = 2
-const MAX_RADIAL_NODE_RADIUS = 10
+const MAX_RADIAL_NODE_SPACE = MAX_NODE_RADIUS + 2
+const MIN_RADIAL_NODE_RADIUS = MIN_NODE_RADIUS
+const MAX_RADIAL_NODE_RADIUS = MAX_NODE_RADIUS
 
 
 const nodeSpaceRadiusScale = scaleLinear().range([MIN_NODE_SPACE, MAX_NODE_SPACE])
@@ -61,13 +62,13 @@ export const getRadialSpaceGraphScales = connectionsDomain => ({
 
 
 
-export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function):object =>
+export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale):object =>
   forceSimulation()
     .force(
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(STRENGTH*2)
+        .strength(STRENGTH*4)
     )
     .force("collide", forceCollide(({ r }) => nodeSpaceRadiusScale(r)).strength(STRENGTH))
     .force("charge", forceManyBody())
@@ -95,17 +96,39 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
 
 
 export const prepareDataForGraphSpaceVisualization = (data) => {
-  const graphData = data
-  const nodeIds = Object.keys(graphData)
+  const nodes = mapObjIndexed(d => {
+    return ({ ...d, r: d.connections.length })}, data)
+
+  const byCluster = (node) => {
+    return node.dbscan !== "noise" ? "cluster" + node.cluster : node.id
+  }
+
+  const groupedNodes = groupBy(byCluster, values(nodes))
+
+  const nodesAndClusters = mapObjIndexed((nodesGroup, key) =>
+    ({ id: key,
+      connections: uniq(flatten(map(node => node.connections, nodesGroup)))}), groupedNodes
+  )
+
+
+  const links = compose(
+    flatten,
+    mapIndexed(({ connections, id }) => {
+      const source = data[id].dbscan !== "noise" ? nodesAndClusters[`cluster${data[id].cluster}`] :
+        nodesAndClusters[id]
+      return map(connection => {
+        const target = data[connection].dbscan !== "noise" ? nodesAndClusters[`cluster${data[connection].cluster}`] :
+          nodesAndClusters[connection]
+        return ({ source, target })
+      }, connections)
+    }),
+    filter(n => !isEmpty(n.connections)),
+    values
+  )(data)
+
   return {
-    nodes: map(d => ({ ...d, r: d.connections.length }), values(graphData)),
-    links: compose(
-      flatten,
-      mapIndexed(({ connections }, index) =>
-        map(connection => ({ source: index, target: indexOf(connection, nodeIds) }), connections)
-      ),
-      values
-    )(graphData)
+    nodes: values(nodesAndClusters),
+    links: links
   }
 }
 

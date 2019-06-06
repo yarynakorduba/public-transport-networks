@@ -1,10 +1,8 @@
-import { renameProps, withProps, compose, branch, renderComponent } from "recompose"
+import { renameProps, withProps, compose } from "recompose"
 import { withParentSize } from "@vx/responsive"
 import { connect } from "react-redux"
-import { areStationTypesFetching, areStopsFetching, getStationTypes, getStops } from "../reducers/index"
-import { fetchStationTypes, fetchStops } from "../actions/index"
-import { arrayToObject, mapIndexed } from "../helpers/index"
-import { assoc, flip, prop } from "ramda"
+import { areStationTypesFetching, getStationTypes } from "../reducers/index"
+import { fetchStationTypes } from "../actions/index"
 
 export const withCalculatedChartSize = compose(
   withParentSize,
@@ -26,32 +24,5 @@ export const withStationTypes = compose(
   withProps(
     ({ stationTypes, areStationTypesFetching, fetchStationTypes, city }) =>
       !stationTypes && !areStationTypesFetching && fetchStationTypes(city)
-  ),
-  branch(({ areStationTypesFetching }) => areStationTypesFetching, renderComponent(() => "Loading the data...")),
-  branch(
-    ({ stationTypes, areStationTypesFetching }) => !stationTypes && !areStationTypesFetching,
-    renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
   )
 )
-export const withStops = compose(
-  connect(
-    (state, { city }) => ({
-      stops: getStops(state, city),
-      areStopsFetching: areStopsFetching(state, city)
-    }),
-    { fetchStops }
-  ),
-  withProps(({ stops, areDataFetching, fetchStops, city }) => !stops && !areDataFetching && fetchStops(city)),
-  branch(({ areStopsFetching }) => areStopsFetching, renderComponent(() => "Loading the data...")),
-  branch(
-    ({ stops, areStopsFetching }) => !stops && !areStopsFetching,
-    renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
-  )
-)
-
-export const withIndexedStops = withProps(({ stops }) => ({
-  stops: compose(
-    arrayToObject(prop("id")),
-    mapIndexed(flip(assoc("index")))
-  )(stops)
-}))

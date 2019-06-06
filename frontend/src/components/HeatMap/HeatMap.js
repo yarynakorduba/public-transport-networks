@@ -5,16 +5,18 @@ import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/tu
 import { groupBy, reduce, filter, isEmpty, intersection, equals, append } from "ramda"
 import { combineLatest } from "rxjs"
 import { map, startWith } from "rxjs/operators"
-import { compose, mapPropsStream, withProps, withStateHandlers } from "recompose"
+import { branch, compose, mapPropsStream, renderComponent, withProps, withStateHandlers } from "recompose"
 import MapGL from "react-map-gl"
 import TransportTypeSwitcher from "./TransportTypeSwitcher"
 import { getHeatMapColorConfig } from "./helpers"
 import BEM from "../../helpers/BEM"
 import { convertBusStopsDataToGeoJSON } from "../../helpers/index"
-import { withStationTypes, withStops } from "../HOC"
+import { withStationTypes } from "../HOC"
 
 import "mapbox-gl/dist/mapbox-gl.css"
 import "./HeatMap.scss"
+import connect from "react-redux/es/connect/connect"
+import { areStationTypesFetching, areStopsFetching, getStationTypes, getStops } from "../../reducers"
 
 const b = BEM("HeatMap")
 
@@ -72,8 +74,21 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
 }
 
 const enhancer = compose(
-  withStops,
   withStationTypes,
+  connect((state, { city }) => ({
+    stops: getStops(state, city),
+    areStopsFetching: areStopsFetching(state, city),
+    stationTypes: getStationTypes(state, city),
+    areStationTypesFetching: areStationTypesFetching(state, city)
+  })),
+  branch(
+    ({ areStationTypesFetching, areStopsFetching }) => areStationTypesFetching || areStopsFetching,
+    renderComponent(() => "Loading the data...")
+  ),
+  branch(
+    ({ stationTypes, areStationTypesFetching, stops, areStopsFetching }) => !stops && !areStopsFetching,
+    renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
+  ),
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))
@@ -105,7 +120,7 @@ const enhancer = compose(
   mapPropsStream(props$ => {
     const data$ = props$.pipe(
       map(({ stops }) => convertBusStopsDataToGeoJSON(stops)),
-      map(data => clustersDbscan(data, 0.03, { mutate: true, minPoints: 2 })),
+      map(data => clustersDbscan(data, 0.04, { mutate: true, minPoints: 2 })),
       map(({ features }) =>
         compose(
           featureCollection,

@@ -2,7 +2,7 @@ import Latex from "react-latex"
 import React from "react"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
-import ForceGraph from "../../GraphVisualization"
+import GraphVisualization from "../../GraphVisualization/GraphVisualization"
 
 const b = BEM("Article")
 
@@ -104,13 +104,8 @@ const Subchapter_5_1 = () => (
       Львові <Latex>{"$r_{LWO} = -0.03$"}</Latex>. Тому львівська мережа - дисортативна, а брістольська навпаки -
       асортативна.
     </p>
-    <div className={b("illustration", ["wide", "flex"])} style={{ height: "100vh" }}>
-      <div className={b("illustration-half")}>
-        <ForceGraph space={"l"} city={"lviv"} />
-      </div>
-      <div className={b("illustration-half")}>
-        <ForceGraph space={"l"} city={"bristol"} />
-      </div>
+    <div className={b("illustration", ["wide"])} style={{ height: "100vh" }}>
+      <GraphVisualization space={"l"} />
     </div>
   </section>
 )
