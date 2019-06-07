@@ -9,7 +9,6 @@
   &_hide-right{
     background-color: white;
     padding: 20px;
-    border-radius: 10px;
     margin-left: 50px;
   }
 
@@ -49,6 +48,9 @@
   @media (max-width: 700px) and (min-width: 0) {
     &_aligned-right-top {
       display: none;
+    }
+    &_hide-right{
+      margin-left: 30px;
     }
   }
 }

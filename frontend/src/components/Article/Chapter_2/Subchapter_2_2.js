@@ -1,6 +1,7 @@
 import React from "react"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
+import RadialStops from "../../RadialStops/RadialStops"
 
 const b = BEM("Article")
 
@@ -138,7 +139,16 @@ const Subchapter_2_2 = () => (
       Їх кінцеві зупинки розташували навколо центральної частини міста : “Добробут”, вул. Підвальна, пл. Галицька і пр.
       Свободи.
     </p>
-    <img className={b("image")} src={"./img/chapter2/lvivCityCenter.png"} alt={"Lviv City Center"} />
+
+
+    <div className={b("illustration", ["sticky"])} style={{ height: "180vh" }}>
+      <div style={{ height: "65vh"}}>
+        <RadialStops />
+      </div>
+    </div>
+    {/*<img className={b("image")} src={"./img/chapter2/lvivCityCenter.png"} alt={"Lviv City Center"} />*/}
+
+
     <p className={b("paragraph")}>
       Для поїздок між околицями запланували 40 хордових маршрутів. Із транспортної схеми зникли автобуси, що дублювали
       шляхи електротранспорту. На автобусах встановили GPS пристрої. В кінці 2012 запрацював Центр управління дорожнім

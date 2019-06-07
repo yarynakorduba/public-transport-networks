@@ -1,0 +1,22 @@
+.RadialStops {
+  position: relative;
+  display: block;
+  height: 100%;
+  margin: 0.5rem 0;
+
+  &__marker {
+    display: flex;
+    align-items: center;
+    border: none;
+  }
+
+  &__marker-icon{
+    width: 30px;
+  }
+
+  &__marker-title{
+    font-size: 1.5rem;
+    color: #2e2e2e;
+    font-weight: 700;
+  }
+}
