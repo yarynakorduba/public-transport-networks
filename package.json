@@ -2,6 +2,10 @@
   "name": "public_transport_networks",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.15.1",
+    "yarn": "1.13.0"
+  },
   "scripts": {
     "build:frontend": "cd frontend && yarn build",
     "build:backend": "cd backend && yarn build",
