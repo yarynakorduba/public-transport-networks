@@ -3,7 +3,7 @@ import ForceGraph from "./ForceGraph"
 import { assoc, compose, filter, flip, map, prop, values, any, equals, pathEq, path } from "ramda"
 import { withProps, defaultProps, branch, renderComponent } from "recompose"
 import { max, min } from "d3"
-import { prepareDataForGraphSpaceVisualization } from "./helpers"
+import { prepareClusteredDataForGraphSpaceVisualization } from "./helpers"
 import {
   arrayToObject,
   convertBusStopsDataToGeoJSON,
@@ -20,10 +20,12 @@ import "./GraphVisualization.scss"
 
 const b = BEM("GraphVisualization")
 
+const CLUSTERIZATION_RADIUS_IN_KM = 0.04
+
 export const clusterizeDataForGraphSpaceVisualization = data => {
   return compose(
     convertBusStopsGeoJSONToJson,
-    data => clustersDbscan(data, 0.04, { mutate: true, minPoints: 2 }),
+    data => clustersDbscan(data, CLUSTERIZATION_RADIUS_IN_KM, { mutate: true, minPoints: 2 }),
     convertBusStopsDataToGeoJSON
   )(data)
 }
@@ -79,7 +81,7 @@ const enhancer = compose(
       )(city.stops)
       return {
         ...city,
-        graphData: prepareDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, city.stops))
+        graphData: prepareClusteredDataForGraphSpaceVisualization(removeNodeListFromGraph(nodesForRemove, city.stops))
       }
     }, data)
   })),

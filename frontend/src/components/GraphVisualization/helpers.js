@@ -1,6 +1,5 @@
 // @flow
 import { flatten, isEmpty, map, mapObjIndexed, prop, filter, values, groupBy, uniq } from "ramda"
-
 import {
   forceCenter,
   forceCollide,
@@ -11,21 +10,21 @@ import {
   forceY,
   scaleLinear,
   scaleSequential,
-  drag,
   event,
   interpolatePlasma,
   forceRadial,
-  scaleThreshold
-} from "d3"
+  scaleThreshold,
+  scaleLog} from "d3"
 import { mapIndexed } from "../../helpers/index"
 import { compose } from "recompose"
 
+//TODO: find appropriate strengths
 const STRENGTH = 0.1
 
 const MIN_NODE_SPACE = 2
 const MAX_NODE_SPACE = 35
 const MIN_NODE_RADIUS = 2
-const MAX_NODE_RADIUS = 15
+const MAX_NODE_RADIUS = 10
 const MIN_FONT_SIZE = 0.5
 const MAX_FONT_SIZE = 1
 
@@ -35,13 +34,13 @@ const MIN_RADIAL_NODE_RADIUS = MIN_NODE_RADIUS
 const MAX_RADIAL_NODE_RADIUS = MAX_NODE_RADIUS
 
 
-const nodeSpaceRadiusScale = scaleLinear().range([MIN_NODE_SPACE, MAX_NODE_SPACE])
-const nodeRadiusScale = scaleLinear().range([MIN_NODE_RADIUS, MAX_NODE_RADIUS])
+const nodeSpaceRadiusScale = scaleLog().range([MIN_NODE_SPACE, MAX_NODE_SPACE])
+const nodeRadiusScale = scaleLog().range([MIN_NODE_RADIUS, MAX_NODE_RADIUS])
 const fontSizeScale = scaleLinear().range([MIN_FONT_SIZE, MAX_FONT_SIZE])
 const colorScale = scaleSequential(interpolatePlasma)
 
-const radialNodeSpaceRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_SPACE, MAX_RADIAL_NODE_SPACE])
-const radialNodeRadiusScale = scaleLinear().range([MIN_RADIAL_NODE_RADIUS, MAX_RADIAL_NODE_RADIUS])
+const radialNodeSpaceRadiusScale = scaleLog().range([MIN_RADIAL_NODE_SPACE, MAX_RADIAL_NODE_SPACE])
+const radialNodeRadiusScale = scaleLog().range([MIN_RADIAL_NODE_RADIUS, MAX_RADIAL_NODE_RADIUS])
 const radialColorScale = scaleSequential(interpolatePlasma)
 const radialPositionScale = scaleThreshold().range([250, 180, 120, 70, 10])
 
@@ -68,9 +67,9 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
       "link",
       forceLink()
         .id(prop("index"))
-        .strength(STRENGTH*4)
+        .strength(STRENGTH*2)
     )
-    .force("collide", forceCollide(({ r }) => nodeSpaceRadiusScale(r)).strength(STRENGTH))
+    .force("collide", forceCollide((d) => nodeSpaceRadiusScale(d.r)).strength(STRENGTH*2))
     .force("charge", forceManyBody())
     .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
     .force("y", forceY(chartHeight / 2).strength(STRENGTH*2))
@@ -85,68 +84,84 @@ export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, 
         .id(prop("index"))
         .strength(STRENGTH/2)
     )
-    .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)).strength(0.6))
+    .force("charge", forceCollide().radius(d => nodeSpaceRadiusScale(d.connections.length)).strength(0.8))
     .force(
       "r",
       forceRadial(d => positionScale(d.connections.length))
         .x(chartWidth/2)
         .y(chartHeight/2)
-        .strength(1)
+        .strength(0.8)
     )
+    .force("collide", forceCollide((d) => nodeSpaceRadiusScale(d.r)).strength(STRENGTH*2))
 
 
-export const prepareDataForGraphSpaceVisualization = (data) => {
-  const nodes = mapObjIndexed(d => {
-    return ({ ...d, r: d.connections.length })}, data)
 
-  const byCluster = (node) => {
-    return node.dbscan !== "noise" ? "cluster" + node.cluster : node.id
-  }
+export const prepareClusteredDataForGraphSpaceVisualization = (data) => {
+  const stops = mapObjIndexed(d => ({ ...d, r: d.connections.length }), data)
 
-  const groupedNodes = groupBy(byCluster, values(nodes))
+  const byCluster = (node) => node.dbscan !== "noise" ? "cluster" + node.cluster : node.id
 
-  const nodesAndClusters = mapObjIndexed((nodesGroup, key) =>
+  const groupedStops = groupBy(byCluster, values(stops))
+
+  const nodes = mapObjIndexed((nodesGroup, key) =>
     ({ id: key,
-      connections: uniq(flatten(map(node => node.connections, nodesGroup)))}), groupedNodes
+      connections: uniq(flatten(map(node =>
+        map(connection => data[connection].dbscan !== "noise" ? `cluster${data[connection].cluster}` : connection,
+        node.connections), nodesGroup)))}), groupedStops
   )
 
-
   const links = compose(
+    filter(({source, target}) => source && target),
     flatten,
-    mapIndexed(({ connections, id }) => {
-      const source = data[id].dbscan !== "noise" ? nodesAndClusters[`cluster${data[id].cluster}`] :
-        nodesAndClusters[id]
-      return map(connection => {
-        const target = data[connection].dbscan !== "noise" ? nodesAndClusters[`cluster${data[connection].cluster}`] :
-          nodesAndClusters[connection]
-        return ({ source, target })
-      }, connections)
-    }),
-    filter(n => !isEmpty(n.connections)),
+    mapIndexed(({ connections, id }) => map(connection => ({ source: nodes[id],
+        target:nodes[connection] }), connections)
+    ),
+    filter(({connections}) => !isEmpty(connections)),
     values
-  )(data)
+  )(nodes)
 
   return {
-    nodes: values(nodesAndClusters),
-    links: links
+    nodes: values(nodes),
+    links
   }
 }
 
-export const getDragHandler = (simulation:object):function =>
-  drag()
-    .on("start", d => {
-      if (!event.active) simulation.alphaTarget(0.3).restart()
-      d.fx = d.x
-      d.fy = d.y
-    })
-    .on("drag", d => {
-      d.fx = event.x
-      d.fy = event.y
-    })
-    .on("end", d => {
-      if (!event.active) simulation.alphaTarget(0)
-      d.fx = null
-      d.fy = null
-    })
+    export const dragStarted = (simulation) => {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      event.subject.fx = event.subject.x;
+      event.subject.fy = event.subject.y;
+    }
+    export const dragged = () => {
+      event.subject.fx = event.x;
+      event.subject.fy = event.y;
+    }
+    export const dragEnded = (simulation) => {
+      if (!event.active) simulation.alphaTarget(0);
+      event.subject.fx = null;
+      event.subject.fy = null;
+    }
 
+    export const getSubject = (graphData) => {
+          const radius = 5
+          let n = graphData.nodes.length,
+            i,
+            dx,
+            dy,
+            d2,
+            s2 = radius * radius,
+            circle,
+            subject
+
+          for (i = 0; i < n; ++i) {
+            circle = graphData.nodes[i]
+            dx = event.x - circle.x
+            dy = event.y - circle.y
+            d2 = dx * dx + dy * dy
+            if (d2 < s2) {
+              subject = circle
+              s2 = d2
+            }
+          }
+          return subject
+    }
 
