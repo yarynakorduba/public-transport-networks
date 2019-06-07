@@ -1,21 +1,24 @@
 // @flow
 import React, { useEffect, useRef } from "react"
-import { path } from "ramda"
-import { forceLink, select } from "d3"
+import { groupBy, mapObjIndexed, path } from "ramda"
+import { drag, forceLink, select } from "d3"
 import { compose, defaultProps, withProps, withStateHandlers } from "recompose"
 import {
   getForceSimulation,
   getDefaultSpaceGraphScales,
-  getDragHandler,
   getRadialSpaceGraphScales,
-  getRadialForceSimulation
+  getRadialForceSimulation,
+  dragStarted,
+  dragged,
+  dragEnded,
+  getSubject
 } from "./helpers"
 import { withCalculatedChartSize } from "../HOC"
 import BEM from "../../helpers/BEM"
 import "./ForceGraph.scss"
+
 const b = BEM("ForceGraph")
 
-//TODO: check whether clusterization is proper
 const drawChart = compose(
   defaultProps({
     margin: { top: 0, left: 0, bottom: 100, right: 0 }
@@ -63,30 +66,8 @@ const drawChart = compose(
       colorScale
     }) => ({
       drawChart: rootEl => {
-        const dragHandler = getDragHandler(simulation)
         const svg = select(rootEl)
-        svg.selectAll("*").remove()
-        const links = svg
-          .append("g")
-          .attr("class", b("links"))
-          .selectAll(b("line"))
-          .data(graphData.links)
-          .enter()
-          .append("line")
-          .attr("class", b("line"))
-
-        const nodes = svg
-          .append("g")
-          .selectAll(b("node"))
-          .data(graphData.nodes)
-          .enter()
-          .append("g")
-          .attr("class", b("node"))
-          .on("click", d => console.log(d))
-          .call(dragHandler)
-          .append("circle")
-          .attr("fill", d => colorScale(d.connections.length))
-          .attr("r", d => nodeRadiusScale(d.connections.length))
+        const context = svg.node().getContext("2d")
 
         const constrainPositionToBoundingBox = (element, coordinate) => {
           const boundary = coordinate === "x" ? chartWidth : chartHeight
@@ -95,50 +76,74 @@ const drawChart = compose(
             Math.min(boundary - nodeRadiusScale(element.connections.length), element[coordinate])
           )
         }
+
+        svg.call(
+          drag()
+            .container(rootEl)
+            .subject(() => getSubject(graphData))
+            .on("start", () => dragStarted(simulation))
+            .on("drag", dragged)
+            .on("end", () => dragEnded(simulation))
+        )
+
+        const groupedNodes = groupBy(node => node.connections.length, graphData.nodes)
+
         simulation
           .nodes(graphData.nodes)
           .on("tick", () => {
-            nodes
-              .attr("cx", d => constrainPositionToBoundingBox(d, "x"))
-              .attr("cy", d => constrainPositionToBoundingBox(d, "y"))
-            links
-              .attr("x1", d => constrainPositionToBoundingBox(d.source, "x"))
-              .attr("y1", d => constrainPositionToBoundingBox(d.source, "y"))
-              .attr("x2", d => constrainPositionToBoundingBox(d.target, "x"))
-              .attr("y2", d => constrainPositionToBoundingBox(d.target, "y"))
-          })
-          .force(
-            "link",
-            forceLink(graphData.links).id(function(d) {
-              return d.id
+            context.clearRect(0, 0, chartWidth, chartHeight)
+            context.strokeStyle = "#ccc"
+            context.beginPath()
+            graphData.links.forEach(d => {
+              context.moveTo(
+                constrainPositionToBoundingBox(d.source, "x"),
+                constrainPositionToBoundingBox(d.source, "y")
+              )
+              context.lineTo(
+                constrainPositionToBoundingBox(d.target, "x"),
+                constrainPositionToBoundingBox(d.target, "y")
+              )
             })
-          )
+            context.stroke()
+            // draw nodes with optimization
+            mapObjIndexed((nodeGroup, connectionsNumber) => {
+              context.fillStyle = colorScale(Number(connectionsNumber))
+              context.beginPath()
+              nodeGroup.forEach(d => {
+                const x = constrainPositionToBoundingBox(d, "x")
+                const y = constrainPositionToBoundingBox(d, "y")
+
+                context.moveTo(x, y)
+                context.arc(x, y, nodeRadiusScale(Number(connectionsNumber)), 0, 2 * Math.PI)
+              })
+              context.fill()
+            }, groupedNodes)
+          })
+          .force("link", forceLink(graphData.links).id(({ id }) => id))
       }
     })
   )
 )
 
-export const ForceGraph = drawChart(
-  ({ chartHeight, chartWidth, drawChart, isRadial = false, setIsRadial, city, space }) => {
-    const rootEl = useRef(null)
-    useEffect(() => drawChart(rootEl.current), [isRadial])
-    return (
-      <>
-        <header className={b("header")}>
-          <label className={b("city")}>
-            {city}, {space}-space
+export const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial = false, setIsRadial, city, space }) => {
+  const rootEl = useRef(null)
+  useEffect(() => drawChart(rootEl.current), [isRadial])
+  return (
+    <>
+      <header className={b("header")}>
+        <label className={b("city")}>
+          {city}, {space}-space
+        </label>
+        <form>
+          <label className={b("is-radial-label")}>
+            <input className={b("is-radial-input")} type={"checkbox"} checked={isRadial} onChange={setIsRadial} />
+            Radial
           </label>
-          <form>
-            <label className={b("is-radial-label")}>
-              <input className={b("is-radial-input")} type={"checkbox"} checked={isRadial} onChange={setIsRadial} />
-              Radial
-            </label>
-          </form>
-        </header>
-        <svg ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
-      </>
-    )
-  }
-)
+        </form>
+      </header>
+      <canvas ref={rootEl} className={b()} height={chartHeight} width={chartWidth} />
+    </>
+  )
+}
 
-export default ForceGraph
+export default drawChart(ForceGraph)
