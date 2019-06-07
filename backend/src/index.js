@@ -18,9 +18,9 @@ app.use(
 )
 app.use(express.static(path.join(__dirname, "..", "public")))
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "index.html"))
-})
+// app.get("/*", function(req, res) {
+//   res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "index.html"))
+// })
 
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}...`)
