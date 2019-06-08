@@ -1,5 +1,5 @@
 {
-  "lviv": {
+  "Lviv": {
     "_id": "lviv",
     "data": {
       "population": { "propertyLabel": "Населення", "propertyValue": 721301 },
@@ -11,7 +11,7 @@
     "cityLabel": "Львів",
     "color": "#035B82"
   },
-  "bristol": {
+  "Bristol": {
     "_id": "bristol",
     "data": {
       "population": { "propertyLabel": "Населення", "propertyValue": 535907 },
