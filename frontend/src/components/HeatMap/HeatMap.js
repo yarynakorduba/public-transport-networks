@@ -11,18 +11,39 @@ import TransportTypeSwitcher from "./TransportTypeSwitcher"
 import { getHeatMapColorConfig } from "./helpers"
 import BEM from "../../helpers/BEM"
 import { convertBusStopsDataToGeoJSON } from "../../helpers/index"
-import { withStationTypes } from "../HOC"
-
+import { gql } from "apollo-boost"
+import { graphql } from "react-apollo"
 import "mapbox-gl/dist/mapbox-gl.css"
 import "./HeatMap.scss"
-import connect from "react-redux/es/connect/connect"
-import { areStationTypesFetching, areStopsFetching, getStationTypes, getStops } from "../../reducers"
 
 const b = BEM("HeatMap")
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "bus-stops"
 const MAX_MAP_ZOOM_LEVEL = 15
+
+const getStopsQuery = graphql(
+  gql`
+    query City($city: String!) {
+      city(city: $city) {
+        stationTypes
+        stops {
+          id
+          stationType
+          lat
+          lon
+          connections
+        }
+        cityLabel
+      }
+    }
+  `,
+  {
+    options: props => ({
+      variables: { city: props.city }
+    })
+  }
+)
 
 const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, stationTypes, city }) => {
   const [viewport, setViewport] = useState(initialViewport)
@@ -74,21 +95,10 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
 }
 
 const enhancer = compose(
-  withStationTypes,
-  connect((state, { city }) => ({
-    stops: getStops(state, city),
-    areStopsFetching: areStopsFetching(state, city),
-    stationTypes: getStationTypes(state, city),
-    areStationTypesFetching: areStationTypesFetching(state, city)
-  })),
-  branch(
-    ({ areStationTypesFetching, areStopsFetching }) => areStationTypesFetching || areStopsFetching,
-    renderComponent(() => "Loading the data...")
-  ),
-  branch(
-    ({ stationTypes, areStationTypesFetching, stops, areStopsFetching }) => !stops && !areStopsFetching,
-    renderComponent(() => "Something went wrong. We didn`t manage to load the data...")
-  ),
+  getStopsQuery,
+  branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
+  branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
+  withProps(({ city, data }) => ({ city, ...data.city })),
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))

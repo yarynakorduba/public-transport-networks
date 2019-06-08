@@ -9,14 +9,9 @@ import Chapter9 from "./Chapter_9"
 import Chapter10 from "./Chapter_10"
 import Preface from "./Preface/index"
 import ContentsThumbnail from "./ContentsThumbnail/index"
-import { compose, withProps, defaultProps } from "recompose"
 import BEM from "../../helpers/BEM.js"
 import "./Article.scss"
 import { TriggerContext } from "../Trigger"
-import { connect } from "react-redux"
-import { areStopsFetching, getStops } from "../../reducers"
-import { fetchStops } from "../../actions"
-import { map } from "ramda"
 
 const b = BEM("Article")
 
@@ -39,26 +34,4 @@ const Article = () => (
   </>
 )
 
-const withCityTransportNetworksData = compose(
-  defaultProps({
-    cities: ["lviv", "bristol"]
-  }),
-  connect(
-    (state, { cities }) => ({
-      data: map(
-        city => ({
-          label: city,
-          stops: getStops(state, city),
-          areStopsFetching: areStopsFetching(state, city)
-        }),
-        cities
-      )
-    }),
-    { fetchStops }
-  ),
-  withProps(({ data, fetchStops }) =>
-    map(city => !city.stops && !city.areStopsFetching && fetchStops(city.label), data)
-  )
-)
-
-export default withCityTransportNetworksData(Article)
+export default Article

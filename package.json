@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "10.15.1",
     "yarn": "1.13.0"
   },
   "scripts": {
@@ -27,6 +26,11 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-cache-persist": "^0.1.1",
+    "apollo-link": "^1.2.11",
+    "apollo-link-error": "^1.1.10",
+    "apollo-link-http": "^1.5.14",
     "concurrently": "^4.1.0",
     "graphql": "^14.2.1",
     "mapbox-gl": "^1.0.0",

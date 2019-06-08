@@ -20,9 +20,10 @@ const CityType = new GraphQLObjectType({
   name: "City",
   fields: () => ({
     id: { type: GraphQLString },
-    cityLabel: { type: GraphQLString },
     stationTypes: { type: new GraphQLList(GraphQLString) },
-    stops: { type: new GraphQLList(StopType) }
+    stops: { type: new GraphQLList(StopType) },
+    color: { type: GraphQLString },
+    cityLabel: { type: GraphQLString }
   })
 })
 
