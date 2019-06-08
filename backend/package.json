@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js",
-    "build": "babel src -d build"
+    "build": "babel src -d build",
+    "heroku-postbuild": "cd ../frontend && yarn && yarn build"
   },
   "author": "",
   "license": "ISC",
