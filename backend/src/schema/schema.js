@@ -1,23 +1,7 @@
 const graphql = require("graphql")
-const fs = require("fs")
-const { find, propEq } = require("ramda")
+const city = require("../models/cities")
+
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLFloat } = graphql
-
-const getCityStops = city => {
-  return new Promise((resolve, reject) =>
-    fs.readFile(`./public/data/${city}/${city}Stops.json`, (err, data) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(JSON.parse(data))
-    })
-  )
-}
-
-const stopsData = {
-  bristol: getCityStops("bristol"),
-  lviv: getCityStops("lviv")
-}
 
 const StopType = new GraphQLObjectType({
   name: "Stop",
@@ -32,30 +16,48 @@ const StopType = new GraphQLObjectType({
   })
 })
 
+const CityType = new GraphQLObjectType({
+  name: "City",
+  fields: () => ({
+    id: { type: GraphQLString },
+    cityLabel: { type: GraphQLString },
+    stationTypes: { type: new GraphQLList(GraphQLString) },
+    stops: { type: new GraphQLList(StopType) }
+  })
+})
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
-    stop: {
-      type: StopType,
-      args: { city: { type: GraphQLString }, id: { type: GraphQLID } },
-      resolve(parent, { id, city }) {
-        const result = find(propEq("id", id), stopsData[city])
-        return result
+    city: {
+      type: CityType,
+      args: { city: { type: GraphQLString } },
+      async resolve(parent, { city: id }) {
+        const cityData = await city.findById(id).exec()
+        return cityData
+      }
+    },
+    cities: {
+      type: GraphQLList(CityType),
+      args: {},
+      async resolve() {
+        const cities = await city.find().exec()
+        return cities
       }
     },
     stops: {
       type: GraphQLList(StopType),
       args: { city: { type: GraphQLString } },
-      async resolve(parent, { city }) {
-        const cityStopsData = await getCityStops(city)
+      async resolve(parent, { city: id }) {
+        const cityStopsData = await city.findById(id).exec()
         return cityStopsData.stops
       }
     },
     stationTypes: {
       type: GraphQLList(GraphQLString),
       args: { city: { type: GraphQLString } },
-      async resolve(parent, { city }) {
-        const cityStopsData = await getCityStops(city)
+      async resolve(parent, { city: id }) {
+        const cityStopsData = await city.findById(id).exec()
         return cityStopsData.stationTypes
       }
     }

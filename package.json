@@ -25,7 +25,10 @@
   "dependencies": {
     "concurrently": "^4.1.0",
     "graphql": "^14.2.1",
-    "mapbox-gl": "^1.0.0"
+    "mapbox-gl": "^1.0.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.13"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
