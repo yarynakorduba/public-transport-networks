@@ -23,6 +23,11 @@ a:hover {
   color: #005cd3;
 }
 
-p {
-  color: rgba(0,0,0,0.65);
+p, ul, ol{
+  color: rgba(0,0,0,0.7);
+}
+
+em{
+  display: inline-block;
+  margin-bottom: 20px;
 }

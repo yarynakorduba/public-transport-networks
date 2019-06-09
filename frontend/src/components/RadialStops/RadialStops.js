@@ -55,6 +55,8 @@ const RadialStops = () => {
         mapStyle="mapbox://styles/famdrum/cjwgr6my308z41co7ob9okmx0"
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={onViewportChange}
+        minZoom={15}
+        maxZoom={17}
         onLoad={handleMapLoaded}
       >
         {data.map((stop, i) => {
