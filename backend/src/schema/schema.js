@@ -1,7 +1,16 @@
 const graphql = require("graphql")
 const city = require("../models/cities")
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList, GraphQLFloat } = graphql
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLID,
+  GraphQLList,
+  GraphQLFloat,
+  GraphQLUnionType
+} = graphql
+const { PolygonObject, MultiPolygonObject } = require("graphql-geojson")
 
 const StopType = new GraphQLObjectType({
   name: "Stop",
@@ -16,14 +25,27 @@ const StopType = new GraphQLObjectType({
   })
 })
 
+const resolveType = data => {
+  if (data.type === "Polygon") return PolygonObject
+  if (data.type === "MultiPolygon") return MultiPolygonObject
+}
+
+const BoundariesType = new GraphQLUnionType({
+  name: "BoundariesType",
+  types: [PolygonObject, MultiPolygonObject],
+  resolveType: resolveType
+})
+
 const CityType = new GraphQLObjectType({
   name: "City",
   fields: () => ({
     id: { type: GraphQLString },
+    name: { type: GraphQLString },
     stationTypes: { type: new GraphQLList(GraphQLString) },
     stops: { type: new GraphQLList(StopType) },
     color: { type: GraphQLString },
-    cityLabel: { type: GraphQLString }
+    cityLabel: { type: GraphQLString },
+    boundaries: { type: BoundariesType }
   })
 })
 
@@ -34,23 +56,21 @@ const RootQuery = new GraphQLObjectType({
       type: CityType,
       args: { city: { type: GraphQLString } },
       async resolve(parent, { city: id }) {
-        const cityData = await city.findById(id).exec()
-        return cityData
+        return city.findById(id)
       }
     },
     cities: {
       type: GraphQLList(CityType),
       args: {},
       async resolve() {
-        const cities = await city.find().exec()
-        return cities
+        return city.find()
       }
     },
     stops: {
       type: GraphQLList(StopType),
       args: { city: { type: GraphQLString } },
       async resolve(parent, { city: id }) {
-        const cityStopsData = await city.findById(id).exec()
+        const cityStopsData = city.findById(id).exec()
         return cityStopsData.stops
       }
     },
@@ -58,7 +78,7 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(GraphQLString),
       args: { city: { type: GraphQLString } },
       async resolve(parent, { city: id }) {
-        const cityStopsData = await city.findById(id).exec()
+        const cityStopsData = city.findById(id).exec()
         return cityStopsData.stationTypes
       }
     }
