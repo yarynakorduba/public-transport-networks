@@ -14,7 +14,7 @@
     "start": "concurrently - kill-others \"yarn start:backend\" \"yarn start:frontend\"",
     "install:backend": "cd \"backend\" && yarn",
     "install:frontend": "cd \"frontend\" && yarn",
-    "postinstall": "yarn install:backend && yarn install:frontend",
+    "postinstall": "yarn install:backend && yarn install:frontend"
   },
   "eslintConfig": {
     "extends": "react-app"
