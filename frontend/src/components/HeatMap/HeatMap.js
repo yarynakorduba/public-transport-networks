@@ -20,6 +20,7 @@ const b = BEM("HeatMap")
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 const HEATMAP_SOURCE_ID = "bus-stops"
+const BOUNDARIES_SOURCE_ID = "boundaries"
 const MAX_MAP_ZOOM_LEVEL = 15
 
 const getStopsQuery = graphql(
@@ -34,6 +35,16 @@ const getStopsQuery = graphql(
           lon
           connections
         }
+        boundaries {
+          ... on GeoJSONPolygon {
+            type
+            coordinates
+          }
+          ... on GeoJSONMultiPolygon {
+            type
+            coordinates
+          }
+        }
         cityLabel
       }
     }
@@ -45,9 +56,8 @@ const getStopsQuery = graphql(
   }
 )
 
-const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, stationTypes, city }) => {
+const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStationTypes, stationTypes, city }) => {
   const [viewport, setViewport] = useState(initialViewport)
-
   const mapRef = useRef()
   const getMap = () => (mapRef.current ? mapRef.current.getMap() : null)
 
@@ -64,11 +74,21 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
     const map = getMap()
     const geoJSON = data
     map.addSource(HEATMAP_SOURCE_ID, { type: "geojson", data: geoJSON })
+    map.addSource(BOUNDARIES_SOURCE_ID, { type: "geojson", data: boundaries })
     map.addLayer({
       id: "heatmap-layer",
       source: HEATMAP_SOURCE_ID,
       type: "heatmap",
       paint: getHeatMapColorConfig(MAX_MAP_ZOOM_LEVEL)
+    })
+    map.addLayer({
+      id: "boundaries-layer",
+      source: BOUNDARIES_SOURCE_ID,
+      type: "line",
+      paint: {
+        "line-width": 2,
+        "line-color": "deepskyblue"
+      }
     })
   }
 
@@ -79,7 +99,7 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
         {...viewport}
         width="100%"
         height="100%"
-        mapStyle="mapbox://styles/mapbox/dark-v9"
+        mapStyle="mapbox://styles/mapbox/light-v10"
         onViewportChange={onViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onLoad={handleMapLoaded}
@@ -98,7 +118,7 @@ const enhancer = compose(
   getStopsQuery,
   branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
   branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
-  withProps(({ city, data }) => ({ city, ...data.city })),
+  withProps(({ city, data }) => console.log(data) || { city, ...data.city }),
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))
