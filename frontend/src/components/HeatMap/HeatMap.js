@@ -8,6 +8,7 @@ import { map, startWith } from "rxjs/operators"
 import { branch, compose, mapPropsStream, renderComponent, withProps, withStateHandlers } from "recompose"
 import MapGL from "react-map-gl"
 import TransportTypeSwitcher from "./TransportTypeSwitcher"
+import Loader from "../Loader/Loader"
 import { getHeatMapColorConfig } from "./helpers"
 import BEM from "../../helpers/BEM"
 import { convertBusStopsDataToGeoJSON } from "../../helpers/index"
@@ -96,8 +97,8 @@ const HeatMap = ({ data, initialViewport, handleSelect, selectedStationTypes, st
 
 const enhancer = compose(
   getStopsQuery,
-  branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
-  branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
+  branch(({ data }) => data.loading, renderComponent(() => <Loader loading={true} />)),
+  branch(({ data }) => data.error, renderComponent(() => <Loader loading={false} />)),
   withProps(({ city, data }) => ({ city, ...data.city })),
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {

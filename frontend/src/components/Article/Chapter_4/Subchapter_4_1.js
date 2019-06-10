@@ -8,10 +8,10 @@ const b = BEM("Article")
 const Subchapter_4_1 = () => (
   <section>
     <div className={b("illustration", ["sticky"])} style={{ height: "180vh" }}>
-      <div style={{ height: "90vh" }}>
+      <div style={{ height: "90vh", textAlign: "center" }}>
         <HeatMap city={"lviv"} />
       </div>
-      <div style={{ height: "90vh" }}>
+      <div style={{ height: "90vh", textAlign: "center" }}>
         <HeatMap city={"bristol"} />
       </div>
     </div>

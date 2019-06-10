@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://yarynakorduba.github.io/public-transport-networks",
+  "proxy": "http://localhost:4000/",
   "scripts": {
     "build": "react-scripts build",
     "test": "react-scripts test",
