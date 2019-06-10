@@ -33,7 +33,6 @@ const getCitiesStopsQuery = graphql(
           connections
         }
         stationTypes
-        cityLabel
       }
     }
   `

@@ -2,24 +2,20 @@ import React from "react"
 import "./CitySwitcher.scss"
 import BEM from "../../helpers/BEM"
 import { withHandlers } from "recompose"
-import { keys, map, compose } from "ramda"
+import { map, compose } from "ramda"
 
 const b = BEM("CitySwitcher")
 
-export const CitySwitcher = ({ handleChange, data }) => (
+export const CitySwitcher = ({ handleChange, displayedCities, allCities, labels, colors }) => (
   <form className={b()}>
     {map(
       city => (
-        <label key={city} className={b("city-checkbox")} style={{ color: data[city].color }}>
-          <input
-            type={"checkbox"}
-            checked={data[city].active}
-            onChange={ev => handleChange && handleChange(ev, city)}
-          />
-          {data[city]["cityLabel"]}
+        <label key={city} className={b("city-checkbox")} style={{ color: colors[city] }}>
+          <input type={"checkbox"} defaultChecked onChange={ev => handleChange(ev, city)} />
+          {labels[city]}
         </label>
       ),
-      keys(data)
+      allCities
     )}
   </form>
 )

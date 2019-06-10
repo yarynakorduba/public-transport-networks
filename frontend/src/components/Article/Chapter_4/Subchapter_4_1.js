@@ -31,11 +31,6 @@ const Subchapter_4_1 = () => (
       <a href={"https://www.openstreetmap.org/relation/2108752#map=11/49.8482/24.0099"}>Львова</a> і{" "}
       <a href={"https://www.openstreetmap.org/relation/57539#map=11/51.4326/-2.7287"}>Брістоля</a>.
     </p>
-    <figure>
-      <img src="./img/chapter4/lvivBoundaries.png" className={b("image")} alt={"Lviv Boundaries"} />
-      <img src="./img/chapter4/bristolBoundaries.png" className={b("image")} alt={"Bristol Boundaries"} />
-      <figcaption className={b("image-caption")}>Межі Львова та Брістоля</figcaption>
-    </figure>
     <p>Так ми зможемо порівняти дві міські транспортні мережі між собою:</p>
   </section>
 )
