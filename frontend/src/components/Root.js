@@ -1,14 +1,20 @@
 import App from "./App"
 import React from "react"
-import { InMemoryCache } from "apollo-cache-inmemory"
+import { InMemoryCache, IntrospectionFragmentMatcher } from "apollo-cache-inmemory"
 import { persistCache } from "apollo-cache-persist"
 import { ApolloLink } from "apollo-link"
 import { HttpLink } from "apollo-link-http"
 import { ApolloProvider } from "react-apollo"
 import ApolloClient from "apollo-client"
 import { onError } from "apollo-link-error"
+import introspectionQueryResultData from '../api/fragmentTypes.json';
 
-const cache = new InMemoryCache()
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+});
+
+const cache = new InMemoryCache({fragmentMatcher})
 ;(async () =>
   await persistCache({
     cache,
