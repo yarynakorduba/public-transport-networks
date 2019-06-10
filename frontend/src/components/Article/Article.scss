@@ -44,6 +44,7 @@
     float: right;
     clear: both;
     width: 100%;
+    min-height: fit-content;
     margin-right: calc(-100% - 1.5rem);
 
     &_flex {

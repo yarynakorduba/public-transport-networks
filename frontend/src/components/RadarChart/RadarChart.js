@@ -1,7 +1,7 @@
 import React from "react"
 import { Group, scaleLinear } from "@vx/vx"
 import { compose, defaultProps, withProps } from "recompose"
-import { maxBy, prop, values, map, reduce, pathOr, filter, mapObjIndexed, head } from "ramda"
+import { maxBy, includes, values, map, reduce, pathOr, indexOf, keys, mapObjIndexed, pickBy } from "ramda"
 import RadarRay from "./RadarRay"
 import RadarPolygon from "./RadarPolygon"
 import "./RadarChart.scss"
@@ -19,23 +19,37 @@ const genRadarRaysPoints = (data, radius) =>
   }))
 
 const genRadarPolygonPoints = (data, scale) =>
-  data.map(({ propertyValue }, i) => ({
-    x: scale(propertyValue) * Math.sin((i + 0.01) * getStepAlongCircle(data.length)),
-    y: scale(propertyValue) * Math.cos((i + 0.01) * getStepAlongCircle(data.length))
-  }))
+  mapObjIndexed(
+    (propValue, propKey) => ({
+      x: scale(propValue) * Math.sin((indexOf(propKey, keys(data)) + 0.01) * getStepAlongCircle(keys(data).length)),
+      y: scale(propValue) * Math.cos((indexOf(propKey, keys(data)) + 0.01) * getStepAlongCircle(keys(data).length))
+    }),
+    data
+  )
 
-export const RadarChart = ({ width, height, raysPoints, polygonData, cityPropertiesLabels }) => (
+export const RadarChart = ({ width, height, raysPoints, polygonData, colors, labels, citiesKeys, propertiesKeys }) => (
   <svg className={b()}>
     <Group className={b("container")} width={width} height={height}>
       {raysPoints.map((point, i) => (
-        <RadarRay rayLabel={cityPropertiesLabels[i]} targetPoint={point} key={i} />
+        <RadarRay rayLabel={labels[propertiesKeys[i]]} targetPoint={point} key={i} />
       ))}
-      {polygonData.map(({ color, data }, i) => (
+
+      {polygonData.map(({ color, data, ...props }, i) => (
         <Group key={i}>
-          <RadarPolygon color={color} polygonPointsList={data} />
-          {data.map(({ x, y }) => (
-            <circle fill={color} key={`${x},${y}`} cx={x} cy={y} r={RADAR_CIRCLE_RADIUS} className={b("circle")} />
-          ))}
+          <RadarPolygon color={colors[citiesKeys[i]]} polygonPointsList={values(data)} />
+          {map(
+            ({ x, y }) => (
+              <circle
+                fill={colors[citiesKeys[i]]}
+                key={`${x},${y}`}
+                cx={x}
+                cy={y}
+                r={RADAR_CIRCLE_RADIUS}
+                className={b("circle")}
+              />
+            ),
+            values(data)
+          )}
         </Group>
       ))}
     </Group>
@@ -44,50 +58,44 @@ export const RadarChart = ({ width, height, raysPoints, polygonData, cityPropert
 
 export default compose(
   defaultProps({
-    width: 350,
+    width: 850,
     height: 350,
     margin: {
       top: 90,
-      left: 0,
-      right: 0,
+      left: 30,
+      right: 30,
       bottom: 90
     }
   }),
-  withProps(({ width, height, margin: { top, bottom }, data }) => ({
-    radius: (width - top - bottom) / 2,
+  withProps(({ width, height, margin: { top, bottom, right, left }, data }) => ({
+    radius: (height - top - bottom ) / 2,
     yScale: scaleLinear({
       range: [0, (height - top - bottom) / 2],
       domain: [0, 1]
     }),
-    cityPropertiesLabels: compose(
-      data => data.map(prop("propertyLabel")),
-      values,
-      prop("data"),
-      head,
-      values
-    )(data)
+    citiesKeys: keys(data),
+    propertiesKeys: keys(values(data)[0]),
+    activeCities: ["lviv", "bristol"]
   })),
   withProps(({ data }) => ({
     data: compose(
-      mapObjIndexed(city => ({
-        ...city,
-        data: mapObjIndexed(({ propertyValue, ...rest }, propertyKey) => ({
-          ...rest,
-          propertyValue:
-            propertyValue /
-            reduce(maxBy(pathOr(0, ["data", propertyKey, "propertyValue"])), 0, values(data))["data"][propertyKey][
-              "propertyValue"
-            ]
-        }))(city.data)
-      }))
+      mapObjIndexed(city =>
+        mapObjIndexed(
+          (propertyValue, propertyKey) =>
+            propertyValue / reduce(maxBy(pathOr(0, [propertyKey])), 0, values(data))[propertyKey]
+        )(city)
+      )
     )(data)
   })),
-  withProps(({ radius, data, yScale, maxPropertyValues, cityPropertiesLabels }) => ({
-    raysPoints: genRadarRaysPoints(cityPropertiesLabels, radius),
+  withProps(({ radius, data, yScale, labels, propertiesKeys, displayedCities }) => ({
+    raysPoints: genRadarRaysPoints(propertiesKeys, radius),
     polygonData: compose(
-      map(city => ({ ...city, data: genRadarPolygonPoints(values(prop("data", city)), yScale) })),
-      filter(prop("active")),
-      values
+      map(city => ({
+        ...city,
+        data: genRadarPolygonPoints(city, yScale)
+      })),
+      values,
+      pickBy((val, key) => includes(key, displayedCities))
     )(data)
   }))
 )(RadarChart)
