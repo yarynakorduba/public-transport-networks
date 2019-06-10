@@ -1,0 +1,78 @@
+$fill: #8e8d8d;
+
+.Loader {
+  width: 130px;
+  transform-origin: center center;
+
+  &__wheel {
+    fill: $fill;
+
+    &_animated {
+      transform-origin: 50% 50%;
+      transform-box: fill-box;
+      animation: wheel 1s linear infinite;
+    }
+  }
+
+  &__truck {
+    transform: translateY(5px);
+    fill: $fill;
+
+    &_animated {
+      animation: shake 2s linear infinite;
+    }
+  }
+
+  &__big_box {
+    fill: $fill;
+
+    &_animated {
+      animation: shake_big_box 2s 0.1s linear infinite;
+    }
+  }
+  &__small_box {
+    fill: $fill;
+
+    &_animated {
+      animation: shake_small_box 2s 0.15s linear infinite;
+    }
+  }
+  &__caption {
+    color: $fill;
+    font-family:'PT Sans Caption', sans-serif;
+    font-size:24.5px;
+  }
+
+  @keyframes wheel {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes shake {
+    5% {
+      transform: translateY(0px);
+    }
+    7% {
+      transform: translateY(5px);
+    }
+  }
+
+  @keyframes shake_big_box {
+    5% {
+      transform: translateY(5px);
+    }
+    7% {
+      transform: translateY(2px);
+    }
+  }
+
+  @keyframes shake_small_box {
+    5% {
+      transform: translateY(5px);
+    }
+    7% {
+      transform: translateY(1px);
+    }
+  }
+}
