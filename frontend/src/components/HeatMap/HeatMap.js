@@ -45,7 +45,6 @@ const getStopsQuery = graphql(
             coordinates
           }
         }
-        cityLabel
       }
     }
   `,
@@ -118,7 +117,7 @@ const enhancer = compose(
   getStopsQuery,
   branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
   branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
-  withProps(({ city, data }) => console.log(data) || { city, ...data.city }),
+  withProps(({ city, data }) => ({ city, ...data.city })),
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))

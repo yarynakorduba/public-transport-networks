@@ -7,6 +7,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLList,
+  GraphQLInt,
   GraphQLFloat,
   GraphQLUnionType
 } = graphql
@@ -39,13 +40,16 @@ const BoundariesType = new GraphQLUnionType({
 const CityType = new GraphQLObjectType({
   name: "City",
   fields: () => ({
-    id: { type: GraphQLString },
+    _id: { type: GraphQLString },
     name: { type: GraphQLString },
     stationTypes: { type: new GraphQLList(GraphQLString) },
     stops: { type: new GraphQLList(StopType) },
-    color: { type: GraphQLString },
-    cityLabel: { type: GraphQLString },
-    boundaries: { type: BoundariesType }
+    boundaries: { type: BoundariesType },
+    routesNumber: { type: GraphQLInt },
+    stopsNumber: { type: GraphQLInt },
+    squareKm: { type: GraphQLInt },
+    averageStopsOnRoute: { type: GraphQLInt },
+    population: { type: GraphQLInt }
   })
 })
 
