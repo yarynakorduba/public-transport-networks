@@ -2,6 +2,7 @@ import React from "react"
 import { Group, scaleLinear } from "@vx/vx"
 import { compose, defaultProps, withProps } from "recompose"
 import { maxBy, includes, values, map, reduce, pathOr, indexOf, keys, mapObjIndexed, pickBy } from "ramda"
+import labels from "../../uaLabelsForDataKeys"
 import RadarRay from "./RadarRay"
 import RadarPolygon from "./RadarPolygon"
 import "./RadarChart.scss"
@@ -27,14 +28,14 @@ const genRadarPolygonPoints = (data, scale) =>
     data
   )
 
-export const RadarChart = ({ width, height, raysPoints, polygonData, colors, labels, citiesKeys, propertiesKeys }) => (
+export const RadarChart = ({ width, height, raysPoints, polygonData, colors, citiesKeys, propertiesLabels }) => (
   <svg className={b()}>
     <Group className={b("container")} width={width} height={height}>
       {raysPoints.map((point, i) => (
-        <RadarRay rayLabel={labels[propertiesKeys[i]]} targetPoint={point} key={i} />
+        <RadarRay rayLabel={propertiesLabels[i]} targetPoint={point} key={i} />
       ))}
 
-      {polygonData.map(({ color, data, ...props }, i) => (
+      {polygonData.map(({ data, ...props }, i) => (
         <Group key={i}>
           <RadarPolygon color={colors[citiesKeys[i]]} polygonPointsList={values(data)} />
           {map(
@@ -68,13 +69,13 @@ export default compose(
     }
   }),
   withProps(({ width, height, margin: { top, bottom, right, left }, data }) => ({
-    radius: (height - top - bottom ) / 2,
+    radius: (height - top - bottom) / 2,
     yScale: scaleLinear({
       range: [0, (height - top - bottom) / 2],
       domain: [0, 1]
     }),
     citiesKeys: keys(data),
-    propertiesKeys: keys(values(data)[0]),
+    propertiesLabels: map(key => labels[key], keys(values(data)[0])),
     activeCities: ["lviv", "bristol"]
   })),
   withProps(({ data }) => ({
@@ -87,8 +88,8 @@ export default compose(
       )
     )(data)
   })),
-  withProps(({ radius, data, yScale, labels, propertiesKeys, displayedCities }) => ({
-    raysPoints: genRadarRaysPoints(propertiesKeys, radius),
+  withProps(({ radius, data, yScale, displayedCities, colors }) => ({
+    raysPoints: genRadarRaysPoints(keys(values(data)[0]), radius),
     polygonData: compose(
       map(city => ({
         ...city,
