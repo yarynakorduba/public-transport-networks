@@ -87,7 +87,7 @@ const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStat
       type: "line",
       paint: {
         "line-width": 2,
-        "line-color": "deepskyblue"
+        "line-color": "#d6ceca"
       }
     })
   }
