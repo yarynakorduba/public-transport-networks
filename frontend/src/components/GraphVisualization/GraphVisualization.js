@@ -1,8 +1,12 @@
 import React from "react"
 import ForceGraph from "./ForceGraph"
 import { assoc, compose, filter, flip, map, prop, values, pathEq, path, isEmpty } from "ramda"
-import { withProps, defaultProps, branch, renderComponent } from "recompose"
+import { withProps, branch, renderComponent } from "recompose"
+import { clustersDbscan } from "@turf/turf"
+import { graphql } from "react-apollo"
+import { gql } from "apollo-boost"
 import { max, min } from "d3"
+import labels from "../../uaLabelsForDataKeys"
 import { prepareClusteredDataForGraphSpaceVisualization } from "./helpers"
 import {
   arrayToObject,
@@ -12,10 +16,7 @@ import {
   removeNodeListFromGraph
 } from "../../helpers"
 import BEM from "../../helpers/BEM"
-import { clustersDbscan } from "@turf/turf"
 import "./GraphVisualization.scss"
-import { graphql } from "react-apollo"
-import { gql } from "apollo-boost"
 
 const b = BEM("GraphVisualization")
 
@@ -25,6 +26,7 @@ const getCitiesStopsQuery = graphql(
   gql`
     query Cities {
       cities {
+        _id
         stops {
           id
           stationType
@@ -38,28 +40,24 @@ const getCitiesStopsQuery = graphql(
   `
 )
 
-export const clusterizeDataForGraphSpaceVisualization = data => {
-  return compose(
+export const clusterizeDataForGraphSpaceVisualization = data =>
+  compose(
     convertBusStopsGeoJSONToJson,
     data => clustersDbscan(data, CLUSTERIZATION_RADIUS_IN_KM, { mutate: true, minPoints: 2 }),
     convertBusStopsDataToGeoJSON
   )(data)
-}
 
 const GraphVisualization = ({ data, extent, space }) => (
   <div className={b()}>
     {data.map((city, index) => (
       <div key={index} className={b("graph")}>
-        <ForceGraph space={space} graphData={city.graphData} city={city.cityLabel} extent={extent} />
+        <ForceGraph space={space} graphData={city.graphData} city={city.label} extent={extent} />
       </div>
     ))}
   </div>
 )
 const enhancer = compose(
   // data processing
-  defaultProps({
-    cityNames: ["lviv", "bristol"]
-  }),
   getCitiesStopsQuery,
   branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
   branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
@@ -68,6 +66,7 @@ const enhancer = compose(
     data: map(
       city => ({
         ...city,
+        label: labels[city["_id"]],
         stops: compose(
           arrayToObject(prop("id")),
           mapIndexed(flip(assoc("index"))),

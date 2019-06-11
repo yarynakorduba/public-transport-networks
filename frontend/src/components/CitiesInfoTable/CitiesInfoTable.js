@@ -2,12 +2,13 @@ import React from "react"
 import { compose, withProps } from "recompose"
 import { head, keys, map, values } from "ramda"
 import { format } from "d3"
+import labels from "../../uaLabelsForDataKeys"
 import BEM from "../../helpers/BEM"
 import "./CitiesInfoTable.scss"
 
 const b = BEM("CitiesInfoTable")
 
-const CitiesInfoTable = ({ data, cityNames, cityPropertiesKeys, labels, colors }) => (
+const CitiesInfoTable = ({ data, cityNames, cityPropertiesKeys, colors }) => (
   <table className={b()}>
     <tbody>
       <tr>
@@ -44,10 +45,6 @@ const CitiesInfoTable = ({ data, cityNames, cityPropertiesKeys, labels, colors }
 const enhancer = compose(
   withProps(({ data }) => ({
     cityNames: keys(data),
-    cityPropertiesLabels: compose(
-      head,
-      values
-    )(data),
     cityPropertiesKeys: compose(
       keys,
       head,

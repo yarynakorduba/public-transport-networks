@@ -1,6 +1,7 @@
 import { compose, map } from "ramda"
-import { withHandlers, withProps } from "recompose"
+import { withHandlers } from "recompose"
 import React from "react"
+import labels from "../../uaLabelsForDataKeys"
 import BEM from "../../helpers/BEM"
 import "./TransportTypeSwitcher.scss"
 
@@ -8,18 +9,18 @@ const b = BEM("TransportTypeSwitcher")
 
 const TransportTypeSwitcher = ({ handleChange, selectedTransportTypes, stationTypes, city }) => (
   <div className={b()}>
-    <span className={b("city")}>{city}</span>
+    <span className={b("city")}>{labels[city]}</span>
     <form className={b("transportTypes")}>
       {map(
-        label => (
-          <label key={label} className={b("transportType")}>
+        stationType => (
+          <label key={stationType} className={b("transportType")}>
             <input
               type={"checkbox"}
-              name={label}
+              name={stationType}
               onChange={ev => handleChange(ev)}
-              checked={selectedTransportTypes.includes(label)}
+              checked={selectedTransportTypes.includes(stationType)}
             />
-            {label}
+            {labels[stationType]}
           </label>
         ),
         stationTypes
@@ -29,7 +30,6 @@ const TransportTypeSwitcher = ({ handleChange, selectedTransportTypes, stationTy
 )
 
 const enhancer = compose(
-  withProps(({ city, stationTypes }) => ({ city, labels: stationTypes })),
   withHandlers({
     handleChange: ({ handleSelect }) => ({ target }) => handleSelect(target.name, target.checked)
   })

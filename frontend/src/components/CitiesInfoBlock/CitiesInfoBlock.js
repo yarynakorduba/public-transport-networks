@@ -13,15 +13,6 @@ import "./CitiesInfoBlock.scss"
 const b = BEM("CitiesInfoBlock")
 
 const CITIES_COLORS = { lviv: "#E62139", bristol: "#035B82" }
-const CITIES_PROPS_LABELS = {
-  lviv: "Львів",
-  bristol: "Брістоль",
-  routesNumber: "Кількість шляхів",
-  stopsNumber: "Кількість зупинок",
-  squareKm: "Площа",
-  population: "Населення",
-  averageStopsOnRoute: "Сер. зупинок на маршруті"
-}
 
 const getCitiesPropsQuery = graphql(
   gql`
@@ -41,20 +32,14 @@ const getCitiesPropsQuery = graphql(
 
 const CitiesInfoBlock = ({ citiesData, displayedCities, numericData, changeDisplayedCities, allCities }) => (
   <div className={b()}>
-    <DataTable data={numericData} labels={CITIES_PROPS_LABELS} colors={CITIES_COLORS} />
+    <DataTable data={numericData} colors={CITIES_COLORS} />
     <CitySwitcher
       displayedCities={displayedCities}
       allCities={allCities}
       changeDisplayedCities={changeDisplayedCities}
-      labels={CITIES_PROPS_LABELS}
       colors={CITIES_COLORS}
     />
-    <RadarChart
-      data={numericData}
-      colors={CITIES_COLORS}
-      labels={CITIES_PROPS_LABELS}
-      displayedCities={displayedCities}
-    />
+    <RadarChart data={numericData} colors={CITIES_COLORS} displayedCities={displayedCities} />
   </div>
 )
 

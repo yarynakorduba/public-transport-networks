@@ -3,10 +3,11 @@ import "./CitySwitcher.scss"
 import BEM from "../../helpers/BEM"
 import { withHandlers } from "recompose"
 import { map, compose } from "ramda"
+import labels from "../../uaLabelsForDataKeys"
 
 const b = BEM("CitySwitcher")
 
-export const CitySwitcher = ({ handleChange, displayedCities, allCities, labels, colors }) => (
+export const CitySwitcher = ({ handleChange, displayedCities, allCities, colors }) => (
   <form className={b()}>
     {map(
       city => (
