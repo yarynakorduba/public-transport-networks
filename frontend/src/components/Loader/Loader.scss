@@ -1,9 +1,13 @@
 $fill: #8e8d8d;
 
 .Loader {
-  width: 130px;
-  transform-origin: center center;
+  width: 100%;
+  text-align: center;
 
+  &__illustration {
+    width: 130px;
+    transform-origin: center center;
+  }
   &__wheel {
     fill: $fill;
 
@@ -39,8 +43,8 @@ $fill: #8e8d8d;
   }
   &__caption {
     color: $fill;
-    font-family:'PT Sans Caption', sans-serif;
-    font-size:24.5px;
+    font-family: "PT Sans Caption", sans-serif;
+    font-size: 24.5px;
   }
 
   @keyframes wheel {

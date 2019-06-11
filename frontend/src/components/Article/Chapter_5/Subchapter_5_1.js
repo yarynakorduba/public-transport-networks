@@ -39,11 +39,6 @@ const Subchapter_5_1 = () => (
       <Latex>{"$k_{BRS}^{max} = 25$"}</Latex>, а у Львові <Latex>{"$k_{LWO}^{max} = 10$"}</Latex>. Іншими словами,
       найбільша транспортна розв'язка Брістоля має в 2.5 разів більше зв'язків за найбільшу розв'язку Львова.
     </p>
-    <img
-      className={b("image")}
-      alt={"L-space Degree Distribution"}
-      src={"./img/chapter5/lSpaceDegreeDistribution.png"}
-    />
     <p className={b("paragraph")}>
       <b>
         Центральність посередництва <Latex>{"$C_{\\beta}$"}</Latex>
