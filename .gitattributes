@@ -1,5 +1,0 @@
-/public/data/*.json filter=lfs diff=lfs merge=lfs -text
-/public/data/bristol/*.json filter=lfs diff=lfs merge=lfs -text
-/public/data/london/*.json filter=lfs diff=lfs merge=lfs -text
-/public/data/lviv/*.json filter=lfs diff=lfs merge=lfs -text
-/public/data/initialData/*.CIF filter=lfs diff=lfs merge=lfs -text
