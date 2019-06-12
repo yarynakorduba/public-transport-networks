@@ -10,6 +10,14 @@ const Subchapter_5_3 = () => (
     <h1 className={b("subheader")}>
       Характеристики в <Latex>$\mathbb C$</Latex>-space
     </h1>
+    <div className={b("illustration", ["ref", "sticky"])}>
+      Дослідження інших міст в <Latex>$\mathbb L$</Latex>-, <Latex>$\mathbb P$</Latex>- і <Latex>$\mathbb C$</Latex>
+      -space
+      <br />
+      <a href={"http://194.44.208.227/~hol/PDF/epjb3.pdf"}>
+        von Ferber et al. "Public transport networks: empirical analysis and modeling"
+      </a>
+    </div>
     <p className={b("paragraph")}>
       <Latex>$\mathbb C$</Latex>-space - це "простір маршрутів". Тут легко відслідковувати зв’язки між ними.
     </p>

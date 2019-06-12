@@ -6,7 +6,7 @@ const b = BEM("Article")
 
 const Subchapter_8_2 = () => (
   <section>
-    <h1 className={b("header")}>Атаки в L-space</h1>
+    <h1 className={b("subheader")}>Атаки в L-space</h1>
     <p className={b("paragraph")}>
       В <Latex>$\mathbb L$</Latex>-space в обох міст найповільніше руйнують мережу випадкові атаки. Найефективнішими
       виявилися атаки за значенням центральності посередництва (із пересортуванням).

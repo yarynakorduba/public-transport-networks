@@ -6,7 +6,7 @@ const b = BEM("Article")
 
 const Subchapter_8_3 = () => (
   <section>
-    <h1 className={b("header")}>
+    <h1 className={b("subheader")}>
       Атаки в <Latex>$\mathbb P$</Latex>-space
     </h1>
     <p className={b("paragraph")}>

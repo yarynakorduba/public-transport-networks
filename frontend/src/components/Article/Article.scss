@@ -39,6 +39,7 @@
     font-size: 1.2em;
     line-height: 1.45;
   }
+  $elements: 15;
 
   &__illustration {
     float: right;
@@ -50,7 +51,7 @@
     &_ref {
       font-size: 0.875rem;
       font-style: italic;
-      $elements: 15;
+
       @for $i from 0 to $elements {
         &:nth-of-type(#{$i + 1}) {
           top: $i * 1.65rem + 1rem;

@@ -2,7 +2,6 @@ import Latex from "react-latex"
 import React from "react"
 import BEM from "../../../helpers/BEM.js"
 import "../Article.scss"
-import GraphVisualization from "../../GraphVisualization/GraphVisualization"
 
 const b = BEM("Article")
 

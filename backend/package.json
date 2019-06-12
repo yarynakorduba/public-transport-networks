@@ -8,6 +8,9 @@
     "start": "nodemon src/index.js",
     "build": "babel src -d build"
   },
+  "engines": {
+    "node": "10.16.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

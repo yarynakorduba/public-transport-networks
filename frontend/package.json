@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "http://yarynakorduba.github.io/public-transport-networks",
   "proxy": "http://localhost:4000/",
+  "engines": {
+    "node": "10.16.0"
+  },
   "scripts": {
     "generateFragmentIntrospection": "node ./src/api/introspectGraphQLFragments.js",
     "build": "yarn generateFragmentIntrospection && react-scripts build",
