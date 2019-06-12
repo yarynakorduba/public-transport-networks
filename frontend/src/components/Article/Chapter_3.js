@@ -19,7 +19,7 @@ const Chapter_3 = () => (
     </p>
     <p className={b("paragraph")}>
       Існують різні варіанти відображення транспортної системи на графі. Ми будуємо граф у трьох відображеннях:{" "}
-      <Latex>$\mathbb L$-space</Latex>, <Latex>$\mathbb P$-space</Latex>i <Latex>$\mathbb C$-space</Latex>.
+      <Latex>$\mathbb L$-space</Latex>, <Latex>$\mathbb P$-space</Latex> i <Latex>$\mathbb C$-space</Latex>.
     </p>
     <p className={b("paragraph")}>
       <b>

@@ -59,8 +59,8 @@ const GraphVisualization = ({ data, extent, space }) => (
 const enhancer = compose(
   // data processing
   getCitiesStopsQuery,
-  branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
-  branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
+  branch(({ data }) => data.loading, renderComponent(() => <Loader loading={true} />)),
+  branch(({ data }) => data.error, renderComponent(() => <Loader loading={false} />)),
   withProps(({ data }) => ({ data: filter(n => !isEmpty(n.stops), data.cities) })),
   withProps(({ data }) => ({
     data: map(
