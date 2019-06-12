@@ -18,7 +18,6 @@ import {
 } from "../../helpers"
 import BEM from "../../helpers/BEM"
 import "./GraphVisualization.scss"
-import Loader from "../Loader/Loader"
 
 const b = BEM("GraphVisualization")
 
