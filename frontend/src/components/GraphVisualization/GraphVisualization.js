@@ -1,5 +1,6 @@
 import React from "react"
 import ForceGraph from "./ForceGraph"
+import Loader from "../Loader"
 import { assoc, compose, filter, flip, map, prop, values, pathEq, path, isEmpty } from "ramda"
 import { withProps, branch, renderComponent } from "recompose"
 import { clustersDbscan } from "@turf/turf"
