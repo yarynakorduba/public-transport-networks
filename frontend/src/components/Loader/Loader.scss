@@ -1,11 +1,11 @@
-$fill: #8e8d8d;
+$fill: #515050;
 
 .Loader {
-  width: 100%;
   text-align: center;
+  width: 130px;
+  margin: auto;
 
   &__illustration {
-    width: 130px;
     transform-origin: center center;
   }
   &__wheel {
@@ -42,7 +42,7 @@ $fill: #8e8d8d;
     }
   }
   &__caption {
-    color: $fill;
+    opacity: .7;
     font-family: "PT Sans Caption", sans-serif;
     font-size: 24.5px;
   }

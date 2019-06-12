@@ -2,6 +2,7 @@ import React from "react"
 import DataTable from "../CitiesInfoTable"
 import RadarChart from "../RadarChart"
 import CitySwitcher from "../CitySwitcher"
+import Loader from "../Loader"
 import { compose, withStateHandlers, branch, renderComponent, withProps } from "recompose"
 import { mapObjIndexed, indexBy, prop, pick, union, keys, filter } from "ramda"
 import { graphql } from "react-apollo"
@@ -45,8 +46,8 @@ const CitiesInfoBlock = ({ citiesData, displayedCities, numericData, changeDispl
 
 export default compose(
   getCitiesPropsQuery,
-  branch(({ data }) => data.loading, renderComponent(() => "Loading...")),
-  branch(({ data }) => data.error, renderComponent(() => "Something went wrong. We didn`t manage to load the data.")),
+  branch(({ data }) => data.loading, renderComponent(() => <Loader loading={true} />)),
+  branch(({ data }) => data.error, renderComponent(() => <Loader loading={false} />)),
   withProps(({ data }) => ({
     citiesData: data.cities && indexBy(prop("_id"), data.cities)
   })),

@@ -13,8 +13,6 @@ export const getHeatMapColorConfig = maxZoomLevel => ({
     ["heatmap-density"],
     0,
     "rgba(33,102,172,0)",
-    0.2,
-    "#d6ceca",
     0.3,
     "#fbe5b0",
     0.6,
