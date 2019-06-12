@@ -47,6 +47,20 @@
     min-height: fit-content;
     margin-right: calc(-100% - 1.5rem);
 
+    &_ref {
+      font-size: 0.875rem;
+      font-style: italic;
+      $elements: 15;
+      @for $i from 0 to $elements {
+        &:nth-of-type(#{$i + 1}) {
+          top: $i * 1.65rem + 1rem;
+        }
+        &:nth-last-of-type(#{$i + 1}) {
+          margin-bottom: $i * 1.65rem;
+        }
+      }
+    }
+
     &_flex {
       display: flex;
     }

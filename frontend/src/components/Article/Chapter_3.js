@@ -8,6 +8,9 @@ const b = BEM("Article")
 const Chapter_3 = () => (
   <section id={"chapter3"}>
     <h1 className={b("header")}>Громадський транспорт як складна мережа</h1>
+    <div className={b("illustration", ["sticky", "ref"])}>
+      Про <a href={"https://en.wikipedia.org/wiki/Complex_network"}>теорію складних мереж</a>
+    </div>
     <p className={b("paragraph")}>
       Один із методів дослідження транспортних систем -{" "}
       <a href={"https://en.wikipedia.org/wiki/Complex_network"}>теорія складних (комплексних) мереж</a>. У рамках цієї
@@ -16,7 +19,7 @@ const Chapter_3 = () => (
     </p>
     <p className={b("paragraph")}>
       Існують різні варіанти відображення транспортної системи на графі. Ми будуємо граф у трьох відображеннях:{" "}
-      <Latex>$\mathbb L$-space</Latex>, <Latex>$\mathbb P$-space</Latex> i <Latex>$\mathbb C$-space</Latex>.
+      <Latex>$\mathbb L$-space</Latex>, <Latex>$\mathbb P$-space</Latex>i <Latex>$\mathbb C$-space</Latex>.
     </p>
     <p className={b("paragraph")}>
       <b>

@@ -11,6 +11,10 @@ const Subchapter_5_1 = () => (
     <h1 className={b("subheader")}>
       Характеристики в <Latex>$\mathbb L$-space</Latex>
     </h1>
+    <div className={b("illustration", ["sticky", "ref"])}>
+      Дослідження інших міст в <Latex>$\mathbb L$-space</Latex>: <br />
+      <a href={"https://arxiv.org/pdf/1705.07266.pdf"}>"Public transportation in UK viewed as a complex network"</a>
+    </div>
     <p className={b("paragraph")}>
       Мережу характеризують різні математичні показники: ступінь вузла, найкоротший шлях, асортативність, коефіцієнт
       кластерності тощо.
@@ -99,9 +103,6 @@ const Subchapter_5_1 = () => (
       Львові <Latex>{"$r_{LWO} = -0.03$"}</Latex>. Тому львівська мережа - дисортативна, а брістольська навпаки -
       асортативна.
     </p>
-    <div className={b("illustration", ["wide"])} style={{ height: "100vh" }}>
-      <GraphVisualization space={"l"} />
-    </div>
   </section>
 )
 

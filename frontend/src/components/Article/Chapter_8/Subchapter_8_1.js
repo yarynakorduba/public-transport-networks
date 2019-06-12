@@ -7,6 +7,12 @@ const b = BEM("Article")
 const Subchapter_8_1 = () => (
   <section>
     <h1 className={b("header")}>Стійкість мереж до атак</h1>
+    <div className={b("illustration", ["sticky", "ref"])}>
+      Про{" "}
+      <a href={"https://hromadske.ua/posts/u-londoni-straik-pratsivnykiv-metro-paralizuvav-tsentr-mista"}>
+        лондонський транспортний колапс
+      </a>
+    </div>
     <p className={b("paragraph")}>
       9 січня 2017{" "}
       <a href={"https://hromadske.ua/posts/u-londoni-straik-pratsivnykiv-metro-paralizuvav-tsentr-mista"}>
@@ -18,6 +24,12 @@ const Subchapter_8_1 = () => (
       міста зникли сполучення. Багато жителів просто не змогли добратись на роботу. Лондонська мережа виявилась не
       готовою до вилучення 114 станцій. А як можна було це передбачити?
     </p>
+    <div className={b("illustration", ["sticky", "ref"])}>
+      Про{" "}
+      <a href={"https://onlinelibrary.wiley.com/doi/abs/10.1002/rsa.3240060204"}>
+        критерій Моллоя-Ріда <Latex>{"$\\kappa$"}</Latex>
+      </a>
+    </div>
     <p className={b("paragraph")}>
       Стійкість мережі до "випадіння" вузлів можна дослідити різними способами. Один із них -{" "}
       <a href={"https://onlinelibrary.wiley.com/doi/abs/10.1002/rsa.3240060204"}>

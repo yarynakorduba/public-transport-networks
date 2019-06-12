@@ -11,6 +11,10 @@ const Subchapter_5_2 = () => (
     <h1 className={b("subheader")}>
       Характеристики в <Latex>$\mathbb P$</Latex>-space
     </h1>
+    <div className={b("illustration", ["sticky", "ref"])}>
+      Дослідження інших міст в <Latex>$\mathbb L$</Latex>- і <Latex>$\mathbb P$</Latex>-space: <br />
+      <a href={"http://194.44.208.227/~hol/PDF/paris1.pdf"}>von Ferber et al. "Modeling Metropolis Public Transport"</a>
+    </div>
     <p className={b("paragraph")}>
       Ми вже знаємо, що в <Latex>$\mathbb P$</Latex>-space кожен із маршрутів - це повний підграф. Тому мережі в{" "}
       <Latex>$\mathbb P$</Latex>-space зазвичай сильно зв’язні. В <Latex>$\mathbb P$</Latex>-space легко визначити

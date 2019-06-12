@@ -72,8 +72,8 @@ export const getForceSimulation = (chartWidth:number, chartHeight:number, nodeSp
     .force("collide", forceCollide((d) => nodeSpaceRadiusScale(d.r)).strength(STRENGTH*2))
     .force("charge", forceManyBody())
     .force("center", forceCenter(chartWidth / 2, chartHeight / 2))
-    .force("y", forceY(chartHeight / 2).strength(STRENGTH*2))
-    .force("x", forceX(chartWidth / 2).strength(STRENGTH*2))
+    .force("y", forceY(chartHeight / 2).strength(STRENGTH*1.5))
+    .force("x", forceX(chartWidth / 2).strength(STRENGTH*1.5))
 
 
 export const getRadialForceSimulation = (chartWidth:number, chartHeight:number, nodeSpaceRadiusScale:function, positionScale:function):object =>

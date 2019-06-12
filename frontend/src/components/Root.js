@@ -7,16 +7,15 @@ import { HttpLink } from "apollo-link-http"
 import { ApolloProvider } from "react-apollo"
 import ApolloClient from "apollo-client"
 import { onError } from "apollo-link-error"
-import introspectionQueryResultData from '../api/fragmentTypes.json';
-
+import introspectionQueryResultData from "../api/fragmentTypes.json"
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
-});
+})
 
-const cache = new InMemoryCache({fragmentMatcher})
+let cache = new InMemoryCache({ fragmentMatcher })
 ;(async () =>
-  await persistCache({
+  cache = await persistCache({
     cache,
     storage: window.localStorage
   }))()
@@ -32,7 +31,16 @@ export const client = new ApolloClient({
     }),
     new HttpLink({ uri: "http://localhost:4000/graphql" })
   ]),
-  cache
+  cache,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "cache-first",
+      errorPolicy: "ignore"
+    },
+    query: {
+      fetchPolicy: "cache-first"
+    }
+  }
 })
 
 const Root = () => (
