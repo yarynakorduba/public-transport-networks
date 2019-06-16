@@ -31,16 +31,14 @@
     "@vx/scale": "^0.0.182",
     "@vx/shape": "^0.0.184",
     "@vx/vx": "0",
-    "apollo-boost": "^0.3.1",
+    "apollo-boost": "0.4.1",
     "apollo-client": "^2.5.1",
     "d3": "^5",
     "d3-shape": "^1",
     "flow-bin": "^0",
     "graphql-codegen-fragment-matcher": "^0.18.2",
     "ramda": "^0.26.1",
-    "react": "^16.8.6",
     "react-apollo": "^2.5.4",
-    "react-dom": "^16",
     "react-latex": "^1",
     "react-map-gl": "^4.1.1",
     "react-redux": "^6.0.1",
@@ -56,8 +54,8 @@
   "devDependencies": {
     "@storybook/react": "^5.0.0",
     "gh-pages": "^2.0.1",
+    "graphql-codegen-typescript-common": "0.18.2",
     "prettier": "^1.16.4",
-    "react-scripts": "^2.1.8",
-    "graphql-codegen-typescript-common": "0.18.2"
+    "react-scripts": "^2.1.8"
   }
 }

@@ -1,30 +1,47 @@
-const express = require("express")
-const graphqlHTTP = require("express-graphql")
-const schema = require("./schema/schema")
-const cors = require("cors")
-const path = require("path")
-const dotenv = require('dotenv');
-dotenv.config();
+import "babel-polyfill"
+import React from "react"
+import { renderToString } from "react-dom/server"
+import express from "express"
+import serverRenderer from "./serverRenderer"
+import dotenv from "dotenv"
+import graphqlHTTP from "express-graphql"
+import schema from "./schema/schema"
+import cors from "cors"
+import path from "path"
 
-
+dotenv.config()
 require("./db")
-const app = express()
-const PORT = process.env.PORT || 4000
-//allow cross-origin requests
-app.use(cors())
 
-app.use(
+const app = express()
+
+const router = express.Router()
+
+const PORT = process.env.PORT || 4000
+
+//allow cross-origin requests
+router.use(cors())
+
+router.use(
   "/graphql",
   graphqlHTTP({
     schema,
     graphiql: true
   })
 )
-app.use(express.static(path.join(__dirname, "..", "public")))
 
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "..", "..", "frontend", "public", "index.html"))
-})
+router.use("^/$", serverRenderer)
+
+router.use(express.static(path.resolve("..", "frontend", "build")))
+router.use(
+  "/public-transport-networks/static/css",
+  express.static(path.resolve("..", "frontend", "build", "static", "css"))
+)
+router.use(
+  "/public-transport-networks/static/js",
+  express.static(path.resolve("..", "frontend", "build", "static", "js"))
+)
+
+app.use(router)
 
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}...`)
