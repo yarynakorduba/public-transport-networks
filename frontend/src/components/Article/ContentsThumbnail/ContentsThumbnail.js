@@ -35,8 +35,5 @@ export default compose(
     onClickHideThumbnail: ({ hidden }) => () => ({ hidden: !hidden }),
     hideThumbnail: () => () => ({ hidden: true }),
     incrementListener: ({ addListener }) => () => ({ addListener: addListener + 1 })
-  }),
-  lifecycle({
-    componentDidMount() {}
   })
 )(ContentsThumbnail)

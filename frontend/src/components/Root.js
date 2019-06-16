@@ -8,6 +8,7 @@ import { ApolloProvider } from "react-apollo"
 import ApolloClient from "apollo-client"
 import { onError } from "apollo-link-error"
 import introspectionQueryResultData from "../api/fragmentTypes.json"
+import fetch from "node-fetch"
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
@@ -15,10 +16,10 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 
 let cache = new InMemoryCache({ fragmentMatcher })
 ;(async () =>
-  cache = await persistCache({
+  (cache = await persistCache({
     cache,
     storage: window.localStorage
-  }))()
+  })))()
 
 export const client = new ApolloClient({
   link: ApolloLink.from([
@@ -29,7 +30,7 @@ export const client = new ApolloClient({
         )
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
-    new HttpLink({ uri: "http://localhost:4000/graphql" })
+    new HttpLink({ uri: "http://localhost:4000/graphql", fetch: fetch })
   ]),
   cache,
   defaultOptions: {
