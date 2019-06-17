@@ -16,13 +16,13 @@ node_modules
 
 # misc
 .DS_Store
-/backend/.env
 
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+
+*/.env
+*/.env.local
+*/.env.development.local
+*/.env.test.local
+*/.env.production.local
 
 
 npm-debug.log*
