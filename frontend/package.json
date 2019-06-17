@@ -25,6 +25,18 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-cache-persist": "^0.1.1",
+    "apollo-link": "^1.2.11",
+    "apollo-link-error": "^1.1.10",
+    "apollo-link-http": "^1.5.14",
+    "concurrently": "^4.1.0",
+    "graphql": "^14.2.1",
+    "graphql-geojson": "^1.0.0",
+    "mapbox-gl": "^1.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16",
+    "node-fetch": "^2.6.0",
     "@turf/turf": "^5.1.6",
     "@vx/group": "^0.0.183",
     "@vx/point": "^0.0.182",
@@ -52,6 +64,8 @@
     "viewport-mercator-project": "^6.1.1"
   },
   "devDependencies": {
+    "node-sass": "^4.11.0",
+    "@graphql-codegen/cli": "^1.2.1",
     "@storybook/react": "^5.0.0",
     "gh-pages": "^2.0.1",
     "graphql-codegen-typescript-common": "0.18.2",

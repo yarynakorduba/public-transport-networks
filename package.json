@@ -6,16 +6,17 @@
     "yarn": "^1",
     "node": "^10"
   },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
     "build:frontend": "cd frontend && yarn build",
     "build:backend": "cd backend && yarn build",
     "build": "yarn build:backend && yarn build:frontend",
     "start:frontend": "cd frontend && yarn start",
     "start:backend": "cd backend && yarn start",
-    "start": "concurrently - kill-others \"yarn start:frontend\" \"yarn start:backend\"",
-    "install:backend": "cd \"backend\" && yarn",
-    "install:frontend": "cd \"frontend\" && yarn",
-    "postinstall": "yarn install:backend && yarn install:frontend"
+    "start": "concurrently - kill-others \"yarn start:frontend\" \"yarn start:backend\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -25,29 +26,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "dependencies": {
-    "apollo-cache-inmemory": "^1.6.2",
-    "apollo-cache-persist": "^0.1.1",
-    "apollo-link": "^1.2.11",
-    "apollo-link-error": "^1.1.10",
-    "apollo-link-http": "^1.5.14",
-    "concurrently": "^4.1.0",
-    "graphql": "^14.2.1",
-    "graphql-geojson": "^1.0.0",
-    "mapbox-gl": "^1.0.0",
-    "mongod": "^2.0.0",
-    "mongodb": "^3.2.7",
-    "mongoose": "^5.5.13",
-    "node-fetch": "^2.6.0",
-    "react": "^16.8.6",
-    "react-dom": "^16"
-  },
-  "devDependencies": {
-    "@graphql-codegen/cli": "^1.2.1",
-    "babel-cli": "^6.26.0",
-    "gh-pages": "^2.0.1",
-    "node-sass": "^4.11.0",
-    "prettier": "^1.16.4"
-  }
+  ]
 }

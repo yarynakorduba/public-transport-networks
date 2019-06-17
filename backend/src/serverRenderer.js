@@ -1,5 +1,6 @@
 import React from "react"
-import ReactDOMServer from "../../frontend/node_modules/react-dom/server" //to fix error with hooks
+import ReactDOMServer from "react-dom/server"
+
 import Root from "../../frontend/src/components/Root"
 
 const path = require("path")
