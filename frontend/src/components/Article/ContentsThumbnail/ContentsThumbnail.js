@@ -1,5 +1,5 @@
 import { compose } from "ramda"
-import { lifecycle, withStateHandlers } from "recompose"
+import { withStateHandlers } from "recompose"
 import React, { useEffect } from "react"
 import Contents from "../Contents/Contents"
 
