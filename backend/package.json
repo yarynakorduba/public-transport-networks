@@ -36,7 +36,6 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
-    "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
     "flow-babel-webpack-plugin": "^1.1.1",
     "node-sass": "^4.11.0",
