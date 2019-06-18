@@ -6,10 +6,10 @@ import graphqlHTTP from "express-graphql"
 import schema from "./schema/schema"
 import cors from "cors"
 import path from "path"
-import "./db"
-
 import dotenv from "dotenv"
+
 dotenv.config()
+require("./db")
 const PORT = process.env.PORT || 4000
 
 const app = express()
