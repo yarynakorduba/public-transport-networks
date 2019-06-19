@@ -15,11 +15,16 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 })
 
 let cache = new InMemoryCache({ fragmentMatcher })
-;(async () =>
-  (cache = await persistCache({
-    cache,
-    storage: window.localStorage
-  })))()
+;(async () => {
+  try {
+    return (cache = await persistCache({
+      cache,
+      storage: window.localStorage
+    }))
+  } catch (e) {
+    return cache
+  }
+})()
 
 export const client = new ApolloClient({
   link: ApolloLink.from([

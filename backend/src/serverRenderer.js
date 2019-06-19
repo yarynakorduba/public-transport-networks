@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOMServer from "react-dom/server"
-
 import Root from "../../frontend/src/components/Root"
 
 const path = require("path")
