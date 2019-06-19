@@ -20,11 +20,10 @@ router.use(cors())
 
 router.use("/graphql", graphqlHTTP({ schema, graphiql: true }))
 
-router.use(express.static(path.resolve("../frontend/build")))
-router.use("/public-transport-networks/static/css", express.static(path.resolve("../frontend/build/static/css")))
-router.use("/public-transport-networks/static/js", express.static(path.resolve("../frontend/build/static/js")))
-
+router.use("/img", express.static(path.resolve("../frontend/build/img")))
+router.use("/public-transport-networks", express.static(path.resolve("../frontend/build")))
 router.use("/*", serverRenderer)
+
 
 app.use(router)
 
