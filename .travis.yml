@@ -1,17 +1,16 @@
 language: node_js
 node_js:
-  - "11.10.0"
+- 11.10.0
 cache:
   directories:
   - node_modules
 script:
-  - npm test
-  - npm run build
-
+- yarn build
+before_install:
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version version-number
+- export PATH="$HOME/.yarn/bin:$PATH"
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  local_dir: build
-  on:
-    branch: master
+  provider: heroku
+  api_key:
+    secure: HbIahTFm/MfL0raGO71khmoidu6tnQVm/nfvsTaEedJukp6/kLQoY3uQ2+52bRkxuzD+kwz83OIOB+Q0aMs9YTlO8dnLy3X4iOzKJEK2y+H3oQl5Ry+XPjcP3/cnp0tZMsM9tZKqvHNImrpMPPsrYlZN2zTgslxdSCqUJshIffnCN3xT41/MD3u4S7LV7kbaD+315y8pOybduT6intORvrXEOsMw/wnD5Ai9yOBSSMF6tIdlhptvkDR7axQE0G4z+IlWM5F/RV9TvU+l+e/+8MOPlOo1NT6b52iVof+F38w1eigUWh5QrcWaAJxqo54/cXdLR9qbYfUyHZ+H2dqFffQRIosYVBMxilnHLX2OrN5tjwr9XCZSNPNiyIQivl4F4+096I7fgahi7aLyWtgujZbb+7+1PASFqBKK1fJwR2h7nSfPg6jgvPuk8Os8guJLc2B2DHV1s0xYxLous/e1cJktAJ0OfemiLBZx+XwcRZzdf921+pBdBrTa6z0xPBIbS/yW11ACktSpHOh2U4aH8PBncQvbRPrMzRDMSVtn6jSI6PugnITw6BRfSxx1KBj6Fv54I08mSIkwRNu1xmtKBMBiK7LqXkp8Ejktin0+V5CCPn7RnWHCpwXWlwpiXPWsfH4CDesgEjLQtEop0VcFUahVBwg6YsWPi3QwgLVFcCw=
+  app: transport-networks
