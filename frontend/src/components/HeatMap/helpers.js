@@ -1,3 +1,6 @@
+import { center, clustersDbscan, point, featureCollection } from "@turf/turf"
+import { groupBy, map, pipe, reduce } from "ramda"
+
 export const getHeatMapColorConfig = maxZoomLevel => ({
   // Increase the heatmap weight based on frequency and property magnitude
   "heatmap-weight": ["interpolate", ["linear"], ["get", "connectedRoutes"], 0, 0, maxZoomLevel, 1],
@@ -31,3 +34,22 @@ export const getHeatMapColorConfig = maxZoomLevel => ({
   // Transition from heatmap to circle layer by zoom level
   "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 5, 1, maxZoomLevel, 1]
 })
+
+export const preconfiguredClustersDbscan = data => clustersDbscan(data, 0.04, { mutate: true, minPoints: 2 })
+const getGEOJSONCenterOfCluster = pipe(
+  map(p => point(p.geometry.coordinates)),
+  featureCollection,
+  center
+)
+
+const groupClusters = clusters =>
+  pipe(
+    reduce((accum, cluster) => [...accum, getGEOJSONCenterOfCluster(cluster)], []),
+    map(point => ({ ...point, properties: { connectedRoutes: 1 } }))
+  )(clusters)
+
+export const convertClusteredDataToFeatureCollection = pipe(
+  groupBy(point => (point.properties.cluster ? point.properties.cluster : "unclustered")),
+  ({ unclustered = [], ...clusters }) => [...unclustered, ...groupClusters(Object.values(clusters))],
+  featureCollection
+)

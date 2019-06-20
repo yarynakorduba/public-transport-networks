@@ -47,7 +47,7 @@ module.exports = {
   },
   plugins: [
     new NodemonPlugin(),
-    new ContextReplacementPlugin(/.*/)
     //For fixing warning https://github.com/Automattic/mongoose/issues/7476
+    new ContextReplacementPlugin(/.*/)
   ]
 }

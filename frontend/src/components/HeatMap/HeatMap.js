@@ -1,63 +1,49 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useMemo } from "react"
 import WebMercatorViewport from "viewport-mercator-project"
 import { withParentSize } from "@vx/responsive"
-import { bbox, clustersDbscan, center, featureCollection, point } from "@turf/turf"
-import { groupBy, reduce, filter, isEmpty, intersection, equals, append } from "ramda"
-import { combineLatest } from "rxjs"
-import { map, startWith } from "rxjs/operators"
-import { branch, compose, mapPropsStream, renderComponent, withProps, withStateHandlers } from "recompose"
+import { bbox } from "@turf/turf"
+import { isEmpty, intersection, pipe, prop } from "ramda"
+import { branch, compose, renderComponent, withProps } from "recompose"
 import MapGL from "react-map-gl"
 import TransportTypeSwitcher from "./TransportTypeSwitcher"
 import Loader from "../Loader"
-import { getHeatMapColorConfig } from "./helpers"
-import BEM from "../../helpers/BEM"
-import { convertBusStopsDataToGeoJSON } from "../../helpers/index"
+import { convertClusteredDataToFeatureCollection, getHeatMapColorConfig, preconfiguredClustersDbscan } from "./helpers"
+import { convertBusStopsDataToGeoJSON } from "../../helpers"
 import { gql } from "apollo-boost"
 import { graphql } from "react-apollo"
+
+import BEM from "../../helpers/BEM"
 import "mapbox-gl/dist/mapbox-gl.css"
 import "./HeatMap.scss"
 
 const b = BEM("HeatMap")
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
+
 const HEATMAP_SOURCE_ID = "bus-stops"
 const BOUNDARIES_SOURCE_ID = "boundaries"
 const MAX_MAP_ZOOM_LEVEL = 15
 
-const getStopsQuery = graphql(
-  gql`
-    query City($city: String!) {
-      city(city: $city) {
-        stationTypes
-        stops {
-          id
-          stationType
-          lat
-          lon
-          connections
-        }
-        boundaries {
-          ... on GeoJSONPolygon {
-            type
-            coordinates
-          }
-          ... on GeoJSONMultiPolygon {
-            type
-            coordinates
-          }
-        }
-      }
-    }
-  `,
-  {
-    options: props => ({
-      variables: { city: props.city }
-    })
-  }
-)
+const HeatMap = ({ stops, boundaries, initialMapViewport, stationTypes, city }) => {
+  const [selectedStationTypes, setSelectedStationTypes] = useState(stationTypes)
+  const [filteredStops, setFilteredStops] = useState(stops)
 
-const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStationTypes, stationTypes, city }) => {
-  const [viewport, setViewport] = useState(initialViewport)
+  useEffect(() => {
+    setFilteredStops(stops.filter(({ stationType }) => !isEmpty(intersection(stationType, selectedStationTypes))))
+  }, [selectedStationTypes])
+
+  const data = useMemo(
+    () =>
+      pipe(
+        convertBusStopsDataToGeoJSON,
+        preconfiguredClustersDbscan,
+        prop("features"),
+        convertClusteredDataToFeatureCollection
+      )(filteredStops),
+    [filteredStops]
+  )
+
+  const [viewport, setViewport] = useState(initialMapViewport)
   const mapRef = useRef()
   const getMap = () => (mapRef.current ? mapRef.current.getMap() : null)
 
@@ -68,7 +54,7 @@ const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStat
     if (map.getSource(HEATMAP_SOURCE_ID)) {
       map.getSource(HEATMAP_SOURCE_ID).setData(data)
     }
-  })
+  }, [data])
 
   const handleMapLoaded = async () => {
     const map = getMap()
@@ -106,7 +92,7 @@ const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStat
       />
       <TransportTypeSwitcher
         city={city}
-        handleSelect={handleSelect}
+        handleSelect={setSelectedStationTypes}
         stationTypes={stationTypes}
         selectedTransportTypes={selectedStationTypes}
       />
@@ -115,10 +101,38 @@ const HeatMap = ({ data, boundaries, initialViewport, handleSelect, selectedStat
 }
 
 const enhancer = compose(
-  getStopsQuery,
+  graphql(
+    gql`
+      query City($city: String!) {
+        city(city: $city) {
+          stationTypes
+          stops {
+            id
+            stationType
+            lat
+            lon
+            connections
+          }
+          boundaries {
+            ... on GeoJSONPolygon {
+              type
+              coordinates
+            }
+            ... on GeoJSONMultiPolygon {
+              type
+              coordinates
+            }
+          }
+        }
+      }
+    `,
+    { options: ({ city }) => ({ variables: { city } }) }
+  ),
   branch(({ data }) => data.loading, renderComponent(() => <Loader loading={true} />)),
   branch(({ data }) => data.error, renderComponent(() => <Loader loading={false} />)),
-  withProps(({ city, data }) => ({ city, ...data.city })),
+
+  withProps(({ data }) => ({ ...data.city })),
+
   withParentSize,
   withProps(({ stops, parentHeight, parentWidth }) => {
     const [minX, minY, maxX, maxY] = bbox(convertBusStopsDataToGeoJSON(stops))
@@ -126,54 +140,8 @@ const enhancer = compose(
       width: parentWidth,
       height: parentHeight
     }).fitBounds([[minX, minY], [maxX, maxY]], { padding: 20 })
-    return {
-      initialViewport: { longitude, latitude, zoom }
-    }
-  }),
-  withStateHandlers(
-    ({ stationTypes }) => ({
-      selectedStationTypes: stationTypes ? stationTypes : []
-    }),
-    {
-      handleSelect: ({ selectedStationTypes }) => (transportType, isSelected) => ({
-        selectedStationTypes: isSelected
-          ? append(transportType, selectedStationTypes)
-          : filter(n => !equals(transportType, n), selectedStationTypes)
-      })
-    }
-  ),
-  withProps(({ stops, stationTypes, selectedStationTypes }) => ({
-    stops: !isEmpty(selectedStationTypes)
-      ? filter(n => !isEmpty(intersection(n.stationType, selectedStationTypes)), stops)
-      : []
-  })),
-  mapPropsStream(props$ => {
-    const data$ = props$.pipe(
-      map(({ stops }) => convertBusStopsDataToGeoJSON(stops)),
-      map(data => clustersDbscan(data, 0.04, { mutate: true, minPoints: 2 })),
-      map(({ features }) =>
-        compose(
-          featureCollection,
-          ({ unclustered, ...clusters }) =>
-            unclustered
-              ? [
-                  ...unclustered,
-                  ...reduce(
-                    (accum, cluster) => [
-                      ...accum,
-                      center(featureCollection(cluster.map(p => point(p.geometry.coordinates))))
-                    ],
-                    [],
-                    Object.values(clusters)
-                  ).map(point => ({ ...point, properties: { connectedRoutes: 1 } }))
-                ]
-              : [],
-          groupBy(point => (point.properties.cluster ? point.properties.cluster : "unclustered"))
-        )(features)
-      ),
-      startWith(null)
-    )
-    return combineLatest(props$, data$).pipe(map(([props, data]) => ({ ...props, data })))
+
+    return { initialMapViewport: { longitude, latitude, zoom } }
   })
 )
 

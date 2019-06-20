@@ -1,6 +1,6 @@
 // @flow
 import { addIndex, append, assoc, clone, curry, map, reduce, without } from "ramda"
-import { featureCollection } from "@turf/helpers"
+import { featureCollection, feature } from "@turf/helpers"
 
 export const mapIndexed = addIndex(map)
 
@@ -32,11 +32,9 @@ export const removeNodeListFromGraph: _removeNodeListFromGraph = (arrayOfNodes, 
 }
 export const convertBusStopsDataToGeoJSON = data =>
   featureCollection(
-    data.map(({ lat, lon, ...rest }) => ({
-      type: "Feature",
-      properties: { lat, lon, ...rest, connectedRoutes: 1 }, //TODO: experiment with routes
-      geometry: { type: "Point", coordinates: [lon, lat] }
-    }))
+    data.map(({ lat, lon, ...rest }) =>
+      feature({ type: "Point", coordinates: [lon, lat] }, { lat, lon, ...rest, connectedRoutes: 1 })
+    )
   )
 
 export const convertBusStopsGeoJSONToJson = geoJSONStops => geoJSONStops.features.map(stop => stop.properties)
