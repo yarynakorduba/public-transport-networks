@@ -14,10 +14,10 @@
     "build:frontend": "cd frontend && yarn build",
     "build:backend": "cd backend && yarn build",
     "build": "yarn build:backend && yarn build:frontend",
-    "start:frontend": "cd frontend && yarn start",
-    "start:backend": "cd backend && yarn start",
+    "start:frontend": "yarn --cwd frontend start",
+    "start:backend": "yarn --cwd backend start",
     "prestart": "yarn build:backend",
-    "start": "yarn start:backend"
+    "start": "npx concurrently \"yarn start:frontend\" \"start:backend\""
   },
   "eslintConfig": {
     "extends": "react-app"

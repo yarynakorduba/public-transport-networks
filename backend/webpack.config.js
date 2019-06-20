@@ -1,3 +1,5 @@
+const { ContextReplacementPlugin } = require("webpack")
+const NodemonPlugin = require("nodemon-webpack-plugin")
 const path = require("path")
 const FlowBabelWebpackPlugin = require("flow-babel-webpack-plugin")
 
@@ -42,5 +44,10 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new NodemonPlugin(),
+    new ContextReplacementPlugin(/.*/)
+    //For fixing warning https://github.com/Automattic/mongoose/issues/7476
+  ]
 }

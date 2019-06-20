@@ -8,24 +8,19 @@ import cors from "cors"
 import path from "path"
 import dotenv from "dotenv"
 
-dotenv.config()
+dotenv.config({
+  path: path.resolve("../.env")
+})
 require("./db")
 const PORT = process.env.PORT || 4000
 
 const app = express()
 
-const router = express.Router()
-
-router.use(cors())
-
-router.use("/graphql", graphqlHTTP({ schema, graphiql: true }))
-
-router.use("/img", express.static(path.resolve("../frontend/build/img")))
-router.use("/public-transport-networks", express.static(path.resolve("../frontend/build")))
-router.use("/*", serverRenderer)
-
-
-app.use(router)
+app
+  .use(cors())
+  .use("/graphql", graphqlHTTP({ schema, graphiql: true }))
+  .use(express.static(path.resolve("../frontend/build")))
+  .use("/*", serverRenderer)
 
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}...`)

@@ -2,8 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://yarynakorduba.github.io/public-transport-networks",
-  "proxy": "http://localhost:4000/",
+  "homepage": "https://transport-networks.herokuapp.com",
   "engines": {
     "node": "^10"
   },

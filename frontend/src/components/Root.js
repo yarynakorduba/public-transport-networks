@@ -10,6 +10,7 @@ import { onError } from "apollo-link-error"
 import introspectionQueryResultData from "../api/fragmentTypes.json"
 import fetch from "node-fetch"
 
+const { REACT_APP_GRAPHQL_URL } = process.env
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
 })
@@ -35,7 +36,7 @@ export const client = new ApolloClient({
         )
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
-    new HttpLink({ uri: `${process.env.REACT_APP_API}/graphql`, fetch: fetch })
+    new HttpLink({ uri: REACT_APP_GRAPHQL_URL, fetch: fetch })
   ]),
   cache,
   defaultOptions: {
