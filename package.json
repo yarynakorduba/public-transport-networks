@@ -17,7 +17,7 @@
     "start:frontend": "yarn --cwd frontend start",
     "start:backend": "yarn --cwd backend start",
     "prestart": "yarn build:backend",
-    "start": "npx concurrently \"yarn start:frontend\" \"start:backend\""
+    "start": "npx concurrently \"yarn start:frontend\" \"yarn start:backend\""
   },
   "eslintConfig": {
     "extends": "react-app"
