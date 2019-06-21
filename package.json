@@ -10,6 +10,7 @@
     "backend",
     "frontend"
   ],
+
   "scripts": {
     "build:frontend": "cd frontend && yarn build",
     "build:backend": "cd backend && yarn build",
