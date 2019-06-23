@@ -19,8 +19,8 @@ const app = express()
 app
   .use(cors())
   .use("/graphql", graphqlHTTP({ schema, graphiql: true }))
+  .use("/$", serverRenderer)
   .use(express.static(path.resolve("../frontend/build")))
-  .use("/*", serverRenderer)
 
 app.listen(PORT, () => {
   console.log(`Listening for requests on port ${PORT}...`)
