@@ -37,7 +37,7 @@ export const TriggerContext = ({ children, ...props }) => {
     window.addEventListener("scroll", onWindowScroll)
 
     return () => window.removeEventListener("scroll", onWindowScroll)
-  }, [])
+  })
 
   return (
     <div ref={rootEl} style={{ height: "100%", width: "100%" }}>
@@ -55,7 +55,7 @@ export const Trigger = ({ children, action }) => {
   useEffect(() => {
     const position = rootEl.current.offsetTop - SCROLL_TOP_OFFSET
     registerTrigger(position, action)
-  }, [])
+  })
 
   //TODO: find adequate solution for trigger highlighting
   return (

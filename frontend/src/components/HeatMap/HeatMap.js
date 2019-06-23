@@ -30,7 +30,7 @@ const HeatMap = ({ stops, boundaries, initialMapViewport, stationTypes, city }) 
 
   useEffect(() => {
     setFilteredStops(stops.filter(({ stationType }) => !isEmpty(intersection(stationType, selectedStationTypes))))
-  }, [selectedStationTypes])
+  }, [selectedStationTypes, stops])
 
   const data = useMemo(
     () =>

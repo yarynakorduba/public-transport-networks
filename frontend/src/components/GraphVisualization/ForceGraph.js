@@ -127,7 +127,7 @@ const drawChart = compose(
 
 export const ForceGraph = ({ chartHeight, chartWidth, drawChart, isRadial = false, setIsRadial, city, space }) => {
   const rootEl = useRef(null)
-  useEffect(() => drawChart(rootEl.current), [isRadial])
+  useEffect(() => drawChart(rootEl.current), [isRadial, drawChart])
   return (
     <>
       <header className={b("header")}>

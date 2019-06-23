@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://transport-networks.herokuapp.com",
   "engines": {
-    "node": "^11"
+    "node": "^10"
   },
   "scripts": {
     "generateFragmentIntrospection": "node ./src/api/introspectGraphQLFragments.js",
