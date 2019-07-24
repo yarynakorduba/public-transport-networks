@@ -28,10 +28,12 @@
     "ignore-loader": "^0.1.2",
     "mongoose": "^5.5.13",
     "node-fetch": "^2.6.0",
+    "nodemon-webpack-plugin": "^4.0.8",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-helmet": "^5.2.1",
-    "react-router": "^5.0.1"
+    "react-router": "^5.0.1",
+    "webpack-cli": "^3.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
