@@ -5,7 +5,7 @@ import "../Article.scss"
 const b = BEM("Article")
 
 const Subchapter_8_2 = () => (
-  <section>
+  <section id="attacks-in-l-space">
     <h1 className={b("subheader")}>Атаки в L-space</h1>
     <p className={b("paragraph")}>
       В <Latex>$\mathbb L$</Latex>-space в обох міст найповільніше руйнують мережу випадкові атаки. Найефективнішими

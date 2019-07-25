@@ -5,7 +5,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_1 = () => (
-  <section id={"chapter1"}>
+  <section id={"problem-description-and-historical-precedent"}>
     <h1 className={b("header")}>Опис проблеми & Історичний прецедент</h1>
     <div className={b("illustration", ["sticky", "ref"])}>
       Про{" "}

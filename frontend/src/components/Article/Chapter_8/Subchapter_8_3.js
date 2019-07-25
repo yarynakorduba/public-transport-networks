@@ -5,7 +5,7 @@ import "../Article.scss"
 const b = BEM("Article")
 
 const Subchapter_8_3 = () => (
-  <section>
+  <section id="attacks-in-p-space">
     <h1 className={b("subheader")}>
       Атаки в <Latex>$\mathbb P$</Latex>-space
     </h1>

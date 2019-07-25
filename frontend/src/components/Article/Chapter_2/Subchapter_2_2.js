@@ -7,7 +7,7 @@ const b = BEM("Article")
 
 const Subchapter_2_2 = () => (
   <section>
-    <h2>Львів</h2>
+    <h2 id="lviv">Львів</h2>
     <div className={b("illustration", ["sticky", "ref"])}>
       Про{" "}
       <a

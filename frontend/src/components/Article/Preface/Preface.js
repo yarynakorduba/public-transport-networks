@@ -7,7 +7,7 @@ import "./Preface.scss"
 const b = BEM("Preface")
 
 const Preface = () => (
-  <div className={b()}>
+  <div id="preface" className={b()}>
     <div className={b("container")}>
       <h5 className={b("title", ["aligned-left-top"])}>Науковий підхід у проектуванні громадського транспорту</h5>
       <p className={b("content", ["aligned-left-bottom"])}>
@@ -17,6 +17,10 @@ const Preface = () => (
       </p>
     </div>
     <Contents contentsModifier={"aligned-right-top"} />
+    <p className={b("authors")}>
+      Розробники: Ярина Кордуба <span role="img">⚬</span> Олесь Козак <span role="img">⚪</span> Керівники: Юрій Головач{" "}
+      <span role="img">⚬</span> Робін де Регт <span role="img">⚬</span> Михайло Іванків
+    </p>
   </div>
 )
 export default Preface

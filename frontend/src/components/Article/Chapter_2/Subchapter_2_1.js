@@ -6,7 +6,7 @@ const b = BEM("Article")
 
 const Subchapter_2_1 = () => (
   <section>
-    <h2>Брістоль</h2>
+    <h2 id="bristol">Брістоль</h2>
     <p className={b("paragraph")}>Подорожувати у Брістолі можна автобусами, трамваями і поромами.</p>
     <img className={b("image")} src={"img/chapter2/bristolTransport.png"} alt={"Bristol Transport"} />
     <p className={b("paragraph")}>

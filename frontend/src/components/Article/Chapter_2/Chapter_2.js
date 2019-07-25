@@ -7,7 +7,7 @@ import "../Article.scss"
 const b = BEM("Article")
 
 const Chapter_2 = () => (
-  <section id={"chapter2"}>
+  <section id={"tale-of-two-cities"}>
     <h1 className={b("header")}>Історія двох міст</h1>
     <em>
       Для дослідження ми обрали транспортну мережу Львова. Її ще не аналізували у рамках теорії складних мереж.

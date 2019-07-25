@@ -6,7 +6,7 @@ import Latex from "react-latex"
 const b = BEM("Article")
 
 const Chapter_3 = () => (
-  <section id={"chapter3"}>
+  <section id={"public-transport-as-a-complex-network"}>
     <h1 className={b("header")}>Громадський транспорт як складна мережа</h1>
     <div className={b("illustration", ["sticky", "ref"])}>
       Про <a href={"https://en.wikipedia.org/wiki/Complex_network"}>теорію складних мереж</a>

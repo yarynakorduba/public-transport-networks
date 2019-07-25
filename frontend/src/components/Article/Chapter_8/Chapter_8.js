@@ -6,7 +6,7 @@ import Subchapter4 from "./Subchapter_8_4"
 import "../Article.scss"
 
 const Chapter_8 = () => (
-  <section id={"chapter8"}>
+  <section id={"network-stability-to-atacks"}>
     <Subchapter1 />
     <Subchapter2 />
     <Subchapter3 />

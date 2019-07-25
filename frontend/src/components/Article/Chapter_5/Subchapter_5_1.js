@@ -6,7 +6,7 @@ import "../Article.scss"
 const b = BEM("Article")
 
 const Subchapter_5_1 = () => (
-  <section id={"chapter5"}>
+  <section id={"characteristics-in-l-space"}>
     <h1 className={b("subheader")}>
       Характеристики в <Latex>$\mathbb L$-space</Latex>
     </h1>

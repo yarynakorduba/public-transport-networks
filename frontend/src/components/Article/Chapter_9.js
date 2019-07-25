@@ -7,7 +7,7 @@ import "./Article.scss"
 const b = BEM("Article")
 
 const Chapter_9 = () => (
-  <section id={"chapter9"}>
+  <section id={"conclusions"}>
     <h1 className={b("header")}>Висновки</h1>
     <p className={b("paragraph")}>
       Мережі громадського транспорту Брістоля і Львова мають багато спільного. Обидві мережі є стабільними до атак і

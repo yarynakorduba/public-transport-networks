@@ -9,7 +9,7 @@ import GraphVisualization from "../../GraphVisualization/GraphVisualization"
 const b = BEM("Article")
 
 const Chapter_5 = () => (
-  <section id={"chapter2"}>
+  <section id={"network-topological-characteristics"}>
     <h1 className={b("header")}>Топологічні характеристики мереж</h1>
     <Subchapter1 />
     <div className={b("illustration", ["wide"])} style={{ height: "100vh" }}>
